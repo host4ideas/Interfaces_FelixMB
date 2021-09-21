@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+	<head>  
+		<meta charset="UTF-8">
+		<!-- El objetivo de este ejemplo es probar el funcionamiento de:
+			1. Las propiedades de CSS para bordes
+			2. Las propiedades para establecer márgenes solamente positivos
+			3. De paso se aprovecha para practicar la diferencia entre los selectores de id y agrupamiento
+		-->
+		<style> 
+			div#contenedor {
+				margin-top: 6em;
+				margin-right: 6em;
+				margin-bottom: 6em;
+				margin-left: 3em;
+				border: 3px dotted blue;
+			}
+			#contenedor div {
+				margin: 1em;
+				border : 3px dotted red;
+				font-size: 3em;
+			}
+		</style>
+
+		<title>Atributos margin y borde</title>
+  
+	</head>
+
+	<body>
+		<div id="contenedor">
+			<div>Texto de 3em</div>
+		</div>
+	</body>
+</html>

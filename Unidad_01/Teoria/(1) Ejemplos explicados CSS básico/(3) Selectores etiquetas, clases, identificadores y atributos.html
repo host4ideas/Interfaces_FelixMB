@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Selectores basados en identificadores y atributos</title>
+	<!-- En esta página se estudian los selectores básicos a nivel de id, clases, etiquetas y en función de los atributos -->
+	<style> 
+		* {
+			margin: 0px;
+		}
+		
+		#cabecera1, a[href="#"]{
+			background:#CCC; 
+			border:1px solid #093; 
+		} 
+		
+		.cabecera{
+			background:#DDD;
+			border: 1px dotted #094;
+		}
+		
+		h1, h2, p{
+			color: blue;
+		}
+	</style> 
+</head> 
+<body> 
+  <h1 id="cabecera1"> Aquí está la cabecera con el estilo definido a nivel de ID</h1> 
+  <h1 id="cabecera1"> Aquí está la cabecera con un estilo definido a nivel de ID empleando el mismo identificador. ESTO NO DEBE HACERSE pero funciona en la mayoría de navegadores</h1> 
+  <a href="#"> Ir a la cabecera (con el mismo estilo, pero definido a nivel de atributo)</a>
+
+  <h2 class="cabecera"> Otra cabecera con el estilo definido a nivel de clase</h2> 
+  <h2 class="cabecera"> Otra cabecera con el estilo definido a nivel de clase. ESTO SÍ DEBE HACERSE en estilos que se repiten en más de un elemento</h2> 
+  
+  <p>Todos los h1, h2 y p tienen color de texto azul por un estilo definido a nivel de etiqueta</p>
+  
+  <p>No hay separación entre etiquetas por el selector universal</p>
+</body> 
+
+</html>

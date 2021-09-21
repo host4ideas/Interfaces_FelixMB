@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- El objetivo de este archivo es probar los diferentes valores de la propiedad overflow -->
+<style>
+	div{
+	  background-color: lightblue;
+	  width: 6.5rem;
+	  height: 6.5rem;
+	}
+
+	div.ex1 {	  
+	  overflow: scroll;
+	}
+
+	div.ex2 {
+	  overflow: hidden;
+	}
+
+	div.ex3 {
+	  overflow: auto;
+	}
+
+	div.ex4 {
+	  overflow-y: scroll;
+	}
+	
+	div.ex5 {
+	  overflow: visible;
+	}
+</style>
+</head>
+<body>
+
+	<h2>overflow: scroll:</h2>
+	<div class="ex1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</div>
+
+	<h2>overflow: hidden:</h2>
+	<div class="ex2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</div>
+
+	<h2>overflow: auto:</h2>
+	<div class="ex3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</div>
+
+	<h2>overflow-y: scroll (solo coordenadas verticales, probar a a cambiar a overflow-x):</h2>
+	<div class="ex4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</div>
+
+	<h2>overflow: visible (defecto):</h2>
+	<div class="ex5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</div>
+
+</body>
+</html>

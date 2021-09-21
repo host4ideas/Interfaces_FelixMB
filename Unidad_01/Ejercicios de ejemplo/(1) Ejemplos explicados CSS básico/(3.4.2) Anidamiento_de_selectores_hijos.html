@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Anidamiento y agrupamiento de selectores hijos</title>
+  
+	<!-- Esta página tiene como objetivo estudiar la diferencia entre los selectores de agrupamiento con espacios y el operador >
+		Se recomienda que el usuario cambie el selector "h1 span a" a "h1 span a" y estudie las diferencias -->
+	<style>		
+		h1 span a {color:red; font-weight: bold}
+	</style>
+</head>
+
+<body>
+	<h1>
+		<span><a> Un texto h1 en negrita y rojo (se aplica el selector h1 span a)</a></span>
+	</h1>
+
+	<h1>
+		<a> Un texto h1 en negrita (no se aplica el selector h1 span a)</a>
+	</h1>
+	
+	<h1>
+		<span><label><a> Un texto en h1 en negrita y rojo con una secuencia de etiquetas h1 span label a (y se aplica el selector h1 span a)</a></label></span>
+	</h1>
+</body>
+
+</html>

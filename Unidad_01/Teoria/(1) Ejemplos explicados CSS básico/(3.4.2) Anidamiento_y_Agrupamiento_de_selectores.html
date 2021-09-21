@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Selectores basados en identificadores y atributos</title>
+	<!-- En este archivo se estudian los selectores a nivel de clase y los operadores adyacentes (+) y de agrupación (>)
+		 El selector "ul > ul > li" respecto a "ul ul li" solo coge el estilo si cada elemento
+		 está inmediatamente a continuación del otro. Con la segunda opción podría haber alguna etiqueta intermedia, por ejemplo,
+		 entre los dos ul -->
+	<style>
+		  label.titulo + span{color:red; font-weight: bold}
+		  .nivel1{color:green}
+		  .nivel2{color:blue}
+		  .lista1 > ul > .nivel2 {font-size:x-small}
+		  ul > ul > li {font-size: x-small; color:red} /* Si este selector fuese .lista1 > ul > li, 
+														el color rojo se aplicaría a todos los li de segundo nivel */
+	 </style> 
+</head> 
+<body>
+	<p class="rojo">
+		<label class="titulo">Título</label>:<span> Anidamiento y agrupamiento </span> de selectores (el texto anterior sale en rojo y negrita por un selector adyacente)
+	</p>
+
+	<ul class="lista1">
+
+		<li class="nivel1"> Agrupamiento (en este caso se aplica el selector a nivel de clase) </li>
+		<li class="nivel1"> Anidamiento (en este caso se aplica el selector a nivel de clase) </li>
+		<ul>
+			<li class="nivel2"> Anidamiento de hijos (en este caso se aplica el selector a nivel de clase, en caso de haber varios el que se ha definido posteriormente) </li>
+			<li class="nivel2"> Anidamiento de adyacentes (y la fuente xsmall por el selector de agrupamiento)</li>
+			<li> Anidamiento sin clases (pero se aplica selector de agrupamiento)</li>		
+		</ul>		
+	</ul>
+</body> 
+
+</html>

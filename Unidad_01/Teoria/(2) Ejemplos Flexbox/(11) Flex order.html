@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<!-- Este ejemplo sirve para probar el funcionamiento de flex-order, 
+	que permite cambiar la posición de un elemento respecto a su orden en la página HTML -->
+<head>
+<style>
+	.flex-container {
+		display: flex;
+		align-items: stretch;
+		flex-direction: row;
+		background-color: #f1f1f1;
+	}
+
+	.flex-container>div {
+		background-color: DodgerBlue;
+		color: white;
+		width: 100px;
+		margin: 10px;
+		text-align: center;
+		line-height: 75px;
+		font-size: 30px;
+	}
+
+	.flex-container>div:nth-child(1){
+		order: 3;
+	}
+
+	.flex-container>div:nth-child(2){
+		order: 2;
+	}
+
+	.flex-container>div:nth-child(3){
+		order: 4;
+	}
+
+	.flex-container>div:nth-child(4){
+		order: 1;
+	}
+
+</style>
+</head>
+<body>
+<h1>order</h1>
+
+<p>Permite alterar el orden de los elementos individualmente</p>
+
+<div class="flex-container">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+</div>

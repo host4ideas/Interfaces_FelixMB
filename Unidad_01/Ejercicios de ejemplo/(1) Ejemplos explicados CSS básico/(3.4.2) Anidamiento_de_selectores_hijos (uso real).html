@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Anidamiento y agrupamiento de selectores hijos</title>
+  
+	<!-- Esta página tiene como objetivo estudiar el uso real de los operadores para anidamiento de selectores -->
+	<style>		
+		#contenedor{
+			width: 50%;
+			height: 200px;
+			border: 1px solid black;
+			background-color: lightyellow;
+		}
+		
+		/* Otra opción sería con clases, pero para evitar modificar el HTML, si ya tenemos localizado el contenedor,
+			entonces se pueden aplicar estilos a nivel de etiquetas porque solo aplicarán a aquellas dentro de dicho contenedor */
+		
+		#contenedor span{
+			margin: 20px;
+		}
+		
+		#contenedor span a{
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="contenedor">
+		<span><a href="#"> Un a dentro de un span cuyos estilos se establecen con anidamiento de selectores</a></span>
+	</div>
+</body>
+
+</html>

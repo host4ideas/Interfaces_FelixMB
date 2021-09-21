@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- En esta página se muestra cómo centrar elementos horizontal y verticalmente empleando el diseño por capas -->
+	<style> 
+		div{
+			width: 13.75em;
+		}
+	
+		#contenedor1 {			
+			margin: 1em auto; /* Centrado horizontal */
+			border: 1px solid black;
+		}
+		#contenedor2 {		
+			margin-right: auto; /* Alineación izquierda horizontal */
+			border: 1px solid blue;
+		}
+		#contenedor3 {		
+			margin-left: auto; /* Alineación derecha horizontal */
+			border: 1px solid red;
+		}
+		#contenedor4{
+			width: 30em;
+			height: 12.5em;
+			border: 1px solid green;
+			position: relative;
+		}
+		#contenedor4 div{ /* Centrado horizontal y vertical */
+			width: 6em;
+			height: 6em;
+			position: absolute; /* posición absolute desde el contenedor4 (que es el último posicionado)*/
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border: 1px dotted grey;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="contenedor1">
+		<h1>Contenedor 1</h1>
+	</div>
+	<div id="contenedor2">
+		<h1>Contenedor 2</h1>
+	</div>
+	<div id="contenedor3">
+		<h1>Contenedor 3</h1>
+	</div>
+	<div id="contenedor4">
+		<div>En el medio horizontal y verticalmente</div>
+	</div>
+</body>
+</html>

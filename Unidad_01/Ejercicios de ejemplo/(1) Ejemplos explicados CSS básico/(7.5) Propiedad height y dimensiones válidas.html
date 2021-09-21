@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<!-- El objetivo de este archivo es explicar algunas dimensiones válidas de la propiedad height y los conflictos que suele haber -->
+<style>
+	div {
+		width: 20rem;
+		margin-bottom: 5px;
+		border: 3px solid #999999;
+		background-color: lightyellow;
+	}
+
+	span{
+		color: lightgrey;
+	}
+
+	#red {
+		height: 50px;
+		background-color: red;
+	}
+
+	/* Altura en porcentajes no válida */
+	#green {
+		height: 30%;
+		background-color: green;
+	}
+	
+	/* Altura en porcentajes no válida */
+	#blue {
+		height: 15vh;
+		background-color: blue;
+	}
+
+	.parent {
+		height: 6rem;		
+	}
+
+	/* Ahora si es válida la altura con porcentajes, pero porque el contenedor tiene dimensiones estáticas */
+	.child {
+		height: 50%;
+		width: 75%;
+	}
+	
+	.child span{
+		color: darkgrey;
+	}
+</style>
+</head>
+<body>
+	<div id="red">
+		<span>50 píxeles de alto</span>
+	</div>
+	<div id="green">
+		<span>Alto con porcentaje, que no es válido</span>
+	</div>
+	<div id="blue">
+		<span>Alto con viewport, sí es válido</span>
+	</div>
+	<div class="parent">
+		<div class="child"> <!-- Si el contenedor no tuviera altura, o fuese en porcentajes, entonces no funcionaría la altura en porcentajes del div de clase "child" -->
+			<span>Mitad de altura del contenedor</span>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>  
+	<meta charset="UTF-8">
+	<!-- El objetivo de este ejemplo es probar el funcionamiento de:
+		1. Las propiedades de CSS para bordes, paddin y margin
+		2. La diferencia entre padding y margin
+		3. De paso se aprovecha para practicar la diferencia entre los selectores de id y agrupamiento
+	-->
+	<style> 
+		div#contenedor {
+			margin: 6em 6em 6em 3em;
+			padding: 1em;
+			border: 3px dotted blue ;
+		}
+		#contenedor div {
+			margin: 1em;
+			padding: 1.2em 0.6em;
+			border: 3px dotted red;
+			font-size: 3em;
+		}
+	</style>
+  
+	<title>Atributos del modelo de cajas</title>  
+</head>
+
+<body>
+	<div id="contenedor">
+		<div>Texto de 3em</div>
+	</div>
+</body>
+
+</html>

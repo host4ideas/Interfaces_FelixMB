@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Orden de Aplicación</title>
+	<!-- Esta página sirve para probar el orden de precedencia entre los diferentes estilos -->
+	<style type="text/css">
+		p {
+			background-color: #F9F6C3;
+		}
+		.siena {
+			background-color: #F9DDC3;
+		}
+		#ROSA {
+			background-color: #F9F;
+		}
+		#BLANCO {
+			background-color: #FFF;
+		}
+		div{
+			background-color: red !important;
+		}
+		
+	</style>
+</head>
+
+<body>
+	<h1>ORDEN DE APLICACION DE LAS REGLAS </h1>
+	<p>ESTILO PARA ETIQUETA P AMARILLO Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin embargo, jamás he sido mejor pintor Cuando el valle se vela en torno mío con un encaje de vapores; </p>
+	<p>ESTILO PARA ETIQUETA P AMARILLO Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin embargo, jamás he sido mejor pintor Cuando el valle se vela en torno mío con un encaje de vapores; </p>
+	<p class="siena">ESTILO PARA ETIQUETA P AMARILLO ESTILO PARA CLASE SIENA Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin embargo, jamás he sido mejor pintor Cuando el valle se vela en torno mío con un encaje de vapores;</p>
+	<p class="siena" id="ROSA">ESTILO PARA ETIQUETA P AMARILLO ESTILO PARA CLASE SIENA ESTILO PARA ID ROSA Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin embargo, jamás he sido mejor pintor Cuando el valle se vela en torno mío con un encaje de vapores;</p>
+	<p id="BLANCO" style="background-color: #789498;">ESTILO PARA ETIQUETA P AMARILLO ESTILO PARA CLASE SIENA ESTILO PARA ID BLANCO Y ESTILO EN LINEA VERDE Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin embargo, jamás he sido mejor pintor Cuando el valle se vela en torno mío con un encaje de vapores;</p>
+	<p>CONCLUSION: 1.- EN LINEA 2.- ID 3.- CLASE 4.- ETIQUETA</p>
+	<div class="siena">!important tiene prioridad como en este div</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+	@font-face {
+		font-family: myFirstFont;
+		src: url(sansation_light.woff);
+	}
+
+	h1{
+		text-decoration: underline;
+	}
+	
+	div.fuente1 {
+		font-family: myFirstFont, Arial, serif;
+		font-weight: 900;
+		font-size: 1rem;
+		font-style: italic;
+		color: rgba(50,22,50,0.3)
+	}
+	
+	div.fuente2{
+		color: #000; /* Si cada número hexadecimal repite dos dígitos (00) basta con escribir uno */
+		text-decoration: line-through;
+		text-align: center;
+		text-shadow: 5px 5px 5px #FF0000;
+ 	}
+</style>
+</head>
+<body>
+
+	<h1>Atributos de fuentes</h1>
+
+	<div class="fuente1">Si no existe el archivo con la fuente, coge las que están definidas en font-family</div>
+	<div class="fuente2">Otros atributos de fuentes</div>
+
+</body>
+</html>

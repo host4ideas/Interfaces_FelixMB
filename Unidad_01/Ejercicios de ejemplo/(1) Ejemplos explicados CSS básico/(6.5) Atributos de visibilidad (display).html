@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- El objetivo de este archivo es probar las diferencias entre display con valores none, block, inline e inline-block -->
+<style>
+	p {color: red; width: 6em; border: 1px solid black;}
+
+	p.ex1 {display: none;}
+	p.ex2 {display: inline;}
+	p.ex3 {display: block;}
+	p.ex4 {display: inline-block;}
+</style>
+</head>
+<body>
+	<h2>display: none: (oculta el párrafo) </h2>
+	<div>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex1">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+	</div>
+
+	<h2>display: inline: (el párrafo se comporta como un elemento en línea, es decir, no coge el ancho de 100px y puede haber elementos alrededor)</h2>
+	<div>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex2">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+	</div>
+
+	<h2>display: block: (el párrafo tiene su comportamiento en bloque por defecto, es decir, coge el ancho de 100px y no puede habler elementos alrededor)</h2>
+	<div>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex3">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+	</div>
+
+	<h2>display: inline-block: (en este caso puede haber elementos alrededor como si fuera en línea y coge el ancho de 100px como si fuera en bloque)</h2>
+	<div>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex4">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+	</div>
+
+</body>
+</html>

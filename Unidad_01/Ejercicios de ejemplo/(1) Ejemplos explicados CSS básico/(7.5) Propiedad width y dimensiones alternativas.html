@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<!-- El objetivo de este archivo es explicar algunas dimensiones válidas de la propiedad width alternativas a px, porcentajes, em o rem -->
+<style>
+	.container {
+		border: 2px solid #ccc;
+		padding: 1em;
+		width: 20rem;
+	}
+
+	.item {
+		background-color: #8ca0ff;
+		padding: 5px;
+		margin-bottom: 1em;
+	}
+	
+	/* Alturas con dimensiones alternativas que se adaptan al contenido */
+	.fit .item {
+		width: fit-content;
+	}
+	
+	.max .item {
+		width: max-content;
+	}
+	
+	.min .item{
+		width: min-content;
+	}
+</style>
+</head>
+<body>
+	<div class="container fit">
+		fit-content
+		<div class="item">Item</div>
+		<div class="item">Item con más texto</div>
+		<div class="item">Item con más texto, aunque afortunadamente está preparado para que haya salto de línea</div>
+	</div>
+	
+	<div class="container max">
+		max-content
+		<div class="item">Item</div>
+		<div class="item">Item con más texto</div>
+		<div class="item">Item con más texto, que en este caso desbordaría al ajustar el ancho al máximo contenido</div>
+	</div>
+	
+	<div class="container min">
+		min-content
+		<div class="item">Item</div>
+		<div class="item">Item con más texto</div>
+		<div class="item">Item con más texto, aunque en este caso se amplia el alto al ajustar el ancho al mínimo contenido</div>
+	</div>
+
+</body>
+</html>

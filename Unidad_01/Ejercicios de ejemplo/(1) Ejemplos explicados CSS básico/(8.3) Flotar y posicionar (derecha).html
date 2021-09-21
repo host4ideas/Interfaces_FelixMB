@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		<!-- El objetivo es ver el funcionamiento de float con las diferentes combinaciones de valores 
+			que se explican en la etiqueta <p> del HTML -->
+	
+		p:first-of-type{ /* El texto de la primera etiqueta p se centra */
+			text-align: center;
+		}
+		
+		.texto_caja {
+			font-weight: bold; 
+			color: white;			
+		}
+		
+		.margenes{
+			margin: 1em;
+		}
+		
+		#contenido { 
+			/* Ancho de 43.75em y centrado en el navegador */ 
+			width: 43.75em; 			
+			margin: auto; 
+			/* Overflow es necesario, ya que como float va aparte del flujo de posicionamiento, no tiene en cuenta el contenido para
+			calcular el alto del contenedor */
+			overflow: auto;			
+			/* Borde solid y fondo gris claro */ 
+			border: solid 1px black; 
+			background-color: #CCCCCC;			
+		} 
+		 
+		#caja1 {
+			 width: 6.25em; 
+			 height: 6.25em; 
+			 background-color:#FF0000;
+			 border: solid 1px black; 
+			 margin: 1em; 
+			 float: right;			 
+		}
+		
+		#caja2 {
+			width: 8.125em; 
+			height: 8.125em; 
+			background-color:#00FF00;
+			border: solid 1px black; 
+			margin: 1em; 			
+			float: right;
+		}
+		
+		#caja3 {
+			width: 10em; 
+			height: 10em; 
+			background-color:#0000FF;
+			border: solid 1px black; 
+			margin: 1em;
+			float: right;
+		}
+		
+	</style>
+	<title>Flotar</title>
+</head>
+<body>
+	<p>Todos los elementos tienen float: right</p>
+	<div id="contenido">
+		<div id="caja1" class="texto_caja"> Caja 1 </div>
+		<div id="caja2" class="texto_caja"> Caja 2 </div>
+		<div id="caja3" class="texto_caja"> Caja 3 </div>
+	</div>
+</body>
+</html>

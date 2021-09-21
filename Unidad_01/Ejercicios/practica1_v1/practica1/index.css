@@ -1,0 +1,38 @@
+body {
+    text-align: center;
+}
+
+/* Headers */
+
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h2 {
+    color: blue;
+}
+
+img {
+    width: 100%;
+}
+
+.texto-dividido{
+    text-align: left;
+    background-color: rgb(223, 95, 45);
+}
+
+.full-column {
+    border: 0px;
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+table {
+    width: 50%;
+    height: 20em;
+    margin: 100px;
+    position: relative;
+    left: 18%;
+}

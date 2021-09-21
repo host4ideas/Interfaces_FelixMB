@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<meta charset="utf-8">
+		<!-- En este archivo se estudia el selector adyacente con el operador ~ y la diferencia con el operador + -->
+		<style> 			
+			label ~ span {color: red} 
+			h5 ~ p {font-weight: bold}
+		</style> 
+		<title>Anidamiento de selectores adyacentes</title>
+	</head>
+
+	<body> 
+		<h5> <label>Nota</label>, esto es una <span>advertencia</span> </h5>
+	 
+		<p> Leer detenidamente </p>
+		
+		<p> Siga leyendo detenidamente (también negrita por el operador ~)</p>
+	</body>
+
+</html>

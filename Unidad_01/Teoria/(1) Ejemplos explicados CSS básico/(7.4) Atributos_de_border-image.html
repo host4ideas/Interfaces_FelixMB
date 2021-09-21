@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- El objetivo de este archivo es probar el atributo border-image, cuyo funcionamiento es el siguiente:
+			1. Coge dos coordenadas. En el ejemplo, coge un ancho y alto de 30x30 que son las esquinas que permanecen fijas
+			2. A partir de los valores anteriores, coge otro ancho y alto de 30x30 que es el contenido que cambia en el borde
+			3. De acuerdo con las propiedades de cada casose comporta de una manera u otra: 
+									con round se repite el contenido seleccionado en el segundo valor
+									y con strech se estira hasta ocupar el div origen, desde las esquinas fijas del primer valor
+		-->
+		<style> 
+			.cuadro_general
+			{
+				border: 1em solid transparent;
+				width: 16em;
+				padding: 0.6em 1.2em;
+			}
+
+			#round
+			{
+				border-image:url(img/border.png) 30 30 round;
+			}
+
+			#stretch
+			{
+				border-image:url(img/border.png) 30 30 stretch;
+			}
+		</style>
+		
+		<title>Atributo border-image</title>  
+	</head>
+	<body>
+
+		<p>border-image especifica la imagen utilizada en el borde.</p>
+
+		<div id="round" class="cuadro_general">En este caso, la imagen se dispone en mosaico (repetidamente) para rellenar el espacio (propiedad round)</div>
+		<br>
+		<div id="stretch" class="cuadro_general">En este caso, la imagen se aumenta para llenar el espacio (propiedad stretch)</div>
+
+		<p>La imagen utilizada es:</p>
+		<img src="img/border.png">
+
+	</body>
+</html>

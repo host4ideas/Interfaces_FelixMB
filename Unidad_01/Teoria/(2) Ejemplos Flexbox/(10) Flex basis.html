@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<!-- Este ejemplo sirve para probar el funcionamiento de flex-basis, que permite definir el tamaño inicial 
+	de un ítem antes de ser redimensionado en el caso de que falte espacio o se desborde el contenedor. 
+	Equivale al valor de width en contenedores horizontales y de height en contenedores verticales. 
+	No obstante, no es lo mismo. Por un lado tiene precedencia sobre estos valores y es más flexible a la hora de ser redimensionado -->
+
+<head>
+<style>
+	/* Estilos comunes */
+	.comun > div{
+		margin: 10px;
+		text-align: center;
+		line-height: 3em;
+		font-size: 30px;
+	}
+
+	/* Primer contenedor */
+	.flex-container1 {
+		display: flex;
+		flex-direction: row;
+		background-color: #f1f1f1;
+	}
+
+	.flex-container1 > div {
+		background-color: DodgerBlue;
+		color: white;
+		flex-basis: 100px;		
+	}
+
+	.flex-container1>div:nth-child(3){
+		width: 200px;
+	}
+	
+	/* Segundo contenedor */
+	.flex-container2{
+		display: flex;
+		flex-direction: row;
+		background-color: #f1f1f1;
+		width: 1000px;
+	}
+
+	.flex-container2 > div{
+		background-color: lightblue;
+		flex-basis: 100px;
+		min-width: 250px;		
+		
+	}
+	
+	/* Tercer contenedor */
+	.flex-container3{
+		display: flex;
+		flex-direction: row;
+		background-color: #f1f1f1;
+		width: 1000px;
+	}
+
+	.flex-container3 > div{ /* flex-basis tiene prioridad */
+		background-color: lightblue;
+		flex-basis: 250px;
+		width: 30px;
+		flex-shrink: 1;
+	}
+ 
+</style>
+</head>
+<body>
+<h1>flex-basis</h1>
+
+<p>El tercer item tiene un tamaño por defecto de 200px, por tanto se aplica esto antes que el tamaño genérico de los div y se respeta en la medida de lo posible</p>
+
+<div class="comun flex-container1">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+  <div>5</div>
+  <div>6</div>
+  <div>7</div>
+  <div>8</div>
+  <div>9</div>
+  <div>10</div>
+  <div>11</div>
+  <div>12</div>
+</div>
+
+<p>El valor de min-width sobreescribe a flex-basis y además no respeta flex-shrink para adaptar los ítems al contenedor sin desbordar</p>
+<div class="comun flex-container2">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+
+</div>
+
+<p>Pero si se sobreescribe a width (o height si flex-direction es column) si que se adapta</p>
+<div class="comun flex-container3">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+
+</div>
+
+<p>Ahora prueba a cambiar flex-direction...</p>
+
+</body>
+</html>

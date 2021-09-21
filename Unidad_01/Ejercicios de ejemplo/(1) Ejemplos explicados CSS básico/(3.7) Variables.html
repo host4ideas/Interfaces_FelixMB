@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<!-- En este archivo se estudian las variables en CSS. 
+	Se definen en :root, empiezan con -- y se hace referencia a ellas con la función var() -->
+<style>
+	:root {
+		--main-bg-color: coral;
+		--main-txt-color: blue;  
+		--main-padding: 15px;  
+		--main-margin: 1em;
+	}
+
+	/* Lo más adecuado es emplear una clase, pero con IDs probamos que las variables se reemplazan tantas veces como sea necesario */
+	#div1 {
+		background-color: var(--main-bg-color);
+		color: var(--main-txt-color);  
+		padding: var(--main-padding);
+		margin: var(--main-margin);
+	}
+
+	#div2 {
+		background-color: var(--main-bg-color);
+		color: var(--main-txt-color);
+		padding: var(--main-padding);
+		margin: var(--main-margin);
+	}
+
+	#div3 {
+		background-color: var(--main-bg-color);
+		color: var(--main-txt-color);
+		padding: var(--main-padding);
+		margin: var(--main-margin);
+	}
+</style>
+</head>
+<body>
+	<h1>La función var()</h1>
+
+	<div id="div1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit.</div>
+
+	<div id="div2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit.</div>
+
+	<div id="div3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit.</div>
+
+</body>
+</html>

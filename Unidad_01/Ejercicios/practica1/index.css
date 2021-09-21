@@ -1,0 +1,28 @@
+/* Headers */
+
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+h2 {
+    color: blue;
+    text-align: center;
+}
+
+table, th, td {
+    border: 1px solid black;
+  }
+
+.texto-dividido{
+    text-align: left;
+    background-color: rgb(223, 95, 45);
+}
+
+.footer-text {
+    text-align: center;
+}
+
+img {
+    
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- En este ejemplo se prueba el funcionamiento de la propiedad flex-direction, que permite definir si los elementos
+		se muestran en fila o en columna, así como la dirección -->
+<html>
+<head>
+	<meta charset="UTF-8"> 	
+	<style type="text/css">
+
+		#flex-container1 {
+		  display: flex;
+		  flex-direction: column;  
+		}
+
+		#flex-container2 {
+		  display: flex;
+		  flex-direction: column-reverse;  
+		}
+
+		#flex-container3 {
+		  display: inline-flex;
+		  flex-direction: row;
+		}
+
+		#flex-container4 {
+		  display: flex;
+		  flex-direction: row-reverse;
+		}
+
+		.flex-container > div {
+		  background-color: #f1f1f1;
+		  width: 6rem;
+		  margin: 0.7rem;
+		  text-align: center;
+		  line-height: 5rem;
+		  font-size: 30px;  
+		}
+
+		.flex-container {
+		  background-color: lightblue;
+		  border: 1px solid black;  
+		  width: 50%;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>La propiedad flex-direction</h1>
+
+	<p>"flex-direction: column;" organiza los ítems verticalmente de arriba a abajo</p>
+
+	<div id="flex-container1" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  
+	</div>
+
+	<p>"flex-direction: column-reverse;" organiza los ítems verticalmente de abajo a arriba</p>
+
+	<div id="flex-container2" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  
+	</div>
+
+	<p>"flex-direction: row;" organiza los ítems horizontalmente de izquierda a derecha</p>
+
+	<div id="flex-container3" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  
+	</div>
+
+	<p>"flex-direction: row-reverse;" organiza los ítems horizontalmente de derecha a izquierda</p>
+
+	<div id="flex-container4" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  
+	</div>
+
+</body>
+</html>

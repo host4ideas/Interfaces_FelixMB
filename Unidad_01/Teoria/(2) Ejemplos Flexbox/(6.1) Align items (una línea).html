@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<!-- En este ejemplo se prueba la propiedad align-items que sirve para alinear sobre el eje secundario los ítems de los 	
+		 contenedores y es especialmente útil cuando ocupan una línea. 
+		 La alineación sería horizontalmente si flex-direction es a nivel de columna y verticalmente si es a nivel de fila -->
+<head>
+	<style>
+		#flex-container1{		  	 
+		  align-items: center;		  
+		}
+		
+		#flex-container2{
+		  align-items: flex-start;
+		}
+		
+		#flex-container3{
+		  align-items: flex-end;
+		}
+		
+		#flex-container4{
+		  align-items: stretch;
+		}
+		
+		#flex-container5{   
+		  flex-wrap: wrap;
+		  align-items: baseline;		  
+		  align-content: center;	  
+		}			
+			
+		.flex-container {
+		  display: flex;
+		  width: 50%;
+		  height: 18.75rem;
+		  background-color: DodgerBlue;
+		  border: 1px solid black;
+		}
+
+		.flex-container > div {
+		  background-color: #f1f1f1;
+		  width: 6rem;		 
+		  margin: 0.7rem;		 
+		  text-align: center;		  
+		  font-size: 30px;
+		}
+	</style>
+</head>
+<body>
+	<h1>align-items</h1>
+
+	<p>"align-items: center;" agrupa los ítems en el centro del eje secundario</p>
+
+	<div id="flex-container1" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>	  
+	</div>
+	
+	<p>"align-items: flex-start;" agrupa los ítems al principio del eje secundario</p>
+
+	<div id="flex-container2" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  	
+	</div>
+	
+	<p>"align-items: flex-end;" agrupa los ítems al final del eje secundario</p>
+
+	<div id="flex-container3" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div> 	  
+	</div>
+	
+	<p>"align-items: stretch;" distribuye los ítems estirándolos para que ocupen todo el contenedor (siempre que no tengan otro tamaño)</p>
+
+	<div id="flex-container4" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  	  
+	</div>
+	
+	<p>"align-items: baseline;" alinea los ítems en el contenedor según la base del contenido de los ítems del contenedor (para probar el contenedor tiene diferentes tamaños de letra)</p>
+
+	<div id="flex-container5" class="flex-container">
+	  <div><h1>1</h1></div>
+	  <div><h2>2</h2></div>
+	  <div><h3>3</h3></div>  
+	  <div><small>4</small></div>    	  
+	</div>
+	
+</body>
+</html>

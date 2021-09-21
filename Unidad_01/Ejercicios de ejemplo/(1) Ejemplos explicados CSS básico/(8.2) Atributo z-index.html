@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- El objetivo de esta página es mostrar el funcionamiento de la propiedad z-index -->
+	<style> 
+		.bold {
+			font-weight: bold;
+			font: 0.8em Arial;
+		}
+		div.relativo {
+			height: 5em;
+			position: relative;
+			border: 1px dashed #669966;
+			background-color: #ccffcc;
+			padding-left: 0.3em;
+		}
+		#div2 {
+			opacity: 0.8;
+			z-index: 1;
+			position: absolute;
+			width: 9.375em;
+			height: 12.5em;
+			top: 1.3em;
+			left: 11em;
+			border: 1px dashed #990000;
+			background-color: #ffdddd;
+			text-align: center;
+		}
+		#div4 {
+			opacity: 0.8;
+			z-index: 2;
+			position: absolute;
+			width: 12.5em;
+			height: 4.5em;
+			top: 4em;
+			left: 3em;
+			border: 1px dashed #000099;
+			background-color: #ddddff;
+			text-align: left;
+			padding-left: 0.7em;
+		}
+	</style>
+</head>
+
+<body>
+	
+	<div id="div1" class="relativo">
+		<span class="bold">DIV #1</span>
+		<span>position: relative;</span>
+		<div id="div2">
+			<span class="bold">DIV #2</span>
+			<span>position: absolute; z-index: 1; </span>
+	   </div>
+	</div>
+
+	<div id="div3" class="relativo">
+		<span class="bold">DIV #3</span>
+		<span>position: relative;</span>
+		<div id="div4">
+			<span class="bold">DIV #4</span>
+			<span>position: absolute; z-index: 2;</span>
+	   </div>
+	</div>
+
+</body>
+</html>

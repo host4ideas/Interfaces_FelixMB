@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- El objetivo de este archivo es probar el funcionamiento de las propiedades de background:
+			1. background-size con los valores contain y cover para cubrir un contenedor al completo con una imagen
+		-->
+<style>
+	:root {
+	  --alto: 16rem;
+	  --ancho: 18rem;	  
+	}
+
+	.div1 {
+	  border: 1px solid black;
+	  height:var(--alto);
+	  width:var(--ancho);
+	  background:url(img/clara.jpg);
+	  background-repeat: no-repeat;
+	  background-size: contain;
+	}
+
+	.div2 {
+	  border: 1px solid black;
+	  height:var(--alto);
+	  width:var(--ancho);
+	  background:url(img/clara.jpg);
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	}
+
+	.div3 {
+	  border: 1px solid black;
+	  height:var(--alto);
+	  width:var(--ancho);
+	  background:url(img/clara.jpg);
+	  background-repeat: no-repeat;
+	}
+</style>
+</head>
+<body>
+
+	<h1>La propiedad background-size</h1>
+
+	<h2>background-size: contain:</h2>
+	<div class="div1">
+		<p>Lorem ipsum dolor sit amet.</p>
+	</div>
+
+	<h2>background-size: cover:</h2>
+	<div class="div2">
+		<p>Lorem ipsum dolor sit amet.</p>
+	</div>
+
+	<h2>Sin tamaño</h2>
+	<div class="div3">
+		<p>Lorem ipsum dolor sit amet.</p>
+	</div>
+
+	<p>Imagen original:</p>
+	<img src="img/clara.jpg" alt="Flowers">
+
+</body>
+</html>

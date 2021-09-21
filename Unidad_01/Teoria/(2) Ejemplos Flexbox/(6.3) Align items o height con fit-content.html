@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<!-- El objetivo de este archivo es probar la utilizad de fit-content en combinación con flex -->
+<style>
+	.container{
+		padding: 1em;
+		height: 500px;
+		width: 40%;
+		border: 1px solid black;
+		display: flex;
+		/* align-items: center; */ /* Si asignamos align-items el alto de los ítems se ajusta automáticamente al contenido */ 
+		gap: 1em;
+	}
+	
+	.child{
+		height: fit-content; /* Si no tenemos align-items podemos hacer que el alto se ajuste al contenido con fit-content */
+		border: 1px dotted red;		
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="child">Contenedor hijo con mucho texto que no desborda</div>
+		<div class="child">Contenedor hijo con mucho texto que no desborda.
+		Contenedor hijo con mucho texto que no desborda.
+		Contenedor hijo con mucho texto que no desborda.
+		Contenedor hijo con mucho texto que no desborda.
+		Contenedor hijo con mucho texto que no desborda.
+		Contenedor hijo con mucho texto que no desborda.
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda
+		Contenedor hijo con mucho texto que no desborda</div>
+		<div class="child">Contenedor hijo con mucho texto que no desborda</div>
+	</div>
+</body>
+</html>

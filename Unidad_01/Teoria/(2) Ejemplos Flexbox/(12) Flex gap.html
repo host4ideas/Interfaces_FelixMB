@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- Ejemplo de uso de gap con flex -->
+<html>
+<head>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		
+		/* Diseño general de los contenedores e items */
+		.flexbox{
+			border: 1px dotted red;
+			margin-bottom: 1em;
+			width: 500px;
+			padding: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+		
+		.flexbox > div {
+			border: 1px solid green;
+			background-color: lime;
+			height: 50px;
+		}
+		
+		/* Compensando tamaños con calc */	
+		#flexbox1 > div {
+			width: calc(25% - 15px); /* Una desventaja de gap es que no cuenta en las dimensiones del elemento */
+			/* Hay que compensar el hueco que se crea. En este caso, si hay cuatro elementos se añade la separación interna 3 veces.
+			20 x 3 = 60px. Luego estos 60px al aplicarlos a 4 cajas que ocupa cada línea serían 60px / 4 = 15px que se restan a cada ítem.
+			El diseño se puede hacer más eficiente empleando variables */			
+		}
+		
+		/* Combinando con flex-grow */	
+		#flexbox2 > div {
+			width: calc(25% - 20px); /* Se resta a cada ítem el espaciado de gap y se reparte el ancho disponible con flex-grow */	
+			flex-grow: 1;
+		}
+	</style> 
+
+</head>
+
+<body>
+	<h3>Ejemplo 1 con calc</h3>
+	<div id="flexbox1" class="flexbox">
+		
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	
+	<h3>Ejemplo 2 con flex-grow</h3>
+	<div id="flexbox2" class="flexbox">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+
+</body>

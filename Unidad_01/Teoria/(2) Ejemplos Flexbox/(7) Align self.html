@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<!-- En este ejemplo se prueba la propiedad align-self, que se define a nivel de item y permite especificar una alineación única
+		 para cada item, a diferencia de la alineación que se ha especificado a nivel de contenedor -->
+<head>
+	<style>		
+		.flex-container, .flex-container-auto {
+		  width: 50%;
+		  height: 18.75rem;
+		  background-color: DodgerBlue;
+		  border: 1px solid black;
+		  display: flex;		  
+		  flex-direction: row;
+		}
+		
+		.flex-container {
+		  align-items: flex-start;
+		}
+		
+		.flex-container > div, .flex-container-auto > div {
+		  background-color: #f1f1f1;
+		  width: 6rem;		  
+		  margin: 0.7rem;		 
+		  text-align: center;		  
+		  font-size: 30px;
+		}		
+		
+		.flex-container-auto > div {
+		  height: 3rem;
+		}
+		
+		#flex-container1 > div:last-child{
+		  display: flex;	
+		  align-self: center;
+		  justify-content: center;	 
+		}
+		
+		#flex-container2 > div:last-child{
+		  display: flex;	
+		  align-self: flex-start;		  
+		  justify-content: center;	 
+		}
+		
+		#flex-container3 > div:last-child{
+		  display: flex;	
+		  align-self: flex-end; 
+		  justify-content: center;	 
+		}
+		
+		#flex-container4 > div:last-child{
+		  display: flex;	
+		  align-self: stretch;
+		  justify-content: center;	 
+		}
+		
+		#flex-container5 > div:last-child, #flex-container5 > div:first-child {
+		  display: flex;			  
+		  align-self: baseline;
+		  justify-content: center;	 
+		}
+		
+		#flex-container6 > div:last-child{
+		  display: flex;			  
+		  align-self: auto; 
+		  justify-content: center;	 
+		}
+	</style>
+</head>
+<body>
+	<h1>align-self</h1>
+
+	<p>"align-self: center;" alinea el ítem en el centro del contenedor</p>
+
+	<div id="flex-container1" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div> 
+	</div>
+	
+	<p>"align-self: flex-start;" alinea el ítem al principio del contenedor</p>
+
+	<div id="flex-container2" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  	
+	</div>
+	
+	<p>"align-self: flex-end;" alinea el ítem al final del contenedor</p>
+
+	<div id="flex-container3" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div> 
+	  
+	</div>
+	
+	<p>"align-self: stretch;" alinea el ítem estirándolos a lo largo del contenedor (siempre que no tenga otro tamaño)</p>
+
+	<div id="flex-container4" class="flex-container">
+	  <div>1</div>
+	  <div>2</div>
+	  <div>3</div>  	  
+	</div>
+	
+	<p>"align-self: baseline;" alinea el item en la base del contenedor según su tamaño</p>
+
+	<div id="flex-container5" class="flex-container">
+	   <div><h2>1</h2></div>
+	   <div>2</div>
+	   <div>3</div>
+	   <div><h1>4</h1></div>    	  
+	</div>
+	
+	<p>"align-self: auto;" hereda el valor de align-items del padre y si no lo tiene stretch (probar a quitar el alto de los elementos o cambiar el valor de align-items del padre)</p>
+
+	<div id="flex-container6" class="flex-container-auto">
+	   <div>1</div>
+	   <div>2</div>
+	   <div>3</div>    	  
+	</div>
+	
+</body>
+</html>

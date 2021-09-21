@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<!-- El ejemplo presente consiste en una comparativa entre el uso de px, em, rem y % -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Prueba unidades de medida</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+		#main{
+			font-size: 16px;
+			font-family: arial; 
+			background-color: lightgray;
+			padding: 20px;
+		}
+		.block-a{
+			font-size: 16px;
+		}
+		.block-b{
+			font-size: 12px;
+		}
+		.block-0{
+			font-size: 16px;
+		}
+		.block-2{
+			font-size: 12px;    
+		}
+		.block-3{
+			font-size: 100%;    
+		}
+		.block-4{
+			font-size: 75%;
+		}
+		.block-5{
+			font-size: 1em;
+		}
+		.block-6{
+			font-size: 2em;
+		}
+		.block-7{
+			font-size: 32px;
+		}
+		.block-8{
+			font-size: 1rem;
+		}
+		.block-9{
+			font-size: 24px;
+		}
+		
+		.block-11{
+			font-size: 1rem;
+		}
+		.block-12{
+			font-size: 1.5rem;
+		}
+		.block-13{
+			font-size: 1.5em;
+		}
+		.size{
+			padding-left: 10px;
+			font-weight: bold;
+		}
+		.block{
+			background-color: #EFFFEB;
+			padding: 20px;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="main">
+		(font-size: 16px)<br>
+		<div class="block">
+			<h2>I</h2>
+			<p class="block-0">Lorem ipsum<span class="size">(font-size: 16px)</span></p>
+			<p class="block-1">Lorem ipsum<span class="size">(font-size: '')</span></p>
+			<p class="block-2">Lorem ipsum<span class="size">(font-size: 12px)</span></p>
+			<p class="block-3">Lorem ipsum<span class="size">(font-size: 100%)</span></p>
+			<p class="block-4">Lorem ipsum<span class="size">(font-size: 75%)</span></p>
+			<p class="block-5">Lorem ipsum<span class="size">(font-size: 1em)</span></p>
+			<p class="block-6">Lorem ipsum<span class="size">(font-size: 2em)</span></p>
+			<p class="block-7">Lorem ipsum<span class="size">(font-size: 32px)</span></p>
+			<p class="block-8">Lorem ipsum<span class="size">(font-size: 1rem)</span></p>
+			<div class="block-9">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<span class="size">(font-size: 24px)</span>
+				<p class="block-10">Lorem ipsum<span class="size">(font-size: '')</span></p>
+				<p class="block-11">Lorem ipsum<span class="size">(font-size: 1rem)</span></p>
+				<p class="block-12">Lorem ipsum<span class="size">(font-size: 1.5rem)</span></p>
+				<p class="block-13">Lorem ipsum<span class="size">(font-size: 1.5em)</span></p>
+			</div>
+		</div>
+		<div class="block">
+			<h2>II</h2>
+			<p class="block-a">
+				(font-size: 16px)<br>Vestibulum eget felis <span class="block-0 size">iaculis, posuere (font-size: 16px)</span> 
+				neque quis, pretium quam. <span class="block-1 size">Quisque lacinia (font-size: '')</span> 
+				vitae mi molestie posuere. Nunc eget mi ut <span class="block-2 size">ligula bibendum (font-size: 12px)</span> 
+				accumsan. Nam eu lacinia ipsum. <span class="block-3 size">Maecenas massa (font-size: 100%)</span> 
+				felis, euismod id massa sed, <span class="block-4 size">iaculis efficitur (font-size: 75%)</span> 
+				lacus. Suspendisse euismod dolor arcu, <span class="block-5 size">ultrices aliquam (font-size: 1em)</span> 
+				elit euismod sit amet. Aenean aliquam <span class="block-6 size">ante vel sapien (font-size: 2em)</span>
+				maximus viverra. Aenean bibendum sodales dignissim. <span class="block-7 size">Aenean commodo (font-size: 32px)</span> 
+				mauris id facilisis luctus. Curabitur bibendum <span class="block-8 size">augue non neque (font-size: 1rem)</span> 
+				aliquam, quis dictum neque lacinia. In congue <span class="block-9 size">elit pellentesque (font-size: 24px)</span>
+				, cursus ante a, sagittis leo.
+			</p>
+		</div>
+		<div class="block">
+			<h2>III</h2>
+			<p class="block-b">
+				(font-size: 12px)<br>Cras ultricies eget risus non tincidunt. <span class="block-10 size">Donec gravida (font-size: '')</span> 
+				mi cursus, volutpat enim vitae, vestibulum nisi. <span class="block-11 size">Ut vitae pretium (font-size: 1rem)</span> 
+				ligula, a gravida lectus. <span class="block-12 size">Phasellus viverra (font-size: 1.5rem)</span> 
+				diam varius turpis sodales, non mollis felis lobortis. <span class="block-13 size">Integer sed nunc (font-size: 1.5em)</span> in neque varius iaculis ut vitae ligula.
+			</p>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<!-- Ejemplo de layout con flex para evitar desbordamientos con el margen -->
+<html lang="en">
+<head>
+	<style>
+		*{
+			box-sizing: border-box;
+		}
+		  
+		.container{
+			border: 1px solid black;		
+			display: flex;
+				
+			/* Espaciado externo con padding e interno entre elementos con gap */
+			padding: 1em;
+			gap: 1em;
+			width: 80%;
+			margin: 1em 0;
+		}
+		  
+		#container_nowrap {
+			flex-wrap: nowrap;	
+		}
+		
+		#container_wrap {
+			flex-wrap: wrap;
+		}				
+		
+		.element{
+			display: flex; /* Es necesario indicar display: flex en los subcontenedores (en este caso se emplea para la alineación del texto) */
+			justify-content: center;
+			align-items: center;
+			flex-basis: 50%;
+			height: 3em;
+			border: 1px solid green;
+		}
+		
+		#container_wrap .element{
+			flex: 1 1 calc(50% - 1em); /* Con flex-grow: 1 se reparte el hueco disponible para evitar descuadres */	
+		}
+	</style> 
+
+</head>
+
+<body>
+	<h3>Ejemplo con nowrap. Por defecto se quedan los elementos en la misma línea (prueba a modificar flex-shrink a 0)</h3>
+	<div id="container_nowrap" class="container"> <!-- Con nowrap se quedan los elementos en la misma fila y se adaptan al ancho -->
+		<div class="element">Lorem ipsum</div>
+		<div class="element">Lorem ipsum</div>
+		<div class="element">Lorem ipsum</div>
+		<div class="element">Lorem ipsum</div>
+	</div>
+	
+	<h3>Ejemplo con wrap. Hay saltos de línea y tenemos que ajustar las dimensiones para evitar desbordamientos</h3>
+	<div id="container_wrap" class="container"> <!-- Con wrap si que hay salto de línea cuando los elementos ocupan el límite del contenedor -->
+		<div class="element">Lorem ipsum</div>
+		<div class="element">Lorem ipsum</div>
+		<div class="element">Lorem ipsum</div>
+		<div class="element">Lorem ipsum</div>
+	</div>
+
+</body>

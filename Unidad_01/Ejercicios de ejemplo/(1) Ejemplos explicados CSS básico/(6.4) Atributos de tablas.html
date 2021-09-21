@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- El objetivo de este archivo es probar los atributos más relevantes de las tablas en CSS -->
+<style>
+	table, td, th {
+	  border: 1px solid black;
+	}
+
+	#table1 {
+	  border-collapse: separate;
+	  border-spacing: 1em 3em;
+	  empty-cells: hide;
+	  table-layout: fixed; /* Todas las columnas son iguales aunque desborden */
+	  width: 11em;  
+	  caption-side: bottom;
+	}
+
+	#table2 {
+	  border-collapse: collapse;
+	  empty-cells: show;
+	  table-layout: auto; /* Las columnas se adaptan en la medida de lo posible para cubrir el ancho de la tabla */
+	  width: 11em;  
+	  caption-side: top;
+	}
+	
+	#table2 td {
+	  height: 3em;
+	  vertical-align: bottom;
+	}
+	
+</style>
+</head>
+<body>
+
+	<h2>Ejemplo 1 (ver CSS)</h2>
+	<table id="table1">
+	  <caption>Tabla 1.1</caption> 	
+	  <tr>
+		<th>Firstname</th>
+		<th>Lastname</th>
+	  </tr>
+	  <tr>
+		<td>Peter Peter Peter Peter</td>
+		<td>Griffin</td>
+	  </tr>
+	  <tr class="c">
+		<td>Lois</td>
+		<td>Griffin</td>
+	  </tr>
+	  <tr>
+		<td>Brian</td>
+		<td></td>
+	  </tr>
+	</table>
+
+	<h2>Ejemplo 2 (ver CSS)</h2>
+	<table id="table2">
+	  <caption>Tabla 1.2</caption> 	
+	  <tr>
+		<th>Firstname</th>
+		<th>Lastname</th>
+	  </tr>
+	  <tr>
+		<td>Peter Peter Peter Peter</td>
+		<td>Griffin</td>
+	  </tr>
+	  <tr>
+		<td>Lois</td>
+		<td>Griffin</td>
+	  </tr>
+	  <tr>
+		<td>Brian</td>
+		<td></td>
+	  </tr>
+	</table>
+
+</body>
+</html>

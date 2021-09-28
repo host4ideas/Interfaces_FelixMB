@@ -12,6 +12,7 @@ ul.redes li {
 	font-style: italic;
 	/* Estilos de li para cumplir las especifiaciones */
 	color: #442A5D;
+	list-style-image: url("imgs/vineta_circle1.png");
 }
 p.titulo {
 	font-family: Verdana, Geneva, sans-serif;
@@ -27,7 +28,8 @@ p.titulo {
 	height: 1.5em;
 	vertical-align: middle;
 }
-{ /* Hay que conseguir que este estilo se aplique al posicionarse sobre el elemento con contenido LMSGI */
+
+a:first-of-type:hover { /* Hay que conseguir que este estilo se aplique al posicionarse sobre el elemento con contenido LMSGI */
 	font-weight: bold;
 	color: #FFF;
 }

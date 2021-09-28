@@ -6,8 +6,24 @@
 	<title>Ejercicio formatear tabla</title>
 	<style>
 		/* Añadir estilos de tablas */
-		.euro {
-			
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		.par {
+			background-color: yellow;
+		}
+
+		tr .euro {
+			background-image: url("imagenes/euro.png");
+			background-repeat: no-repeat;
+		}
+		tr .euro {
+			background-image: url("imagenes/euro.png");
+			background-repeat: no-repeat;
 		}
 	</style>
 </head>
@@ -25,14 +41,14 @@
 		</thead>
 		<tbody>
 			<tr class="par">
-				<th scope="row" class="euro"></th> Euro/Dolar</th>
+				<th scope="row" class="euro">Euro/Dolar</th>
 				<td>1.2524</td>
 				<td>1.2527</td>
 				<td>1.2539</td>
 				<td>1.2488</td>
 			</tr>
 			<tr>
-				<th scope="row" class="dolar"><img src="imagenes/dolar.png"> Dolar/Yen</th>
+				<th scope="row" class="dolar">Dolar/Yen</th>
 				<td>119.01</td>
 				<td>119.05</td>
 				<td>119.82</td>

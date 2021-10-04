@@ -8,7 +8,7 @@
 |      Ejercicio 4        |   [Tablas](Unidad_01/(4)%20Tablas/tablas.html)  |
 |     Ejercicio 5        |    [Listas](Unidad_01/(5)%20Listas/listas.html)   |
 |     Ejercicio 6        |    [Display](Unidad_01/(6)%20Display/display.html) |
-|     Ejercicio 7a        |    [Imágenes y background](Unidad_01/(7) Imágenes%20y%20background/ejercicio7a.html) |
-|     Ejercicio 7b        |    [Imágenes y background](Unidad_01/(7) Imágenes%20y%20background/ejercicio7b.html) |
-|     Ejercicio 7c        |    [Imágenes y background](Unidad_01/(7) Imágenes%20y%20background/ejercicio7c.html) |
+|     Ejercicio 7a        |    [Imágenes y background](Unidad_01/(7)%20Imágenes%20y%20background/ejercicio7a.html) |
+|     Ejercicio 7b        |    [Imágenes y background](Unidad_01/(7)%20Imágenes%20y%20background/ejercicio7b.html) |
+|     Ejercicio 7c        |    [Imágenes y background](Unidad_01/(7)%20Imágenes%20y%20background/ejercicio7c.html) |
 

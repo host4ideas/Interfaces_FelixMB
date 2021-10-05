@@ -1,15 +1,29 @@
-.div-principal > div{
-    border: 1px;
-    width: 200px;
-    height: 200px;
+div {
+    border: 1px solid;
 }
 
 .div-principal {
-    width: 200px;
-    height: 200px;
+    box-sizing: content-box;
+    padding: 5px;
+    margin: 5px;
 }
 
-div{
+.primera-fila {
     width: 200px;
     height: 200px;
+    float: left;
+}
+
+.segunda-fila {
+    background-color: green;
+    width: 200px;
+    height: 200px;
+    float: left;
+}
+
+.tercera-fila {
+    background-color: blue;
+    width: 200px;
+    height: 200px;
+    float: left;
 }

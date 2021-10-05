@@ -1,0 +1,15 @@
+.div-principal > div{
+    border: 1px;
+    width: 200px;
+    height: 200px;
+}
+
+.div-principal {
+    width: 200px;
+    height: 200px;
+}
+
+div{
+    width: 200px;
+    height: 200px;
+}

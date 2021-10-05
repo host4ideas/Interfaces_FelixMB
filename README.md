@@ -11,4 +11,5 @@
 |     Ejercicio 7a        |    [Imágenes y background](Unidad_01/(7)%20Imágenes%20y%20background/ejercicio7a.html) |
 |     Ejercicio 7b        |    [Imágenes y background](Unidad_01/(7)%20Imágenes%20y%20background/ejercicio7b.html) |
 |     Ejercicio 7c        |    [Imágenes y background](Unidad_01/(7)%20Imágenes%20y%20background/ejercicio7c.html) |
+|     Ejercicio 8        |    [Imágenes y background](Unidad_01\(10)%20Posicionamiento/posicionamiento.html) |
 

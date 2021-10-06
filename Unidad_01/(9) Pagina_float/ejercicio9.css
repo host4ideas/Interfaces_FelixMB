@@ -1,29 +1,30 @@
 div {
     border: 1px solid;
-}
-
-.div-principal {
-    box-sizing: content-box;
     padding: 5px;
     margin: 5px;
 }
 
+.div-principal {
+    width: 650px;
+    height: 650px;
+}
+
 .primera-fila {
-    width: 200px;
-    height: 200px;
+    width: calc(33% - 21px);
+    height: 30%;
     float: left;
 }
 
 .segunda-fila {
+    width: calc(33% - 21px);
     background-color: green;
-    width: 200px;
-    height: 200px;
+    height: 30%;
     float: left;
 }
 
 .tercera-fila {
+    width: calc(33% - 21px);
     background-color: blue;
-    width: 200px;
-    height: 200px;
+    height: 30%;
     float: left;
 }

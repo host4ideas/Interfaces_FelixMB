@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+
+div {
+    border: 1px solid;
+    padding: 3px;
+    padding-right: 10px;
+}
+
+.div-principal {
+    display: flex;
+    flex-flow: column;
+    margin: 50px;
+}
+
+.fila {
+    height: 200px;
+    display: flex;
+    flex-flow: row;
+    border: 0;
+    width: 100%;
+}
+
+.fila:nth-child(1)>div {
+    width: 33%;
+    margin: 5px;
+}
+
+.fila:nth-child(2)>div {
+    width: 33%;
+    margin: 5px;
+    background-color: green;
+}
+
+.fila:nth-child(3)>div {
+    width: 33%;
+    margin: 5px;
+    background-color: blue;
+}

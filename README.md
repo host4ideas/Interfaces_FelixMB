@@ -15,7 +15,7 @@
 |     Ejercicio 9 v1        |    [Posicionamiento](Unidad_01/(9)%20Pagina_float/ejercicio9.html) |
 |     Ejercicio 9 v2        |    [Posicionamiento](Unidad_01/(9)%20Pagina_float/ejercicio9v2.html) |
 |     Ejercicio 9 v3        |    [Posicionamiento](Unidad_01/(9)%20Pagina_float/ejercicio9v3.html) |
-|     Ejercicio 10        |    [Posicionamiento](Unidad_01(10)%20Posicionamiento/posicionamiento.html) |
+|     Ejercicio 10        |    [Posicionamiento](Unidad_01/(10)%20Posicionamiento/posicionamiento.html) |
 |     Ejercicio 11        |    [Posicionamiento y superposición](Unidad_01/(11)%20Posicionamiento%20y%20superposición/posicionamiento2.html) |
 |     Ejercicio 12        |    [Superposición](Unidad_01/(12)%20Superposición/superposicion.html) |
 |     Ejercicio 13        |    [Flotantes](Unidad_01/(13)%20Flotantes/flotantes.html) |

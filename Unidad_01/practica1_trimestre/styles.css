@@ -1,0 +1,53 @@
+body {
+    background-color: beige;
+}
+
+/* 
+###########
+Header
+########### */
+
+header {
+    border-radius: 5px;
+    background: linear-gradient(to top, red, rgb(248, 197, 138));
+    padding: 20px;
+}
+
+/* nav */
+
+ul {
+    list-style: none;
+}
+
+.second-menu {
+    background-color: aliceblue;
+    border: 1px solid;
+    display: block;
+}
+
+li {
+    display: inline;
+}
+
+/* shopping-search */
+
+#products>option {
+    margin: 5px;
+}
+
+/* 
+###########
+Body
+########### */
+
+/* 
+###########
+Footer
+########### */
+
+footer div {
+    font-style: normal;
+    text-transform: uppercase;
+    margin: 50px;
+    padding: 20px;
+}

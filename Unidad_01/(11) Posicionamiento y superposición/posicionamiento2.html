@@ -9,11 +9,11 @@
 			font-family: Verdana, Geneva, sans-serif;
 			font-size: 24px;
 			color: #755E8B;
-			position: absolute;
 		}
 
 		/* Cada div define un estilo a nivel de id con el posicionamiento que le corresponde */
 
+		/* Fija en la esquina inferior */
 		#fija {
 			/* Rellenar con propiedades de posicionamiento y precedencia necesarias */
 			width: 7.7rem;
@@ -24,12 +24,14 @@
 			right: 0;
 		}
 
+		/* Posicionamiento static */
 		#estatica_exp {
 			/* Rellenar con propiedades de posicionamiento y precedencia necesarias */
 			background-color: #123D43;
 			color: #F9F6C3;
 			width: 18.75rem;
 			margin: 0.6rem;
+			position: static;
 		}
 
 		#estatica_imp {
@@ -38,9 +40,9 @@
 			color: #F9DDC3;
 			width: 18.75rem;
 			margin: 0.6rem;
-
 		}
 
+		/* Esquina inferior derecha */
 		#absoluta1 {
 			/* Rellenar con propiedades de posicionamiento y precedencia necesarias */
 			background-color: #123D43;
@@ -48,9 +50,12 @@
 			height: 6rem;
 			margin: 0.6rem;
 			width: 18.75rem;
-			
+			position: absolute;
+			bottom: 100px;
+			right: 20px;
 		}
 
+		/* Se verá debajo con z-index */
 		#absoluta2 {
 			/* Rellenar con propiedades de posicionamiento y precedencia necesarias */
 			background-color: #755E8B;
@@ -58,8 +63,12 @@
 			height: 3rem;
 			width: 37rem;
 			margin: 0.6rem;
+			z-index: -1;
+			position: absolute;
+			left: 100px;
 		}
 
+		/* Esquina superior izquierda */
 		#absoluta3 {
 			/* Rellenar con propiedades de posicionamiento y precedencia necesarias */
 			background-color: #6E431C;
@@ -67,13 +76,20 @@
 			height: 4.375rem;
 			margin: 0.6rem;
 			width: 18.75rem;
+			position: absolute;
+			top: 290px;
+			left: 20px;
 		}
 
+		/* Cpapa relativa, 100px superior 40px left */
 		#relativa {
 			/* Rellenar con propiedades de posicionamiento y precedencia necesarias */
 			width: 18.75rem;
 			background-color: #31174A;
 			color: #F9F6C3;
+			position: relative;
+			top: 100px;
+			left: 40px;
 		}
 
 		#sticky {
@@ -81,6 +97,21 @@
 			width: 18.75rem;
 			background-color: #31174A;
 			color: #F932C3;
+			position: sticky;
+			bottom: 0;
+			left: 0;
+		}
+
+		p:nth-child(2) {
+			position: static;
+		}
+
+		p:nth-child(6) {
+			position: absolute;
+		}
+
+		p:nth-child(11) {
+			font-size: 5em;
 		}
 	</style>
 </head>
@@ -88,10 +119,8 @@
 <body>
 	<div id="fija">Fija en la esquina inferior.</div>
 
-	<p>
-		<span class="tipo">Static</span>: es el posicionamiento por defecto, según el flujo normal del HTML. Por tanto,
-		el valor static no será necesario indicarlo.
-	</p>
+	<p><span class="tipo">Static</span>: es el posicionamiento por defecto, según el flujo normal del HTML. Por tanto,
+		el valor static no será necesario indicarlo.</p>
 
 	<div id="estatica_exp">
 		Capa con posicionamiento static

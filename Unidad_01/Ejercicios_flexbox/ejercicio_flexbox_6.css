@@ -33,11 +33,11 @@
 }
 
 .main-container1>div:nth-child(1) {
-    flex-shrink: 70;
     order: 4;
 }
 
 .main-container1>div:nth-child(2) {
+    flex-shrink: 2;
     order: 1;
 }
 
@@ -46,13 +46,12 @@
 }
 
 .main-container1>div:nth-child(4) {
+    flex-shrink: 2;
     order: 3;
 }
 
 /* Tamaños divs container 2 */
 
-.main-container2>div:nth-child(1) {}
-
-.main-container2>div:nth-child(2) {}
-
-.main-container2>div:nth-child(3) {}
+.main-container2>div:nth-child(2) {
+    flex-shrink: 2;
+}

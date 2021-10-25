@@ -40,8 +40,8 @@ div {
     align-self: center;
 }
 
-.contenedor3 {
-    align-items: center;
+.contenedor3>div {
+    
 }
 
 .contenedor3>div:nth-child(1) {

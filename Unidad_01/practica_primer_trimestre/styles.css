@@ -1,5 +1,6 @@
 body {
     background-color: beige;
+    font-family: "Poppins";
 }
 
 /* 
@@ -11,6 +12,11 @@ header {
     border-radius: 5px;
     background: linear-gradient(to top, red, rgb(248, 197, 138));
     padding: 20px;
+}
+
+a[href] {
+    text-decoration: none;
+    color: black;
 }
 
 /* nav */
@@ -31,14 +37,103 @@ li {
 
 /* shopping-search */
 
+#products {
+    display: flex;
+    justify-content: flex-end;
+}
+
 #products>option {
     margin: 5px;
 }
 
 /* 
 ###########
-Body
+Main
 ########### */
+
+.products img, .carousel img {
+    width: 250px;
+    height: 250px;
+    border-radius: 5px;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+}
+
+/* Carousel */
+
+.slider {
+    width: 300px;
+    text-align: center;
+}
+
+.slides {
+    display: flex;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.slides>div {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: 300px;
+    height: 300px;
+    margin-right: 50px;
+    border-radius: 10px;
+    transform-origin: center center;
+    transition: transform 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider>a {
+    display: inline-flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: white;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 0 0.5rem 0;
+    position: relative;
+}
+
+.slider>a:active {
+    top: 1px;
+}
+
+.slider>a:focus {
+    background: #000;
+}
+
+/* Produts */
+
+.far {
+    color: red;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.products div {
+    background-color: aliceblue;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-between;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.50);
+    margin-top: 50px;
+}
+
+.products>div>p>span {
+    justify-content: space-between;
+}
 
 /* 
 ###########
@@ -50,4 +145,10 @@ footer div {
     text-transform: uppercase;
     margin: 50px;
     padding: 20px;
+}
+
+.social-media {
+    font-size: 1.5em;
+    color: rgba(53, 47, 41, 0.5);
+    text-align: center;
 }

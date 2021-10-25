@@ -20,7 +20,30 @@
 |     Ejercicio 12        |    [Superposición](Unidad_01/(12)%20Superposición/superposicion.html) |
 |     Ejercicio 13        |    [Flotantes](Unidad_01/(13)%20Flotantes/flotantes.html) |
 |     Ejercicio 14        |    [Cabecera FP HTML](Unidad_01/(14)%20Cabecera%20FP/index.html) |
-||    [Cabecera FP CSS](Unidad_01/(14)%20Cabecera%20FP/styles.css) ||
-|Práctica primer trimestre|    [HTML](Unidad_01/practica_primer_trimestre/index.html) |
-||    [CSS](Unidad_01/practica_primer_trimestre/styles.css) |
+||    [Cabecera FP CSS](Unidad_01/(14)%20Cabecera%20FP/styles.css) 
+
+| FLEXBOX |                                                           |
+| ------ | ----------------------------------------------------------|
+|Ejercicio flexbox 1|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_1.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_1.css) |
+|Ejercicio flexbox 2|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_2.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_2.css) |
+|Ejercicio flexbox 3|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_3.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_3.css) |
+|Ejercicio flexbox 4|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_4.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_4.css) |
+|Ejercicio flexbox 5|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_5.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_5.css) |
+|Ejercicio flexbox 6|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_6.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_6.css) |
+|Ejercicio flexbox 7|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_7.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_7.css) |
+|Ejercicio flexbox 8|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_8.html)|
+||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_8.css) |
+
+| Práctica primer trimestre ||
+| ------ | ----------------------------------------------------------|
+ [Previsualización de la página](https://htmlpreview.github.io/?https://github.com/host4ideas/Interfaces_FelixMB/blob/main/Unidad_01/practica_primer_trimestre/index.html) 
+|    [HTML](Unidad_01/practica_primer_trimestre/index.html) 
+|    [CSS](Unidad_01/practica_primer_trimestre/styles.css) 
 

@@ -41,9 +41,8 @@
 |Ejercicio flexbox 8|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_8.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_8.css) |
 
-| Práctica primer trimestre ||
-| ------ | ----------------------------------------------------------|
- [Previsualización de la página](https://htmlpreview.github.io/?https://github.com/host4ideas/Interfaces_FelixMB/blob/main/Unidad_01/practica_primer_trimestre/index.html) 
-|    [HTML](Unidad_01/practica_primer_trimestre/index.html) 
-|    [CSS](Unidad_01/practica_primer_trimestre/styles.css) 
-
+| Práctica primer trimestre |
+| --------------------------------------------------------------|
+| [Previsualización de la página](https://htmlpreview.github.io/?https://github.com/host4ideas/Interfaces_FelixMB/blob/main/Unidad_01/practica_primer_trimestre/index.html)|
+|   [HTML](Unidad_01/practica_primer_trimestre/index.html) |
+|   [CSS](Unidad_01/practica_primer_trimestre/styles.css) 

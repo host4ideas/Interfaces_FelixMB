@@ -11,7 +11,7 @@ Header
 header {
     border-radius: 5px;
     background: linear-gradient(to top, red, rgb(248, 197, 138));
-    padding: 20px;
+    padding: 10px;
 }
 
 a[href] {
@@ -19,31 +19,44 @@ a[href] {
     color: black;
 }
 
-/* nav */
+/* Menu */
 
 ul {
+    display: flex;
     list-style: none;
 }
 
-.second-menu {
-    background-color: aliceblue;
-    border: 1px solid;
-    display: block;
+.nav1 li a {
+    padding: 10px 12px;
 }
 
-li {
-    display: inline;
+.nav1 li ul {
+    display: none;
+    position: absolute;
+    border-radius: 5px;
+    font-size: 0.75rem;
+}
+
+.nav1 li:hover>ul {
+    display: block;
+    background-color: aliceblue;
 }
 
 /* shopping-search */
 
-#products {
+nav>div {
     display: flex;
     justify-content: flex-end;
 }
 
-#products>option {
-    margin: 5px;
+input[list] {
+    border-radius: 5px;
+    border: 0;
+}
+
+.fa-shopping-cart {
+    color: rgb(124, 23, 56);
+    margin-right: 5px;
 }
 
 /* 
@@ -119,21 +132,52 @@ Main
 
 .products, .far {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 
 .products>div {
+    display: flex;
+    flex-direction: column;
     background-color: aliceblue;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.50);
     margin-top: 50px;
+    justify-content: space-between;
+}
+
+.products>div span, .products>div p {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* 
 ###########
 Footer
 ########### */
+
+.terms-conditions, .separator {
+    float: left;
+}
+
+.terms-conditions, .newsletter {
+    border-top: solid black 1px;
+}
+
+.terms-conditions>span {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.separator>span {
+    display: block;
+    text-align: center;
+}
+
+.separator > hr {
+    transform: rotate(90deg);
+}
 
 footer div {
     font-style: normal;
@@ -143,12 +187,18 @@ footer div {
 }
 
 .social-media {
+    align-items: flex-end;
     font-size: 1.5em;
     color: rgba(53, 47, 41, 0.5);
     text-align: center;
 }
 
+.social-media>i {
+    transition-duration: 500ms;
+    padding: 5px;
+}
+
 .social-media>i:hover {
     color: black;
-    transition-duration: 1s;
+    transition-duration: 500ms;
 }

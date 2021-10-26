@@ -10,7 +10,7 @@ header, footer {
     background-color: rgb(22, 96, 119);
 }
 
-header, footer, aside, header, section {
+header, footer, header, section {
     padding: 10px;
 }
 
@@ -31,13 +31,17 @@ section {
     display: flex;
 }
 
+article {
+    padding: 5px;
+}
+
 article>hr {
     border-bottom: 0;
-    border-top: black solid;
+    border-top: black solid 2px;
     width: 80%;
 }
 
-/* Navbars */
+/* navs */
 
 footer, header {
     display: flex;
@@ -45,15 +49,25 @@ footer, header {
     align-items: center;
 }
 
-navbar {
+nav {
     display: flex;
     background-color: brown;
+    align-items: center;
+    height: 40px;
+}
+
+nav>div {
+    display: inline;
+    padding: 10px;
 }
 
 footer>div {
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: coral;
+    height: 40px;
+    width: 75px;
 }
 
 /* Aside */
@@ -62,30 +76,19 @@ aside {
     background-color: rgb(233, 113, 70);
     display: flex;
     flex-flow: wrap;
+    padding: 5px;
 }
 
-.container1 {
+.container1, .container2 {
     width: 200px;
     height: 200px;
     display: flex;
     flex-wrap: wrap;
     background-color: rgb(240, 81, 24);
+    margin: 5px;
 }
 
-.container2 {
-    width: 200px;
-    height: 200px;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: rgb(240, 81, 24);
-}
-
-.container1>div {
-    width: 100px;
-    height: 100px;
-}
-
-.container2>div {
+.container1>div, .container2>div {
     width: 100px;
     height: 100px;
 }

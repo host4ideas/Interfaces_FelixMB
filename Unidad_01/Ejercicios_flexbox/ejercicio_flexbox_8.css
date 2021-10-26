@@ -1,0 +1,51 @@
+body {
+    border: 1px solid black;
+}
+
+div {
+    border: black solid 1px;
+    margin: 10px;
+}
+
+header>div, footer>div {
+    height: 50px;
+}
+
+main {
+    border: 1px solid black;
+    margin: 10px;
+}
+
+section {
+    display: flex;
+    height: 300px;
+}
+
+section>div:nth-child(1) {
+    display: flex;
+    flex-wrap: wrap;
+    border: 0;
+    margin: 0;
+}
+
+section>div:nth-child(1)>div:nth-child(1) {
+    margin: 10px 0 0 10px;
+}
+
+section>div:nth-child(1)>div:nth-child(2) {
+    margin: 10px 0 10px 10px;
+}
+
+.cajas-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.cajas-flex>div {
+    width: 100px;
+    height: 50px;
+}

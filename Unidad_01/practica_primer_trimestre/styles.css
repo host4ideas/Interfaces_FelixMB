@@ -93,7 +93,7 @@ Main
     display: inline-flex;
     width: 1.5rem;
     height: 1.5rem;
-    background: white;
+    background: rgb(238, 56, 56);
     text-decoration: none;
     align-items: center;
     justify-content: center;
@@ -151,4 +151,9 @@ footer div {
     font-size: 1.5em;
     color: rgba(53, 47, 41, 0.5);
     text-align: center;
+}
+
+.social-media>i:hover {
+    color: black;
+    transition-duration: 1s;
 }

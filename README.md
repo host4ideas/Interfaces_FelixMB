@@ -24,26 +24,25 @@
 
 | FLEXBOX |                                                           |
 | ------ | ----------------------------------------------------------|
-|Ejercicio flexbox 1|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_1.html)|
+|Ejercicio flexbox 1|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_1.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_1.css) |
-|Ejercicio flexbox 2|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_2.html)|
+|Ejercicio flexbox 2|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_2.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_2.css) |
-|Ejercicio flexbox 3|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_3.html)|
+|Ejercicio flexbox 3|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_3.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_3.css) |
-|Ejercicio flexbox 4|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_4.html)|
+|Ejercicio flexbox 4|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_4.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_4.css) |
-|Ejercicio flexbox 5|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_5.html)|
+|Ejercicio flexbox 5|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_5.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_5.css) |
-|Ejercicio flexbox 6|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_6.html)|
+|Ejercicio flexbox 6|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_6.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_6.css) |
-|Ejercicio flexbox 7|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_7.html)|
+|Ejercicio flexbox 7|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_7.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_7.css) |
-|Ejercicio flexbox 8|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_8.html)|
+|Ejercicio flexbox 8|   [HTML](Unidad_01/Ejercicios_flexbox/ejercicio_flexbox_8.html)|
 ||[CSS](Unidad_01/Ejercicios_flexbox/ejercicio_flebox_8.css) |
 
-| Práctica primer trimestre ||
-| ------ | ----------------------------------------------------------|
- [Previsualización de la página](https://htmlpreview.github.io/?https://github.com/host4ideas/Interfaces_FelixMB/blob/main/Unidad_01/practica_primer_trimestre/index.html) 
-|    [HTML](Unidad_01/practica_primer_trimestre/index.html) 
-|    [CSS](Unidad_01/practica_primer_trimestre/styles.css) 
-
+| Práctica primer trimestre |
+| --------------------------------------------------------------|
+| [Previsualización de la página](https://htmlpreview.github.io/?https://github.com/host4ideas/Interfaces_FelixMB/blob/main/Unidad_01/practica_primer_trimestre/index.html)|
+|   [HTML](Unidad_01/practica_primer_trimestre/index.html) |
+|   [CSS](Unidad_01/practica_primer_trimestre/styles.css) 

@@ -14,19 +14,15 @@ header {
     padding: 10px;
 }
 
-a[href] {
-    text-decoration: none;
-    color: black;
-}
-
 /* Menu */
 
 ul {
     display: flex;
     list-style: none;
+    flex-wrap: wrap;
 }
 
-.nav1 li a {
+.nav1 li {
     padding: 10px 12px;
 }
 
@@ -82,6 +78,21 @@ Main
     text-align: center;
 }
 
+.slider>div:nth-child(2) {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.slider>div>a {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: rgb(238, 56, 56);
+    color: black;
+    text-decoration: none;
+    border-radius: 50%;
+    margin: 0 0 0.5rem 0;
+}
+
 .slides {
     display: flex;
     overflow-x: hidden;
@@ -102,27 +113,6 @@ Main
     align-items: center;
 }
 
-.slider>a {
-    display: inline-flex;
-    width: 1.5rem;
-    height: 1.5rem;
-    background: rgb(238, 56, 56);
-    text-decoration: none;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin: 0 0 0.5rem 0;
-    position: relative;
-}
-
-.slider>a:active {
-    top: 1px;
-}
-
-.slider>a:focus {
-    background: #000;
-}
-
 /* Produts */
 
 .far {
@@ -134,6 +124,10 @@ Main
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+.far:hover {
+    font-size: 1.5rem;
 }
 
 .products>div {
@@ -157,45 +151,58 @@ Main
 Footer
 ########### */
 
-.terms-conditions, .separator {
-    float: left;
+footer div {
+    font-style: normal;
+    text-transform: uppercase;
 }
 
-.terms-conditions, .newsletter {
-    border-top: solid black 1px;
-}
-
-.terms-conditions>span {
+footer>div:nth-child(1) {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: row;
+    margin-top: 200px;
 }
 
-.separator>span {
+.left-container, .rigth-container {
+    border-top: solid black 1px;
+    flex-basis: 200px;
+    flex-grow: 1;
+    padding: 50px 25px 0 25px;
+}
+
+.rigth-container>span {
+    background-color: rgba(53, 47, 41, 0.5);
+    border-radius: 10px;
+    margin-left: 10px;
+    width: 200px;
+}
+
+.middel-container {
+    margin-bottom: 100px;
+}
+
+.middel-container>span {
     display: block;
     text-align: center;
 }
 
-.separator > hr {
+.middel-container>hr {
     transform: rotate(90deg);
+    position: relative;
+    top: 50px;
 }
 
-footer div {
-    font-style: normal;
-    text-transform: uppercase;
-    margin: 50px;
-    padding: 20px;
+.middel-container > .social-media {
+    align-self: flex-end;
 }
 
 .social-media {
-    align-items: flex-end;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: rgba(53, 47, 41, 0.5);
     text-align: center;
 }
 
 .social-media>i {
     transition-duration: 500ms;
-    padding: 5px;
 }
 
 .social-media>i:hover {

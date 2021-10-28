@@ -44,6 +44,7 @@ ul {
     display: flex;
     list-style: none;
     flex-wrap: wrap;
+    padding: 0;
 }
 
 .nav1 {
@@ -69,7 +70,7 @@ ul {
 .nav1 li:hover>ul {
     display: block;
     background-color: aliceblue;
-    margin-top: 10px;
+    margin: 10px;
 }
 
 /* shopping-search */
@@ -77,7 +78,6 @@ ul {
 input[list] {
     border: 1px solid rgba(53, 47, 41, 0.1);
 }
-
 
 .fa-shopping-cart {
     color: rgb(124, 23, 56);

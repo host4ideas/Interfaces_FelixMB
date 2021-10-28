@@ -16,10 +16,26 @@ header {
 
 /* Img */
 
-header>img {
-    position: relative;
-    left: 30rem;
+header>div {
+    display: flex;
+    justify-content: center;
+}
+
+header>div>img {
     width: 100px;
+}
+
+/* Menu and shopping search positions */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+nav>div {
+    margin-bottom: 7px;
 }
 
 /* Menu */
@@ -58,14 +74,10 @@ ul {
 
 /* shopping-search */
 
-nav>div {
-    display: flex;
-    justify-content: flex-end;
-}
-
 input[list] {
     border: 1px solid rgba(53, 47, 41, 0.1);
 }
+
 
 .fa-shopping-cart {
     color: rgb(124, 23, 56);
@@ -220,13 +232,11 @@ footer>div:nth-child(1) {
     width: 200px;
     text-align: center;
     height: 25px;
-    z-index: -1;
+    margin-left: -10px;
 }
 
 .rigth-container>div>input {
     height: 25px;
-    z-index: 1;
-    border: 0;
     border: 1px solid rgba(53, 47, 41, 0.1);
 }
 

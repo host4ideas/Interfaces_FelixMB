@@ -28,12 +28,16 @@ section>div:nth-child(1) {
     margin: 0;
 }
 
-section>div:nth-child(1)>div:nth-child(1) {
+.caja-superior {
+    height: 25%;
+    flex-grow: 1;
     margin: 10px 0 0 10px;
 }
 
-section>div:nth-child(1)>div:nth-child(2) {
-    margin: 10px 0 10px 10px;
+.caja-inferior {
+    height: 65%;
+    flex-grow: 1;
+    margin: 10px 0px 10px 10px;
 }
 
 .cajas-flex {

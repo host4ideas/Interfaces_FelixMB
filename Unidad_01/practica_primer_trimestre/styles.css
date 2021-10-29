@@ -9,9 +9,14 @@ Header
 ########### */
 
 header {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    position: fixed;
     border-radius: 5px;
     background: linear-gradient(to top, rgb(233, 18, 65), rgb(248, 173, 138));
     padding: 10px;
+    z-index: 1;
 }
 
 /* Img */
@@ -31,12 +36,15 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     border-radius: 5px;
 }
 
 nav>div {
-    margin-bottom: 7px;
+    position: relative;
+    top: 20px;
+    left: 50px;
+    margin-left: -50px;
 }
 
 /* Menu */
@@ -55,8 +63,7 @@ ul {
 }
 
 .nav1 li {
-    padding: 10px 10px;
-    transition-duration: 500ms;
+    padding: 10px 1.25rem;
 }
 
 .nav1 li ul {
@@ -64,7 +71,7 @@ ul {
     position: absolute;
     border-radius: 5px;
     font-size: 0.75rem;
-    border: 1px rgba(106, 196, 196, 0.5) solid;
+    border: 1px solid rgba(53, 47, 41, 0.3);
     text-align: center;
 }
 
@@ -76,20 +83,46 @@ ul {
 
 /* shopping-search */
 
-input[list] {
-    border: 1px solid rgba(53, 47, 41, 0.1);
+.custom-select {
+    display: inline;
+    height: 1.5rem;
+}
+
+select {
+    visibility: hidden;
+    position: relative;
+    left: -75px;
+    width: 50px;
+}
+
+.custom-select:hover>select, option {
+    visibility: visible;
+    border: 0;
 }
 
 .fa-shopping-cart {
-    color: rgb(124, 23, 56);
+    position: relative;
+    top: 2px;
     margin-right: 5px;
-    margin-top: 1px;
+    font-size: 1.25rem;
+}
+
+.fa-search {
+    position: relative;
+    right: 25px;
+    top: 2px;
+    background-color: aliceblue;
 }
 
 /* 
 ###########
 Main
 ########### */
+
+main {
+    margin-top: 200px;
+    z-index: -1;
+}
 
 .products img, .carousel img {
     width: 250px;
@@ -239,6 +272,11 @@ footer>div:nth-child(1) {
 .rigth-container>div>input {
     height: 25px;
     border: 1px solid rgba(53, 47, 41, 0.1);
+    font-family: "Space Mono", monospace;
+}
+
+.rigth-container>div>input:focus {
+    width: 35%;
 }
 
 .middel-container {
@@ -259,7 +297,7 @@ footer>div:nth-child(1) {
 .social-media {
     position: relative;
     bottom: -120px;
-    font-size: 1.2em;
+    font-size: 1.5em;
     text-align: center;
 }
 

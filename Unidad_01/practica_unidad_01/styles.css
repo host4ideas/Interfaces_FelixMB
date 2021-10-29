@@ -3,7 +3,7 @@ body {
     font-family: "Poppins";
 }
 
-/* 
+/*
 ###########
 Header
 ########### */
@@ -12,11 +12,9 @@ header {
     top: 5px;
     left: 5px;
     right: 5px;
-    position: fixed;
     border-radius: 5px;
     background: linear-gradient(to top, rgb(233, 18, 65), rgb(248, 173, 138));
     padding: 10px;
-    z-index: 1;
 }
 
 /* Img */
@@ -91,13 +89,24 @@ ul {
 select {
     visibility: hidden;
     position: relative;
-    left: -75px;
+    left: 150px;
+    bottom: 25px;
     width: 50px;
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    appearance: none;
 }
 
-.custom-select:hover>select, option {
+.custom-select:hover>div>select {
     visibility: visible;
-    border: 0;
+}
+
+.custom-select:hover i{
+    visibility: visible;
 }
 
 .fa-shopping-cart {
@@ -108,6 +117,7 @@ select {
 }
 
 .fa-search {
+    visibility: hidden;
     position: relative;
     right: 25px;
     top: 2px;

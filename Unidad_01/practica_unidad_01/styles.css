@@ -1,3 +1,8 @@
+html {
+    scroll-padding-top: 200px;
+    /* height of sticky header */
+}
+
 body {
     background-color: beige;
     font-family: "Poppins";
@@ -9,6 +14,7 @@ Header
 ########### */
 
 header {
+    position: fixed;
     top: 5px;
     left: 5px;
     right: 5px;
@@ -41,8 +47,6 @@ nav {
 nav>div {
     position: relative;
     top: 20px;
-    left: 50px;
-    margin-left: -50px;
 }
 
 /* Menu */
@@ -74,9 +78,26 @@ ul {
 }
 
 .nav1 li:hover>ul {
+    position: absolute;
     display: block;
+    margin: 10px 0 0 0;
+    text-align: center;
+    font-size: 0.75rem;
+    border: 1px solid rgba(53, 47, 41, 0.3);
+    border-radius: 5px;
     background-color: aliceblue;
-    margin: 10px;
+}
+
+.arrow-top::after {
+    color: transparent;
+    content: " ";
+    position: absolute;
+    right: 60px;
+    top: -11px;
+    border-top: none;
+    border-right: 15px solid;
+    border-left: 15px solid;
+    border-bottom: 15px solid aliceblue;
 }
 
 /* shopping-search */
@@ -89,9 +110,9 @@ ul {
 select {
     visibility: hidden;
     position: relative;
-    left: 150px;
+    left: 175px;
     bottom: 25px;
-    width: 50px;
+    width: 35px;
     background-color: transparent;
     border: none;
     font-family: inherit;
@@ -105,7 +126,7 @@ select {
     visibility: visible;
 }
 
-.custom-select:hover i{
+.custom-select:hover i {
     visibility: visible;
 }
 
@@ -302,6 +323,7 @@ footer>div:nth-child(1) {
     transform: rotate(90deg);
     position: relative;
     top: 60px;
+    width: 100px;
 }
 
 .social-media {

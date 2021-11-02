@@ -91,7 +91,7 @@ ul {
 
 .arrow-top::after {
     color: transparent;
-    content: " ";
+    content: "";
     position: absolute;
     right: 60px;
     top: -11px;

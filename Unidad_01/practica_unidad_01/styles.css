@@ -295,7 +295,7 @@ footer>div:nth-child(1) {
     margin-top: 200px;
 }
 
-.left-container, .rigth-container {
+.left-container, .right-container {
     border-top: solid black 1px;
     flex-basis: 200px;
     flex-grow: 1;
@@ -310,13 +310,13 @@ footer>div:nth-child(1) {
     justify-content: space-between;
 }
 
-.rigth-container>div {
+.right-container>div {
     background-color: aliceblue;
     padding: 10px;
     border: 1px solid rgba(53, 47, 41, 0.1);
 }
 
-.rigth-container>div>div {
+.right-container>div>div {
     display: inline-block;
     background-color: rgba(53, 47, 41, 0.5);
     width: 200px;
@@ -325,13 +325,13 @@ footer>div:nth-child(1) {
     margin-left: -10px;
 }
 
-.rigth-container>div>input {
+.right-container>div>input {
     height: 25px;
     border: 1px solid rgba(53, 47, 41, 0.3);;
     font-family: "Space Mono", monospace;
 }
 
-.rigth-container>div>input:focus {
+.right-container>div>input:focus {
     width: 35%;
 }
 

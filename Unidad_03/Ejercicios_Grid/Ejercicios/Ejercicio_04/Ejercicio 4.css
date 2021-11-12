@@ -8,6 +8,10 @@ body{
 	grid-template-columns: repeat(12, 1fr);
 	grid-template-rows: 20vh 1fr 20vh;
 	grid-gap: 5px;
+	grid-template-areas: 
+	"head head"
+	"menu main"
+	"foot foot";
 }
 
 .item {
@@ -18,7 +22,7 @@ body{
 }
 
 .container > header {
-	
+	grid-template-columns: 2fr;
 }
 
 .container > main {

@@ -1,5 +1,5 @@
-body{
-	margin: 0;	
+body {
+	margin: 0;
 }
 
 .container {
@@ -8,10 +8,7 @@ body{
 	grid-template-columns: repeat(12, 1fr);
 	grid-template-rows: 20vh 1fr 20vh;
 	grid-gap: 5px;
-	grid-template-areas: 
-	"head head"
-	"menu main"
-	"foot foot";
+	grid-template-areas: ". . . head head head head head head . . ." "menu main" "footer footer";
 }
 
 .item {
@@ -21,18 +18,18 @@ body{
 	align-items: center;
 }
 
-.container > header {
-	grid-template-columns: 2fr;
+.container>header {
+	grid-area: head;
 }
 
-.container > main {
-	
+.container>main {
+	grid-area: main;
 }
 
-.container > aside {
-	
+.container>aside {
+	grid-area: aside;
 }
 
-.container > footer {
-	
+.container>footer {
+	grid-area: footer;
 }

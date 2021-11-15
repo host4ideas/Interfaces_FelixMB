@@ -1,10 +1,9 @@
-
 .box {
 	background-color: #444;
 	color: #fff;
 	border-radius: 5px;
 	padding: 1em;
-	font-size: 150%;	
+	font-size: 150%;
 }
 
 .wrapper {
@@ -21,4 +20,25 @@
 .box .box {
 	background-color: #ccc;
 	color: #444;
+}
+
+.a {
+	grid-column: span 2;
+}
+
+.b {
+	grid-column: 4;
+}
+
+.c {
+	grid-row: 2 / span 2;
+}
+
+.e {
+	grid-column: span 3;
+	grid-row: 2;
+}
+
+.d {
+	grid-column: 3;
 }

@@ -56,15 +56,17 @@ div.container aside {
   }
   div.container article {
     background-image: url(img/content-is-like-water-3.jpg);
+    height: 25rem;
   }
 }
 
 @media screen and (max-width: 576px) {
   div.container {
-    grid-template-areas: "nav aside" "article";
-    
+    grid-template-areas: "nav nav" "article article" "aside aside";
   }
   div.container article {
     background-image: url(img/content-is-like-water-1.jpg);
+    height: 15rem;
+    width: 100%;
   }
 }

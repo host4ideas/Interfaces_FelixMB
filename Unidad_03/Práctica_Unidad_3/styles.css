@@ -377,7 +377,7 @@ footer>div:nth-child(1) {
     }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 625px) {
     header>div {
         justify-content: flex-start;
         align-content: flex-start;
@@ -397,11 +397,9 @@ footer>div:nth-child(1) {
         top: 0;
         margin: auto;
     }
-    .footer * {
-        display: grid;
-    }
     .left-container, .right-container, .middel-container {
         font-size: 0.75rem;
+        width: 50%;
     }
     .left-container, .right-container {
         border-color: rgb(73, 73, 73, 0.6);

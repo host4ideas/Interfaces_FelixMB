@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Este ejemplo sirve para probar un componente y el uso de eventos --> 
+  <title>Native Web Component</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+</head>
+
+<body>
+	<my-button label="Click Me" as-atom></my-button>
+	
+	<script src="mybutton.js"></script>
+	
+	<!-- Definición de onclick desde el navegador -->
+	<script>
+		document.querySelector('my-button').onclick = event => event.target.setAttribute("label", "Nuevo contenido desde click en HTML");		
+	</script>	
+</body>
+
+</html>

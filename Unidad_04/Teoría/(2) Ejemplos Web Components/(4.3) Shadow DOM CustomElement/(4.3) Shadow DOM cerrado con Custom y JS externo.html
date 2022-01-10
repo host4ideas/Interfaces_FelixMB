@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Este ejemplo sirve para entender el uso básico del shadow DOM dentro de un CustomElement y ver cómo se encapsulan los estilos -->
+	<!-- En este ejemplo el CustomElement declara el template directamente en el JavaScript y se inicia en modo closed -->
+	<meta charset="UTF-8">
+	<title>Shadow DOM</title>
+	<style>
+		p{
+			color: red;
+		}	
+	</style>
+</head>
+<body>
+	<p id="elem">Hola</p>
+			
+	<!-- Componente web que también contiene un párrafo, pero al tener shadow DOM tiene estilos diferentes -->		
+	<hello-world></hello-world>
+
+	<script src="hello-world.js"></script>	
+	<script>
+		// Aún creando el shadow DOM cerrado, si lo llevamos a una variable ocurre lo mismo (y las propiedades privadas con # delante aún dan bastantes problemas en JavaScript)
+		console.log(document.querySelector("hello-world")._shadowRoot);
+	</script>
+</body>
+</html>

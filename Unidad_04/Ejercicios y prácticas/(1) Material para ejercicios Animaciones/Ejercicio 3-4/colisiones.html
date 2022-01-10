@@ -1,24 +1,29 @@
 ﻿<!DOCTYPE html>
 
 <html>
+
 <head>
-	<title>Ejemplo de animación con colisiones</title>
-	
+	<!-- jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="colisiones.css">
-	<script type="text/javascript" src="colisiones.js"></script> <!-- Archivo que habría que incluir con la funcionalidad -->
+	<title>Ejemplo de animación con colisiones</title>
 </head>
+
 <body>
 	<div id="container">
 		<div id="controles">
-			<button id="left">&laquo;</button> 
+			<button id="left">&laquo;</button>
 			<button id="right">&raquo;</button>
-			<button id="top">&laquo;</button> 
+			<button id="top">&laquo;</button>
 			<button id="bottom">&laquo;</button>
 			<input type="number" value="50" id="mov"></input>
-			<div class="block" draggable="true"><span id="texto">Pincha aquí también<span></div>
+			<div class="block" draggable="true" id="draggableSquare"><span id="texto">Pincha aquí también<span></div>
 		</div>
 		<div class="cuadrado"></div>
 	</div>
+	<!-- Archivo que habría que incluir con la funcionalidad -->
+	<script type="text/javascript" src="colisiones.js"></script>
 </body>
-</html>
 
+</html>

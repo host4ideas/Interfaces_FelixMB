@@ -1,0 +1,12 @@
+@charset "UTF-8";
+article {
+  /* Si se trata de cálculos entre píxeles y porcentajes habría a su vez que incluir calc */
+  float: left;
+  width: 62.5%;
+}
+
+aside {
+  float: right;
+  width: 31.25%;
+}
+/*# sourceMappingURL=(11) Operadores.css.map */

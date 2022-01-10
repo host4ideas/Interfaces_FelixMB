@@ -1,0 +1,18 @@
+@mixin aplicar-fondo($border-pars){
+	body {
+		border: $border-pars;		
+		@content;		
+	}
+	
+	/* Si pusiéramos aquí el valor @content no se aplicaría a ningún selector (el CSS se genera con este comentario fuera) */
+}
+
+@include aplicar-fondo(1px solid red) {		
+	#fondo {			
+		background-color: blue;	
+		height: 200px;		
+	}
+	
+	margin: 0;
+	padding: 0;
+}

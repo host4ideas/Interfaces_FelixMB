@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACC,GADE,CACF,EAAE,AAAA,CACD,MAAM,CAAE,CAAC,CACT,OAAO,CAAE,CAAC,CACV,UAAU,CAAE,IAAI,CAMhB,AAVF,AAME,GANC,CACF,EAAE,CAKD,EAAE,AAAA,CACD,OAAO,CAAE,YAAY,CACrB,MAAM,CAAE,eAAe,CACvB",
+    "sources": [
+        "../../scss/(4) Anidado.scss"
+    ],
+    "names": [],
+    "file": "(4) Anidado.min.css"
+}

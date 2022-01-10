@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": ";ACEA,AAAA,IAAI,EAAE,IAAI,EAAE,EAAE,CAAC;EACd,MAAM,EAHA,CAAC;EAIP,OAAO,EAJD,CAAC;CAKP;;ADLgB,wIAAwI;AEAzJ,AACC,GADE,CACF,EAAE,CAAA;EACD,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,UAAU,EAAE,IAAI;CAMhB;;AAVF,AAME,GANC,CACF,EAAE,CAKD,EAAE,CAAA;EACD,OAAO,EAAE,YAAY;EACrB,MAAM,EAAE,eAAe;CACvB;;AFRoB,8FAA8F;AAErH,AAAA,IAAI,CAAA;EACH,IAAI,EAAE,0BAA0B;EAChC,gBAAgB,EAAE,OAAO;CACzB",
+    "sources": [
+        "../scss/(5) Import.scss",
+        "../scss/_reset.scss",
+        "../scss/(4) Anidado.scss"
+    ],
+    "names": [],
+    "file": "(5) Import.css"
+}

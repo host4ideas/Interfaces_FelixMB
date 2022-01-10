@@ -1,0 +1,13 @@
+$position: left; 
+
+@mixin car($brand,$color_border,$color_bg){		
+	.objeto .#{$brand} {
+		border-#{$position}: 2px solid $color_border;				
+		background-color: $color_bg;				
+		background-image: url('../img/#{$brand}-#{$color_bg}.png'); 
+		background-size: contain;
+		height: 100px;
+	} 
+} 
+
+@include car(pelota, red, blue);  

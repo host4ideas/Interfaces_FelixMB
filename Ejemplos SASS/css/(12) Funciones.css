@@ -1,0 +1,14 @@
+@charset "UTF-8";
+.funcion {
+  /* Ejemplos de funciones relacionadas con colores */
+  width: 240px;
+  color: #f6430f;
+  background-color: #f8a58d;
+}
+
+#sidebar {
+  font-family: "Helvetica";
+  /* Ejemplo de función relacionada con strings */
+  height: 240px;
+}
+/*# sourceMappingURL=(12) Funciones.css.map */

@@ -1,0 +1,22 @@
+@for $i from 1 to 4	{
+	.item-#{$i}	{	
+		height: 3em * ($i/2);
+		width: 2em * $i;
+		border: #{$i}px solid black;
+		margin-bottom: #{$i/4}em;
+	} 
+}
+
+@mixin order($width, $height, $selectors...) {
+  @for $i from 0 to length($selectors) {
+    .#{nth($selectors, $i + 1)} {
+      position: absolute;
+      width: $width;     
+      height: $height;
+      margin-top: $i * $height;
+      border: #{$i+1}px solid black;  
+    }
+  }
+}
+
+@include order(150px, 150px, "item-a", "item-b", "item-c");

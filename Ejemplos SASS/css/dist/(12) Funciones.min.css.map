@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,QAAQ,AAAC,CACR,KAAK,CAHQ,KAAK,CAIlB,KAAK,CAAE,OAAmB,CAC1B,gBAAgB,CAAE,OAAmB,CACrC,AAMD,AAAA,QAAQ,AAAC,CAIR,WAAW,CAAE,WAAkC,CAC/C,MAAM,CARE,KAAuD,CAS/D",
+    "sources": [
+        "../../scss/(12) Funciones.scss"
+    ],
+    "names": [],
+    "file": "(12) Funciones.min.css"
+}

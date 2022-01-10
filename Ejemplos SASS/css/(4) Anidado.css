@@ -1,0 +1,11 @@
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li {
+  display: inline-block;
+  border: 1px solid black;
+}
+/*# sourceMappingURL=(4) Anidado.css.map */

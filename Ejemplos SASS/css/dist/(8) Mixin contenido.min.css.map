@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACC,AAAA,IAAI,AAAC,CACJ,MAAM,CAOe,GAAG,CAAC,KAAK,CAAC,GAAG,CAMnC,MAAM,CAAE,CAAC,CACT,OAAO,CAAE,CAAC,CAZT,AAHD,AASA,IATI,CASJ,MAAM,AAAC,CACN,gBAAgB,CAAE,IAAI,CACtB,MAAM,CAAE,KAAK,CACb",
+    "sources": [
+        "../../scss/(8) Mixin contenido.scss"
+    ],
+    "names": [],
+    "file": "(8) Mixin contenido.min.css"
+}

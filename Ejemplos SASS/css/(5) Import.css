@@ -1,0 +1,24 @@
+@charset "UTF-8";
+html, body, ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* El primer guión no se interpreta como nombre y no se indica en la ruta, es para indicar que no se debe compilar como un CSS aparte */
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li {
+  display: inline-block;
+  border: 1px solid black;
+}
+
+/* Se pueden importar rutas relativas del estilo a carpeta/(4) Anidado o ../../(4) Anidado  */
+body {
+  font: 100% Helvetica, sans-serif;
+  background-color: #efefef;
+}
+/*# sourceMappingURL=(5) Import.css.map */

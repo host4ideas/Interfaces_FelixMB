@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAMA,AAAA,IAAI,AAAA,OAAO,CAAA;EACV,OAAO,EAPE,eAAe;CAQxB;;AAED,AAAA,IAAI,CAAA;EACH,MAAM,EARO,GAAG,CAAC,KAAK,CAAC,KAAK;CAS5B",
+    "sources": [
+        "../scss/(2) Defecto.scss"
+    ],
+    "names": [],
+    "file": "(2) Defecto.css"
+}

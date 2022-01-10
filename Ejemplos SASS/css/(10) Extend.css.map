@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,EAKR,QAAQ,EAKR,MAAM,CAVE;EACP,KAAK,EAAE,IAAI;EACX,YAAY,EAAE,KAAK;CACnB;;AAED,AAAA,QAAQ,CAAA;EAEP,YAAY,EAAE,KAAK;CACnB;;AAED,AAAA,MAAM,CAAC;EAEN,YAAY,EAAE,GAAG;CACjB",
+    "sources": [
+        "../scss/(10) Extend.scss"
+    ],
+    "names": [],
+    "file": "(10) Extend.css"
+}

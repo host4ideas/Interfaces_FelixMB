@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,OAAO,AAAA,CACN,KAAK,CAAE,IAAI,CACX,KAAK,CAAE,KAAwB,CAC/B,AAED,AAAA,KAAK,AAAC,CACL,KAAK,CAAE,KAAK,CACZ,KAAK,CAAE,MAA8B,CACrC",
+    "sources": [
+        "../../scss/(11) Operadores.scss"
+    ],
+    "names": [],
+    "file": "(11) Operadores.min.css"
+}

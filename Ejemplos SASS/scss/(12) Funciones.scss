@@ -1,0 +1,20 @@
+$base: #f04615; 
+$list: 120px, 240px, 480px; 
+
+.funcion {	/* Ejemplos de funciones relacionadas con colores */	
+	width: nth($list, 2);
+	color: saturate($base, 5%);		
+	background-color: lighten($base, 25%); 
+}
+
+@function grid-height($n, $grid-height, $gutter-height, $unidad) {
+	@return ($n * $grid-height + ($n - 1) * $gutter-height)+$unidad; 
+} 
+
+#sidebar {	
+	$grid-height: 40; 
+	$gutter-height: 10; 
+	$unidad: px;
+	font-family: str-slice("Helvetica Neue", 1, -6); /* Ejemplo de función relacionada con strings */
+	height: grid-height(5, $grid-height, $gutter-height, $unidad);
+}

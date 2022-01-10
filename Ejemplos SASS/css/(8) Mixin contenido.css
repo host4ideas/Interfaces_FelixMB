@@ -1,0 +1,14 @@
+@charset "UTF-8";
+body {
+  border: 1px solid red;
+  margin: 0;
+  padding: 0;
+}
+
+body #fondo {
+  background-color: blue;
+  height: 200px;
+}
+
+/* Si pusiéramos aquí el valor @content no se aplicaría a ningún selector (el CSS se genera con este comentario fuera) */
+/*# sourceMappingURL=(8) Mixin contenido.css.map */

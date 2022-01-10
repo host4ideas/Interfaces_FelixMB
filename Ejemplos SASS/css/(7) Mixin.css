@@ -1,0 +1,18 @@
+.radius {
+  /* Dos argumentos, uno con valor por defecto */
+  border-radius: 10px 10px;
+}
+
+.shadows {
+  /* Puede coger todos los argumentos a la vez */
+  -webkit-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+}
+
+.box {
+  /* Proceso contrario para pasar todos los argumentos a la vez con el argumento $values... */
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+/*# sourceMappingURL=(7) Mixin.css.map */

@@ -1,0 +1,41 @@
+.juego {
+  width: 20%;
+  height: 200px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Mirar con mapas */
+.rock-img {
+  background-image: url("../img/rock.png");
+}
+
+/* Mirar con mapas */
+.paper-img {
+  background-image: url("../img/paper.png");
+}
+
+/* Mirar con mapas */
+.scissors-img {
+  background-image: url("../img/scissors.png");
+}
+
+.icon-game:before {
+  display: inline-block;
+  font-family: "Icon Font";
+  content: "Icon game";
+}
+
+.icon-start:before {
+  display: inline-block;
+  font-family: "Icon Font";
+  content: "Icon start";
+}
+
+.icon-stop:before {
+  display: inline-block;
+  font-family: "Icon Font";
+  content: "Icon stop";
+}
+/*# sourceMappingURL=(15) Each.css.map */

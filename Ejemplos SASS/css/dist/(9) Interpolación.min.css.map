@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAGC,AAAA,OAAO,CAAC,OAAO,AAAI,CAClB,WAAmB,CAAS,GAAG,CAAC,KAAK,CAQlB,GAAG,CAPtB,gBAAgB,CAOQ,IAAI,CAN5B,gBAAgB,CAAE,6BAAwC,CAC1D,eAAe,CAAE,OAAO,CACxB,MAAM,CAAE,KAAK,CACb",
+    "sources": [
+        "../../scss/(9) Interpolación.scss"
+    ],
+    "names": [],
+    "file": "(9) Interpolación.min.css"
+}

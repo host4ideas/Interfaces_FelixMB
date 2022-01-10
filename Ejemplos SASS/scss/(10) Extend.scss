@@ -1,0 +1,14 @@
+.message{		
+	color: #363;
+	border-style: solid;
+}
+
+.success{		
+	@extend .message;		
+	border-color: green; 
+} 
+
+.error {
+	@extend	.message;	
+	border-color: red; 
+}

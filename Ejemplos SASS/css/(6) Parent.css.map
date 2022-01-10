@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,CAAC,CAAC;EACD,WAAW,EAAE,IAAI;EACjB,eAAe,EAAE,IAAI;CAOrB;;AATD,AAGC,CAHA,AAGC,MAAM,CAAC;EACP,eAAe,EAAE,SAAS;CAC1B;;AACD,AAAA,GAAG,AAAA,OAAO,CANX,CAAC,CAMY;EACX,KAAK,EAAE,MAAM;CACb",
+    "sources": [
+        "../scss/(6) Parent.scss"
+    ],
+    "names": [],
+    "file": "(6) Parent.css"
+}

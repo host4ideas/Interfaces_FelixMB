@@ -1,0 +1,13 @@
+$var_fore: red; 
+$var_back: white;
+
+#page {
+	$var_fore: white !default;
+	$var_back: black;
+
+	#header	{				
+		color: $var_fore; // red porque tiene el valor default
+		background-color: $var_back; // black porque se sobreescribe
+	}	 
+	
+}

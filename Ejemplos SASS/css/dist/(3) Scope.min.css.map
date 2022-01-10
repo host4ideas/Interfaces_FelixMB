@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAIC,KAJI,CAIJ,OAAO,AAAC,CACP,KAAK,CARI,GAAG,CASZ,gBAAgB,CAJN,IAAK,CAKf",
+    "sources": [
+        "../../scss/(3) Scope.scss"
+    ],
+    "names": [],
+    "file": "(3) Scope.min.css"
+}

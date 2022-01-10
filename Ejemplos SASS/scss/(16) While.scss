@@ -1,0 +1,15 @@
+div[class*="item"]{
+	border: 1px solid black;
+}
+
+$i: 6;
+
+@while $i > 0 {		
+	.item-#{$i} {	
+		width: 100% / $i;
+		height: 100px - (100 / $i);
+		margin-bottom: 3em / $i;
+	}		
+	$i: $i - 2;
+	
+}

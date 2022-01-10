@@ -1,0 +1,19 @@
+$margin: 1em;
+
+article{
+	border: 1px solid black;
+	width: 50%;
+	float: left;
+	height: 50px;
+	box-sizing: border-box;
+}
+
+.izquierda{
+	margin-right: $margin;
+}
+
+@if	$margin != 0 {	
+	article{ /* Generado por SASS si hay margen	*/
+		width: calc(50% - #{$margin / 2});
+	}	
+}

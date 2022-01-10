@@ -1,0 +1,13 @@
+$content: "First content"; 
+$content: "Second content" !default; 
+
+$new_content: 1px solid black !default;
+$new_content: 2px solid yellow !default;
+
+main:before{		
+	content: $content;		
+}
+
+main{
+	border: $new_content;
+}

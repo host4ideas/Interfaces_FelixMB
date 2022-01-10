@@ -1,0 +1,7 @@
+@import	'reset'; /* El primer guión no se interpreta como nombre y no se indica en la ruta, es para indicar que no se debe compilar como un CSS aparte */
+@import '(4) Anidado'; /* Se pueden importar rutas relativas del estilo a carpeta/(4) Anidado o ../../(4) Anidado  */
+
+body{		
+	font: 100% Helvetica, sans-serif;		
+	background-color: #efefef; 
+}

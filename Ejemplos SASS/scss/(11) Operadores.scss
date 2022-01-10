@@ -1,0 +1,12 @@
+$total: 960px;
+$inicial: 600px;
+
+article{ /* Si se trata de cálculos entre píxeles y porcentajes habría a su vez que incluir calc */
+	float: left;
+	width: $inicial / $total * 100%; 
+} 
+
+aside {
+	float: right;		
+	width: ($inicial / 2) / $total * 100%; 
+}

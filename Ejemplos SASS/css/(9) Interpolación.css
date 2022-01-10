@@ -1,0 +1,8 @@
+.objeto .pelota {
+  border-left: 2px solid red;
+  background-color: blue;
+  background-image: url("../img/pelota-blue.png");
+  background-size: contain;
+  height: 100px;
+}
+/*# sourceMappingURL=(9) Interpolación.css.map */

@@ -18,9 +18,10 @@
 			<button id="top">&laquo;</button>
 			<button id="bottom">&laquo;</button>
 			<input type="number" value="50" id="mov"></input>
-			<div class="block" draggable="true" id="draggableSquare"><span id="texto">Pincha aquí también<span></div>
+			<div class="block" draggable="true" id="draggableSquare" draggable="true" ondragstart="drag(event)"><span
+					id="texto">Pincha aquí también<span></div>
 		</div>
-		<div class="cuadrado"></div>
+		<div class="cuadrado" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 	</div>
 	<!-- Archivo que habría que incluir con la funcionalidad -->
 	<script type="text/javascript" src="colisiones.js"></script>

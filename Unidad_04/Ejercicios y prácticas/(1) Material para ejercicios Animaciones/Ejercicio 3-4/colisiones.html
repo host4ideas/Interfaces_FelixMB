@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<div id="container">
+	<div id="container" ondrop="drop(event)" ondragover="allowDrop(event)">
 		<div id="controles">
 			<button id="left">&laquo;</button>
 			<button id="right">&raquo;</button>
@@ -21,7 +21,7 @@
 			<div class="block" draggable="true" id="draggableSquare" draggable="true" ondragstart="drag(event)"><span
 					id="texto">Pincha aquí también<span></div>
 		</div>
-		<div class="cuadrado" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+		<div class="cuadrado" id="cuadradoFijo"></div>
 	</div>
 	<!-- Archivo que habría que incluir con la funcionalidad -->
 	<script type="text/javascript" src="colisiones.js"></script>

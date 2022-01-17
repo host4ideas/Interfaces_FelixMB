@@ -1,4 +1,5 @@
 let counter = 0;
+let timer = 0;
 const mainContainer = document.getElementById("mainContainer");
 
 const randomColor = () => {
@@ -11,46 +12,54 @@ const randomColor = () => {
 }
 
 /**
- * Function with a timeout
- */
-
-const animationFunction = () => {
-    var newDiv = document.createElement("div");
-
-    newDiv.style.height = "50px";
-    newDiv.style.backgroundColor = randomColor();
-    newDiv.style.margin = "5px";
-    mainContainer.appendChild(newDiv);
-}
-
-/**
  * Clear function
  */
-
 const clearDiv = () => {
     while (mainContainer.firstChild) {
         mainContainer.removeChild(mainContainer.firstChild);
     }
 };
 
-const callbackFunction = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log("test");
-            counter++;
-            counter < 5 && animationFunction();
-        }, 1000);
-
-        mainContainer.onclick = () => {
-            counter = 0;
-            clearDiv();
-            callbackFunction();
-        };
-        counter = 0;
-        clearDiv();
-        callbackFunction();
-    })
+/**
+ * Add child divs function
+ */
+const animationFunction = () => {
+    var newDiv = document.createElement("div");
+    newDiv.style.height = "50px";
+    newDiv.style.backgroundColor = randomColor();
+    newDiv.style.margin = "5px";
+    mainContainer.appendChild(newDiv);
+    counter++;
+    callAnimate(animationFunction);
 }
 
-// First initialization
-callbackFunction();
+/**
+ * We create a timeout function in order to use the same timeout for all the iterations,
+ * this way we don't create a new timeout in each iteraction in the callAnimate function
+ */
+const timeoutFunction = (f) => {
+    timer = setTimeout(f, 1000);
+}
+
+function callAnimate(callback) {
+    if (counter < 5) {
+        return new Promise(resolve => {
+            timeoutFunction(() => {
+                resolve(callback());
+            });
+        });
+    }
+}
+
+/**
+ * Onclick container funcitonality
+ */
+mainContainer.onclick = () => {
+    counter = 0;
+    clearDiv();
+    clearTimeout(timer);
+    callAnimate(animationFunction);
+};
+
+// First call of the program
+callAnimate(animationFunction);

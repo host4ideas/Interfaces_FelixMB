@@ -8,12 +8,24 @@ const cuadradoColision = $("#cuadradoFijo");
 
 // Square movement
 const moveElement = (direction, pixels) => {
-    draggableSquare.css(direction, `+=${pixels}`)
+    draggableSquare.get(0).animate([
+        { transform: `translate${direction}(${pixels}px)` }
+    ], {
+        duration: 1000,
+    });
+    setTimeout(() => {
+        if (direction == "X") {
+            draggableSquare.css("left", `+=${pixels}`)
+        } else {
+            draggableSquare.css("top", `+=${pixels}`)
+        }
+    }, 1000)
 }
-rightInput.onclick = () => setTimeout(moveElement, 1000, "left", inputPixels.value);
-leftInput.onclick = () => setTimeout(moveElement, 1000, "left", -inputPixels.value);
-topInput.onclick = () => setTimeout(moveElement, 1000, "top", -inputPixels.value);
-bottomInput.onclick = () => setTimeout(moveElement, 1000, "top", inputPixels.value);
+
+rightInput.onclick = () => moveElement("X", inputPixels.value);
+leftInput.onclick = () => moveElement("X", -inputPixels.value);
+topInput.onclick = () => moveElement("Y", -inputPixels.value);
+bottomInput.onclick = () => moveElement("Y", inputPixels.value);
 
 // Drag and drop code
 function allowDrop(ev) {
@@ -28,13 +40,21 @@ function drop(ev) {
     ev.preventDefault();
     var squareID = ev.dataTransfer.getData("square");
     const square = $(`#${squareID}`);
-    square.css("top", event.clientY);
-    square.css("left", event.clientX);
-    // Si la posicion del cuadrado
-    if (cuadradoColision.css("top") < square.css("top")
-    && cuadradoColision.css("top") + cuadradoColision.css("height") > square.css("top")
-    && cuadradoColision.css("left") < square.css("left")
-    && cuadradoColision.css("left") + cuadradoColision.css("width") > square.css("left")) {
-        $(`#${squareID}`).css("background-color", "red");
+    // event.clientX is deprecated
+    square.css("top", ev.clientY);
+    square.css("left", ev.clientX);
+    // Get the four squares
+    squareRect = square.get(0).getBoundingClientRect();
+    colisionRect = cuadradoColision.get(0).getBoundingClientRect();
+    console.log(squareRect);
+    console.log(colisionRect);
+    // 
+    if (colisionRect["top"] < squareRect["top"]
+        && colisionRect["bottom"] > squareRect["bottom"]
+        && colisionRect["left"] < squareRect["left"]
+        && colisionRect["right"] > squareRect["right"]) {
+        draggableSquare.css("background-color", "red");
+    } else {
+        draggableSquare.css("background-color", "greenyellow");
     }
 }

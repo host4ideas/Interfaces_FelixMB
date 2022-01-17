@@ -34,7 +34,6 @@ const animationFunction = () => {
     newDiv.style.margin = "5px";
     mainContainer.appendChild(newDiv);
     counter++;
-    callAnimate(animationFunction);
 }
 
 /**
@@ -51,14 +50,16 @@ const timeoutFunction = (f) => {
  * This is the 'main' function. Calls timeoutFunction to always use to the same timeout and then resolves
  * the a promise with the provided function which will be called back from animationFunction function.
  * @param {*} callback 
- * @returns Returns a promise that is resolved with the provided function as a parameter
  */
 function callAnimate(callback) {
     if (counter < 5) {
-        return new Promise(resolve => {
+        new Promise(resolve => {
             timeoutFunction(() => {
                 resolve(callback());
             });
+            // This is not necessary, only for exercises purposes
+        }).then(result => {
+            callAnimate(animationFunction);
         });
     }
 }

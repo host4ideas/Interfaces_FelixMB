@@ -61,7 +61,7 @@ const main = () => {
 				try {
 					progressText.html("Loading ...");
 					await Promise.race([fileOne, fileTwo]);
-					performedTask();
+					await performedTask();
 					progressText.html("El fichero cargó correctamente");
 				} catch (e) {
 					progressText.html(e.message);

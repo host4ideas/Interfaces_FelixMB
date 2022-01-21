@@ -1,4 +1,4 @@
-const main = async () => {
+const main = () => {
 	const fileOne = fetch("https://reqres.in/api/users");
 	const fileTwo = fetch("https://reqres.in/api/login");
 	const progressText = $("#progressText");
@@ -10,7 +10,6 @@ const main = async () => {
 		const end = +new Date() + duration;
 
 		const step = () => {
-			console.log("test");
 			let current = +new Date();
 			let remaining = end - current;
 
@@ -36,13 +35,13 @@ const main = async () => {
 		})
 	}
 
-	$("#startFetch").click(() => {
+	$("#startFetch").click(async () => {
 		switch ($("#fileSelection").val()) {
 			case "0":
 				try {
 					progressText.html("Loading ...");
 					await fileOne;
-					performedTask();
+					await performedTask();
 					progressText.html("El fichero cargó correctamente");
 				} catch (e) {
 					progressText.html(e.message);
@@ -52,7 +51,7 @@ const main = async () => {
 				try {
 					progressText.html("Loading ...");
 					await Promise.all([fileOne, fileTwo]);
-					performedTask();
+					await performedTask();
 					progressText.html("El fichero cargó correctamente");
 				} catch (e) {
 					progressText.html(e.message);

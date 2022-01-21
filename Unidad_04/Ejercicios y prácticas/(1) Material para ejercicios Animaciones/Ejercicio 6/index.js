@@ -29,8 +29,9 @@ const main = () => {
 
 	function performedTask() {
 		return new Promise(res => {
+			animate();
 			setTimeout(() => {
-				res(animate());
+				res();
 			}, 2000);
 		})
 	}
@@ -40,31 +41,31 @@ const main = () => {
 			case "0":
 				progressText.html("Loading ...");
 				fileOne.then(result => {
-					performedTask().then(result => {
-						progressText.html("El fichero cargó correctamente");
-					});
-				}, err => {
-					$("#progressText").html(err.message);
+					return performedTask();
+				}).then(result => {
+					progressText.html("El fichero cargó correctamente");
+				}).catch((err) => {
+					progressText.html(err);
 				});
 				break;
 			case "1":
 				progressText.html("Loading ...");
 				Promise.all([fileOne, fileTwo]).then(result => {
-					performedTask().then(result => {
-						progressText.html("El archivo cargó correctamente");
-					});
-				}, err => {
-					$("#progressText").html(err.message);
+					return performedTask();
+				}).then(result => {
+					progressText.html("El fichero cargó correctamente");
+				}).catch((err) => {
+					progressText.html(err);
 				});
 				break;
 			case "2":
 				progressText.html("Loading ...");
 				Promise.race([fileOne, fileTwo]).then(result => {
-					performedTask().then(result => {
-						progressText.html("El archivo cargó correctamente");
-					});
-				}, err => {
-					$("#progressText").html(err.message);
+					return performedTask();
+				}).then(result => {
+					progressText.html("El fichero cargó correctamente");
+				}).catch((err) => {
+					progressText.html(err);
 				});
 				break;
 		}

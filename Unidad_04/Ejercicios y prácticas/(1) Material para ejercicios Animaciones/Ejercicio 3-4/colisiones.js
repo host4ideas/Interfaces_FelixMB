@@ -4,6 +4,7 @@ const cuadradoColision = $("#cuadradoFijo");
 
 // Square movement
 const moveElement = (direction, pixels) => {
+    console.log(pixels)
     var start = null;
 
     function step(timestamp) {
@@ -12,35 +13,18 @@ const moveElement = (direction, pixels) => {
 
         // Como queremos un desplazamiento de 200px en 2000 milisegundos, la operación es una regla de tres
         // Por ejemplo, si en 2000 milisegundos son 200px, entonces en 1000 milisegundos serán X
-        draggableSquare.css("transform", `translate${direction}(${pixels}px)`);
-
         if (direction == "X") {
-            draggableSquare.css("left", `+=${pixels}`)
+            draggableSquare.css("left", `+=${Math.min(progress * pixels / 200000, Math.abs(pixels))}px`)
         } else {
-            draggableSquare.css("top", `+=${pixels}`)
+            draggableSquare.css("top", `+=${Math.min(progress * pixels / 200000, Math.abs(pixels))}px`)
         }
 
-        if (progress < 1000) {
+        if (progress < 2000) {
             window.requestAnimationFrame(step);
         }
     }
 
     window.requestAnimationFrame(step);
-
-    // window.requestAnimationFrame(step);
-
-    // draggableSquare.get(0).animate([
-    //     { transform: `translate${direction}(${pixels}px)` }
-    // ], {
-    //     duration: 1000,
-    // });
-    // setTimeout(() => {
-    //     if (direction == "X") {
-    //         draggableSquare.css("left", `+=${pixels}`)
-    //     } else {
-    //         draggableSquare.css("top", `+=${pixels}`)
-    //     }
-    // }, 1000)
 };
 
 $("#left").click(() => moveElement("X", -inputPixels.val()));

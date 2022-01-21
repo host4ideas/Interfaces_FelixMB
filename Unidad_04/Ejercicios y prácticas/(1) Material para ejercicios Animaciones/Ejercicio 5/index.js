@@ -61,6 +61,11 @@ function callAnimate(callback) {
         }).then(result => {
             callAnimate(animationFunction);
         });
+    } else {
+        counter = 0;
+        clearDiv();
+        clearTimeout(timer);
+        callAnimate(animationFunction);
     }
 }
 

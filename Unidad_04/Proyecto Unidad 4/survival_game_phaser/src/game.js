@@ -1,12 +1,12 @@
 import MainScene from './MainScene.js';
 
 const config = {
-	width: 640,
-	heigth: 1024,
-	backgroundColor: "#333333",
 	type: Phaser.AUTO,
-	parent: "survival-game",
-	scene: [MainScene]
-}
+	parent: 'survival-game',
+	width: 800,
+	height: 600,
+	pixelArt: true,
+	scene: [Example]
+};
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);

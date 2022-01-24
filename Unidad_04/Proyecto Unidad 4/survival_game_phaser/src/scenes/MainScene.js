@@ -160,6 +160,7 @@ export default class MainScene extends Phaser.Scene {
 			ROTATION_SPEED * 0.002 * delta,
 		);
 
+		// Animations object will be updated whenever the user changes gun
 		let survivorAnimations = {
 			idle: "",
 			walk: "",
@@ -203,6 +204,7 @@ export default class MainScene extends Phaser.Scene {
 				break;
 		}
 
+		// Map animations with keyboard keys
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
 		keyW.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
@@ -210,21 +212,21 @@ export default class MainScene extends Phaser.Scene {
 		keyW.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
-		var keyQ = this.input.keyboard.addKey('Q');  // Get key W object
+		var keyQ = this.input.keyboard.addKey('Q');  // Get key Q object
 		keyQ.on('down', ev => {
 			survivor.play(survivorAnimations["kick"]);
 		});
 		keyQ.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
-		var keyE = this.input.keyboard.addKey('E');  // Get key W object
+		var keyE = this.input.keyboard.addKey('E');  // Get key E object
 		keyE.on('down', ev => {
 			survivor.play(survivorAnimations["shot"]);
 		});
 		keyE.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
-		var keyR = this.input.keyboard.addKey('R');  // Get key W object
+		var keyR = this.input.keyboard.addKey('R');  // Get key R object
 		keyR.on('down', ev => {
 			survivor.play(survivorAnimations["reload"]);
 		});
@@ -242,6 +244,7 @@ export default class MainScene extends Phaser.Scene {
 			ROTATION_SPEED * 0.002 * delta,
 		);
 
+		// Map animations with keyboard keys
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
 		keyW.on('down', ev => {
 			zombie.play('walk-zombie');
@@ -249,7 +252,7 @@ export default class MainScene extends Phaser.Scene {
 		keyW.on('up', ev => {
 			zombie.play('idle-zombie');
 		});
-		var keyW = this.input.keyboard.addKey('Q');  // Get key W object
+		var keyW = this.input.keyboard.addKey('Q');  // Get key Q object
 		keyW.on('down', ev => {
 			zombie.play('kick-zombie');
 		});
@@ -258,4 +261,3 @@ export default class MainScene extends Phaser.Scene {
 		});
 	}
 }
-

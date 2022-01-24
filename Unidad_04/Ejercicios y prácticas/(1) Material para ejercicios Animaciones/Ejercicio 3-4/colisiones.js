@@ -53,7 +53,6 @@ function drop(ev) {
     colisionRect = cuadradoColision.get(0).getBoundingClientRect();
     console.log(squareRect);
     console.log(colisionRect);
-    // 
     if (colisionRect["top"] < squareRect["top"]
         && colisionRect["bottom"] > squareRect["bottom"]
         && colisionRect["left"] < squareRect["left"]

@@ -1,10 +1,16 @@
+let zombie;
+let player;
+var target = 0;
+const ROTATION_SPEED = 1 * Math.PI; // radians per second
+
 class Example extends Phaser.Scene {
 	constructor() {
 		super();
 	}
 
 	preload() {
-		this.load.atlas('zombie_animations', '../../assets/textures/top_down_zombie/texture.png', '../../assets/textures/top_down_zombie/texture.json');
+		this.load.atlas('zombie_animations', '../assets/textures/top_down_zombie/texture.png', '../assets/textures/top_down_zombie/texture.json');
+		this.load.atlas('zombie_animations', '../assets/textures/top_down_zombie/texture.png', '../assets/textures/top_down_zombie/texture.json');
 	}
 
 	create() {
@@ -14,9 +20,10 @@ class Example extends Phaser.Scene {
 			frames: this.anims.generateFrameNames('zombie_animations', {
 				prefix: "skeleton-move_",
 				suffix: ".png",
-				frames: [1, 2, 3, 4, 5, 6, 5, 4, 3, 2]
+				start: 0,
+				end: 15
 			}),
-			frameRate: 8,
+			frameRate: 10,
 			repeat: -1
 		});
 
@@ -26,79 +33,73 @@ class Example extends Phaser.Scene {
 				prefix: "skeleton-idle_",
 				suffix: ".png",
 				start: 0,
-				end: 16
+				end: 15
 			}),
 			frameRate: 8,
 			repeat: -1
 		});
 
-		// this.anims.create({
-		// 	key: 'kick',
-		// 	frames: this.anims.generateFrameNumbers('brawler', { frames: [10, 11, 12, 13, 10] }),
-		// 	frameRate: 8,
-		// 	repeat: -1,
-		// 	repeatDelay: 2000
-		// });
+		this.anims.create({
+			key: 'kick',
+			frames: this.anims.generateFrameNames('zombie_animations', {
+				prefix: "skeleton-attack_",
+				suffix: ".png",
+				start: 0,
+				end: 7
+			}),
+			frameRate: 10,
+			repeat: -1
+		});
 
-		// this.anims.create({
-		// 	key: 'punch',
-		// 	frames: this.anims.generateFrameNumbers('brawler', { frames: [15, 16, 17, 18, 17, 15] }),
-		// 	frameRate: 8,
-		// 	repeat: -1,
-		// 	repeatDelay: 2000
-		// });
+		// Add the character sprite to the map
+		zombie = this.add.sprite(600, 370);
+		zombie.setScale(1);
 
-		// this.anims.create({
-		// 	key: 'jump',
-		// 	frames: this.anims.generateFrameNumbers('brawler', { frames: [20, 21, 22, 23] }),
-		// 	frameRate: 8,
-		// 	repeat: -1
-		// });
+		// Follow the mouse pointer as rotation direction
+		this.input.on('pointermove', function (pointer) {
+			target = Phaser.Math.Angle.BetweenPoints(zombie, pointer);
+		});
 
-		// this.anims.create({
-		// 	key: 'jumpkick',
-		// 	frames: this.anims.generateFrameNumbers('brawler', { frames: [20, 21, 22, 23, 25, 23, 22, 21] }),
-		// 	frameRate: 8,
-		// 	repeat: -1
-		// });
+		// this.input.on('pointermove', function (pointer) {
+		// 	zombie.x = pointer.x;
+		// 	zombie.y = pointer.y;
+		// }, this);
+	}
+	update(time, delta) {
 
-		// this.anims.create({
-		// 	key: 'win',
-		// 	frames: this.anims.generateFrameNumbers('brawler', { frames: [30, 31] }),
-		// 	frameRate: 8,
-		// 	repeat: -1,
-		// 	repeatDelay: 2000
-		// });
-
-		// this.anims.create({
-		// 	key: 'die',
-		// 	frames: this.anims.generateFrameNumbers('brawler', { frames: [35, 36, 37] }),
-		// 	frameRate: 8,
-		// });
-
-		const keys = ['walk', 'idle', 'kick', 'punch', 'jump', 'jumpkick', 'win', 'die'];
-
-		const cody = this.add.sprite(600, 370);
-		cody.setScale(1);
+		// Rotation of the character
+		zombie.rotation = Phaser.Math.Angle.RotateTo(
+			zombie.rotation,
+			target,
+			ROTATION_SPEED * 0.002 * delta,
+		);
 
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
 		keyW.on('down', ev => {
-			cody.play('walk');
+			zombie.play('walk');
 		});
 		keyW.on('up', ev => {
-			cody.play('idle');
+			zombie.play('idle');
 		});
 
-		//  only move when you click
-		if (game.input.mousePointer.isDown) {
-			//  400 is the speed it will move towards the mouse
-			game.physics.arcade.moveToPointer(cody, 400);
+		var keyW = this.input.keyboard.addKey('Q');  // Get key W object
+		keyW.on('down', ev => {
+			zombie.play('kick');
+		});
+		keyW.on('up', ev => {
+			zombie.play('idle');
+		});
 
-			//  if it's overlapping the mouse, don't move any more
-			if (Phaser.Rectangle.contains(cody.body, game.input.x, game.input.y)) {
-				cody.body.velocity.setTo(0, 0);
-			}
-		}
+		// //  only move when you click
+		// if (game.input.mousePointer.isDown) {
+		// 	//  400 is the speed it will move towards the mouse
+		// 	game.physics.arcade.moveToPointer(zombie, 400);
+
+		// 	//  if it's overlapping the mouse, don't move any more
+		// 	if (Phaser.Rectangle.contains(zombie.body, game.input.x, game.input.y)) {
+		// 		zombie.body.velocity.setTo(0, 0);
+		// 	}
+		// }
 	}
 }
 
@@ -108,7 +109,14 @@ const config = {
 	width: 800,
 	height: 600,
 	pixelArt: true,
-	scene: [Example]
+	scene: [Example],
+	physics: {
+		default: "arcade",
+		arcade: {
+			debug: true,
+			debugShowBody: true
+		}
+	},
 };
 
 const game = new Phaser.Game(config);

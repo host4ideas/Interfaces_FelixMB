@@ -1,6 +1,8 @@
 import MainScene from './scenes/MainScene.js'
 
 const main = () => {
+	let game;
+
 	console.log("window loaded");
 	const config = {
 		type: Phaser.AUTO,
@@ -20,8 +22,28 @@ const main = () => {
 	};
 
 	$("#startGame").click(() => {
-		console.log("click")
-		const game = new Phaser.Game(config);
+		if (typeof game == "object") {
+			game.destroy(true);
+		}
+		game = new Phaser.Game(config);
+		$(".default-hidden").fadeToggle("400");
+		$(".toogle-fade").fadeToggle("400");
+	});
+
+	$("#pause").click(() => {
+		game.scene.pause("default");
+	});
+
+	$("#resume").click(() => {
+		game.scene.resume("default");
+	});
+
+	// Pause game with P key
+	$(document).keydown(function (event) {
+		console.log(event.key);
+		if (event.key == "Escape") {
+			game.scene.pause("default");
+		}
 	});
 }
 

@@ -5,7 +5,7 @@ let zombieGroup;
 // Survivor variables
 let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
-let survivorGun = availableGuns[2];
+let survivorGun = availableGuns[4];
 
 // Game variables
 var target = 0;
@@ -42,7 +42,6 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 ***** SURVIVOR ANIMATIONS *****
 		 */
-
 		// Add the character sprite to the map
 		survivor = this.add.sprite(600, 370);
 		survivor.setScale(0.5);
@@ -461,38 +460,58 @@ export default class MainScene extends Phaser.Scene {
 		/*
 			Map animations with keyboard keys
 		*/
+		// Movements
+		let animationMovement;
+		const createInterval = (action) => {
+			animationMovement = setInterval(() => {
+				action;
+			});
+		}
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
 		keyW.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			// survivor.y += -160;
+			animationMovement = setInterval(() => {	  // Set movement interval
+				survivor.y -= 0.01;
+			}, 10);
 		});
 		keyW.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
+			clearInterval(animationMovement);	// Clear movement interval
 		});
 		var keyA = this.input.keyboard.addKey('A');  // Get key A object
 		keyA.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			survivor.setVelocityX(-160);
+			animationMovement = setInterval(() => {
+				survivor.x -= 0.01;
+			}, 10);
 		});
 		keyA.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
+			clearInterval(animationMovement);
 		});
 		var keyS = this.input.keyboard.addKey('S');  // Get key S object
 		keyS.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			survivor.setVelocityY(-160);
+			animationMovement = setInterval(() => {
+				survivor.y += 0.01;
+			}, 10);
 		});
 		keyS.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
+			clearInterval(animationMovement);
 		});
 		var keyD = this.input.keyboard.addKey('D');  // Get key D object
 		keyD.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			survivor.setVelocityX(160);
+			animationMovement = setInterval(() => {
+				survivor.x += 0.01;
+			}, 10);
 		});
 		keyD.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
+			clearInterval(animationMovement);
 		});
+		// Interactions
 		var keyQ = this.input.keyboard.addKey('Q');  // Get key Q object
 		keyQ.on('down', ev => {
 			survivor.play(survivorAnimations["meleeattack"]);
@@ -540,7 +559,7 @@ export default class MainScene extends Phaser.Scene {
 			keyQ.on('up', ev => {
 				zombie.play('idle-zombie');
 			});
-		})
+		});
 
 		/**
 		 * Bullet updates
@@ -549,8 +568,12 @@ export default class MainScene extends Phaser.Scene {
 			//  Hide the sprite
 			zombieGroup.killAndHide(zombie);
 
-			//  And disable the body
+			//  Disable the body
 			zombie.body.enable = false;
+
+			// Hide the bullet
+			bullet.disableBody(true, true);
+			control = false;
 		}
 
 		// mouse clicked
@@ -572,13 +595,6 @@ export default class MainScene extends Phaser.Scene {
 			control = false;
 		}
 	}
-}
-
-// collide bullet and zombie action
-function destroy() {
-	zombie.destroy();
-	bullet.destroy();
-	control = false;
 }
 
 // Function to update the rotation of a sprite

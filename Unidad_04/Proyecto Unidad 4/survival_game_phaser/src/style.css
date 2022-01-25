@@ -5,3 +5,7 @@
 .menu-option {
 	cursor: pointer;
 }
+
+.default-hidden {
+	display: none;
+}

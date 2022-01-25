@@ -5,7 +5,7 @@ let zombieGroup;
 // Survivor variables
 let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
-let survivorGun = availableGuns[1];
+let survivorGun = availableGuns[2];
 
 // Game variables
 var target = 0;
@@ -45,10 +45,10 @@ export default class MainScene extends Phaser.Scene {
 
 		// Add the character sprite to the map
 		survivor = this.add.sprite(600, 370);
-		survivor.setScale(1);
+		survivor.setScale(0.5);
 
 		/*
-			Knife animations
+		Knife animations
 		*/
 		survivor.anims.create({
 			key: 'survivor-move-knife',
@@ -86,22 +86,238 @@ export default class MainScene extends Phaser.Scene {
 			repeat: -1
 		});
 
+		/*
+			Flashlight animations
+		*/
+
+		survivor.anims.create({
+			key: 'survivor-move-flashlight',
+			frames: this.anims.generateFrameNames('survivor_animations_flashlight', {
+				prefix: "survivor-move_flashlight_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-idle-flashlight',
+			frames: this.anims.generateFrameNames('survivor_animations_flashlight', {
+				prefix: "survivor-idle_flashlight_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-meleeattack-flashlight',
+			frames: this.anims.generateFrameNames('survivor_animations_flashlight', {
+				prefix: "survivor-meleeattack_flashlight_",
+				suffix: ".png",
+				start: 0,
+				end: 14
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
 
 		/*
 			Rifle animations
 		*/
 
-		/*
-			Shotgun animations
-		*/
+		survivor.anims.create({
+			key: 'survivor-move-rifle',
+			frames: this.anims.generateFrameNames('survivor_animations_rifle', {
+				prefix: "survivor-move_rifle_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-idle-rifle',
+			frames: this.anims.generateFrameNames('survivor_animations_rifle', {
+				prefix: "survivor-idle_rifle_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-meleeattack-rifle',
+			frames: this.anims.generateFrameNames('survivor_animations_rifle', {
+				prefix: "survivor-meleeattack_rifle_",
+				suffix: ".png",
+				start: 0,
+				end: 14
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-reload-rifle',
+			frames: this.anims.generateFrameNames('survivor_animations_rifle', {
+				prefix: "survivor-reload_rifle_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-shoot-rifle',
+			frames: this.anims.generateFrameNames('survivor_animations_rifle', {
+				prefix: "survivor-shoot_rifle_",
+				suffix: ".png",
+				start: 0,
+				end: 2
+			}),
+			frameRate: 10,
+			repeat: -1
+		});
 
 		/*
-			Flashlight animations
+			shotgun animations
 		*/
+
+		survivor.anims.create({
+			key: 'survivor-move-shotgun',
+			frames: this.anims.generateFrameNames('survivor_animations_shotgun', {
+				prefix: "survivor-move_shotgun_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-idle-shotgun',
+			frames: this.anims.generateFrameNames('survivor_animations_shotgun', {
+				prefix: "survivor-idle_shotgun_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-meleeattack-shotgun',
+			frames: this.anims.generateFrameNames('survivor_animations_shotgun', {
+				prefix: "survivor-meleeattack_shotgun_",
+				suffix: ".png",
+				start: 0,
+				end: 14
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-reload-shotgun',
+			frames: this.anims.generateFrameNames('survivor_animations_shotgun', {
+				prefix: "survivor-reload_shotgun_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-shoot-shotgun',
+			frames: this.anims.generateFrameNames('survivor_animations_shotgun', {
+				prefix: "survivor-shoot_shotgun_",
+				suffix: ".png",
+				start: 0,
+				end: 2
+			}),
+			frameRate: 10,
+			repeat: -1
+		});
+
 
 		/*
 			Handgun animations
 		*/
+
+		survivor.anims.create({
+			key: 'survivor-move-handgun',
+			frames: this.anims.generateFrameNames('survivor_animations_handgun', {
+				prefix: "survivor-move_handgun_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-idle-handgun',
+			frames: this.anims.generateFrameNames('survivor_animations_handgun', {
+				prefix: "survivor-idle_handgun_",
+				suffix: ".png",
+				start: 0,
+				end: 19
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-meleeattack-handgun',
+			frames: this.anims.generateFrameNames('survivor_animations_handgun', {
+				prefix: "survivor-meleeattack_handgun_",
+				suffix: ".png",
+				start: 0,
+				end: 14
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-reload-handgun',
+			frames: this.anims.generateFrameNames('survivor_animations_handgun', {
+				prefix: "survivor-reload_handgun_",
+				suffix: ".png",
+				start: 0,
+				end: 14
+			}),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		survivor.anims.create({
+			key: 'survivor-shoot-handgun',
+			frames: this.anims.generateFrameNames('survivor_animations_handgun', {
+				prefix: "survivor-shoot_handgun_",
+				suffix: ".png",
+				start: 0,
+				end: 2
+			}),
+			frameRate: 10,
+			repeat: -1
+		});
 
 		// Follow the mouse pointer as rotation direction
 		this.input.on('pointermove', function (pointer) {
@@ -116,20 +332,12 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 ***** ZOMBIE ANIMATIONS *****
 		 */
-
-		// Add the character sprite to the map
-		// zombie = this.add.sprite(400, 370);
-		// zombie.setScale(1);
-		// zombie = zombieGroup.create('zombie_animations');
-
-		// zombieGroup = this.physics.add.group();
-		// this.physics.add.existing(zombie);
-
 		zombieGroup = this.physics.add.group();
 		zombieGroup.create(200, 100, 'zombie_animations');
 		zombieGroup.create(400, 100, 'zombie_animations');
 
 		zombieGroup.children.entries.forEach(zombie => {
+			zombie.setScale(0.5);
 			zombie.anims.create({
 				key: 'walk-zombie',
 				frames: this.anims.generateFrameNames('zombie_animations', {
@@ -155,7 +363,7 @@ export default class MainScene extends Phaser.Scene {
 			});
 
 			zombie.anims.create({
-				key: 'kick-zombie',
+				key: 'meleeattack-zombie',
 				frames: this.anims.generateFrameNames('zombie_animations', {
 					prefix: "skeleton-attack_",
 					suffix: ".png",
@@ -186,16 +394,12 @@ export default class MainScene extends Phaser.Scene {
 		// 	zombie.y = pointer.y;
 		// }, this);
 
-		/**
-		 ***** BULLET ANIMATIONS *****
-		 */
-
-		//for mouse click event
+		// for mouse click event
 		mouse = this.input.mousePointer;
-		//for mouse position
+		// for mouse position
 		input = this.input;
 
-		//set game bounds
+		// set game bounds
 		worldBounds = this.physics.world.bounds;
 	}
 	update(time, delta) {
@@ -214,8 +418,8 @@ export default class MainScene extends Phaser.Scene {
 		let survivorAnimations = {
 			idle: "",
 			walk: "",
-			kick: "",
-			shot: "",
+			meleeattack: "",
+			shoot: "",
 			reload: ""
 		};
 
@@ -223,55 +427,82 @@ export default class MainScene extends Phaser.Scene {
 		switch (survivorGun) {
 			case 'knife':
 				survivorAnimations["idle"] = "survivor-idle-knife";
-				survivorAnimations["kick"] = "survivor-meleeattack-knife";
+				survivorAnimations["meleeattack"] = "survivor-meleeattack-knife";
 				survivorAnimations["walk"] = "survivor-move-knife";
 				break;
 			case 'flashlight':
-				survivorAnimations["idle"] = "survivor-idle-knife";
-				survivorAnimations["kick"] = "survivor-meleeattack-knife";
-				survivorAnimations["walk"] = "survivor-move-knife";
+				survivorAnimations["idle"] = "survivor-idle-flashlight";
+				survivorAnimations["meleeattack"] = "survivor-meleeattack-flashlight";
+				survivorAnimations["walk"] = "survivor-move-flashlight";
 				break;
 			case 'rifle':
-				survivorAnimations["idle"] = "survivor-idle-knife";
-				survivorAnimations["kick"] = "survivor-meleeattack-knife";
-				survivorAnimations["walk"] = "survivor-move-knife";
-				survivorAnimations["shot"] = "survivor-move-knife";
-				survivorAnimations["reload"] = "survivor-move-knife";
+				survivorAnimations["idle"] = "survivor-idle-rifle";
+				survivorAnimations["meleeattack"] = "survivor-meleeattack-rifle";
+				survivorAnimations["walk"] = "survivor-move-rifle";
+				survivorAnimations["shoot"] = "survivor-shoot-rifle";
+				survivorAnimations["reload"] = "survivor-reload-rifle";
 				break;
 			case 'shotgun':
-				survivorAnimations["idle"] = "survivor-idle-knife";
-				survivorAnimations["kick"] = "survivor-meleeattack-knife";
-				survivorAnimations["walk"] = "survivor-move-knife";
-				survivorAnimations["shot"] = "survivor-move-knife";
-				survivorAnimations["reload"] = "survivor-move-knife";
+				survivorAnimations["idle"] = "survivor-idle-shotgun";
+				survivorAnimations["meleeattack"] = "survivor-meleeattack-shotgun";
+				survivorAnimations["walk"] = "survivor-move-shotgun";
+				survivorAnimations["shoot"] = "survivor-shoot-shotgun";
+				survivorAnimations["reload"] = "survivor-reload-shotgun";
 				break;
 			case 'handgun':
-				survivorAnimations["idle"] = "survivor-idle-knife";
-				survivorAnimations["kick"] = "survivor-meleeattack-knife";
-				survivorAnimations["walk"] = "survivor-move-knife";
-				survivorAnimations["shot"] = "survivor-move-knife";
-				survivorAnimations["reload"] = "survivor-move-knife";
+				survivorAnimations["idle"] = "survivor-idle-handgun";
+				survivorAnimations["meleeattack"] = "survivor-meleeattack-handgun";
+				survivorAnimations["walk"] = "survivor-move-handgun";
+				survivorAnimations["shoot"] = "survivor-shoot-handgun";
+				survivorAnimations["reload"] = "survivor-reload-handgun";
 				break;
 		}
 
-		// Map animations with keyboard keys
+		/*
+			Map animations with keyboard keys
+		*/
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
 		keyW.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
+			// survivor.y += -160;
 		});
 		keyW.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
+		var keyA = this.input.keyboard.addKey('A');  // Get key A object
+		keyA.on('down', ev => {
+			survivor.play(survivorAnimations["walk"]);
+			survivor.setVelocityX(-160);
+		});
+		keyA.on('up', ev => {
+			survivor.play(survivorAnimations["idle"]);
+		});
+		var keyS = this.input.keyboard.addKey('S');  // Get key S object
+		keyS.on('down', ev => {
+			survivor.play(survivorAnimations["walk"]);
+			survivor.setVelocityY(-160);
+		});
+		keyS.on('up', ev => {
+			survivor.play(survivorAnimations["idle"]);
+		});
+		var keyD = this.input.keyboard.addKey('D');  // Get key D object
+		keyD.on('down', ev => {
+			survivor.play(survivorAnimations["walk"]);
+			survivor.setVelocityX(160);
+		});
+		keyD.on('up', ev => {
+			survivor.play(survivorAnimations["idle"]);
+		});
 		var keyQ = this.input.keyboard.addKey('Q');  // Get key Q object
 		keyQ.on('down', ev => {
-			survivor.play(survivorAnimations["kick"]);
+			survivor.play(survivorAnimations["meleeattack"]);
 		});
 		keyQ.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
 		var keyE = this.input.keyboard.addKey('E');  // Get key E object
 		keyE.on('down', ev => {
-			survivor.play(survivorAnimations["shot"]);
+			survivor.play(survivorAnimations["shoot"]);
 		});
 		keyE.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
@@ -304,7 +535,7 @@ export default class MainScene extends Phaser.Scene {
 				zombie.play('idle-zombie');
 			});
 			keyQ.on('down', ev => {
-				zombie.play('kick-zombie');
+				zombie.play('meleeattack-zombie');
 			});
 			keyQ.on('up', ev => {
 				zombie.play('idle-zombie');
@@ -314,7 +545,6 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 * Bullet updates
 		 */
-
 		function spriteHitHealth(sprite, zombie) {
 			//  Hide the sprite
 			zombieGroup.killAndHide(zombie);
@@ -333,21 +563,7 @@ export default class MainScene extends Phaser.Scene {
 			this.physics.moveTo(bullet, input.x, input.y, 500);
 			// call to fire function
 			control = true;
-
-			// function checkOverlap(zombieGroup, bullet) {
-			// 	var bulletBounds = bullet.getBounds();
-			// 	zombieGroup.children.entries.forEach(zombie => {
-			// 		var zombieBounds = zombie.getBounds();
-			// 		console.log(zombieBounds)
-			// 		console.log(bullet)
-			// 		if (Phaser.Geom.Intersects.RectangleToRectangle(bulletBounds, zombieBounds)) {
-			// 			console.log(true);
-			// 		}
-			// 	})
-			// }
-			// checkOverlap(zombieGroup, bullet);
-
-			//  When the player sprite his the health packs, call this function ...
+			//  When the bullet sprite his a zombie from zombieGroup, call spriteHitHealth function
 			this.physics.add.overlap(bullet, zombieGroup, spriteHitHealth);
 		}
 
@@ -355,23 +571,17 @@ export default class MainScene extends Phaser.Scene {
 		if (typeof bullet == "object" && (bullet.x > worldBounds.width || bullet.y > worldBounds.height || bullet.x < 0 || bullet.y < 0)) {
 			control = false;
 		}
-
-		if (typeof bullet == "object") {
-			// for collision
-			//  When the player sprite his the health packs, call this function ...
-			// this.physics.add.overlap(bullet,zombieGroup,destroy,null,this);
-
-		}
 	}
 }
 
-//collide cannonbal and survivor
+// collide bullet and zombie action
 function destroy() {
 	zombie.destroy();
 	bullet.destroy();
 	control = false;
 }
 
+// Function to update the rotation of a sprite
 function updateAngle(game, view) {
 	const dx = game.input.activePointer.x - view.x;
 	const dy = game.input.activePointer.y - view.y;

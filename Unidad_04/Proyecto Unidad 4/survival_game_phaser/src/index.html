@@ -5,16 +5,52 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Phaser library -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0-beta.3/phaser.min.js"
+		integrity="sha512-9HDvjtAyJdajx3xHkvmilIYbA9REVxbjo0SvVqjFZDLiuCFR13bZ0yXZGYRGXextLr4qZTe1ucwI1zit0thLQQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- Google's Start 2P font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+	<!-- Custom JS script -->
+	<script type="module" src="game.js"></script>
+	<!-- Custom stylesheet -->
+	<link rel="stylesheet" href="style.css">
 	<title>Survival game</title>
 </head>
 
 <body>
-	<h1>Survival game</h1>
-	<div id="survival-game"></div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0-beta.3/phaser.min.js"
-	integrity="sha512-9HDvjtAyJdajx3xHkvmilIYbA9REVxbjo0SvVqjFZDLiuCFR13bZ0yXZGYRGXextLr4qZTe1ucwI1zit0thLQQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script type="module" src="game.js"></script>
+	<div id="mainContainer">
+		<div id="homePage">
+			<h1 class="arcade-font">Survival game</h1>
+			<!-- Option menu with three default options -->
+			<div id="menu">
+				<div class="menu-option arcade-font">
+					<h2 id="startGame" class="text-option">NEW GAME</h2>
+				</div>
+				<!-- Hidden option to pause game -->
+				<div class="menu-option arcade-font">
+					<h2 class="text-option">PAUSE</h2>
+				</div>
+				<!-- Hidden option to resume game -->
+				<div class="menu-option arcade-font">
+					<h2 class="text-option">PAUSE</h2>
+				</div>
+				<div class="menu-option arcade-font">
+					<h2 class="text-option">INSTRUCTIONS</h2>
+				</div>
+				<div class="menu-option arcade-font">
+					<h2 class="text-option">HOW IT WAS MADE</h2>
+				</div>
+			</div>
+		</div>
+
+		<div id="survival-game"></div>
+	</div>
 </body>
 
 </html>

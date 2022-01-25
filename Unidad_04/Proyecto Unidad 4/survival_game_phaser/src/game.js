@@ -10,8 +10,9 @@ const config = {
 	physics: {
 		default: "arcade",
 		arcade: {
-			debug: true,
-			debugShowBody: true
+			// debug: true,
+			// debugShowBody: true,
+			gravity: { y: 0 }
 		}
 	},
 };

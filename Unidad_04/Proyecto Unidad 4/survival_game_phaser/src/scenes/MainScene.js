@@ -1,9 +1,27 @@
+// Zombie variables
 let zombie;
+let zombieGroup;
+
+// Survivor variables
 let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
 let survivorGun = availableGuns[1];
+
+// Game variables
 var target = 0;
 const ROTATION_SPEED = 1 * Math.PI; // radians per second
+let timedEvent;
+
+// Bullet variables
+var bullet;
+var mouse;
+var input;
+var control = false;
+var worldBounds;
+
+/**
+ **** MAIN SCENE CLASS ****
+ */
 
 export default class MainScene extends Phaser.Scene {
 	constructor() {
@@ -17,6 +35,7 @@ export default class MainScene extends Phaser.Scene {
 		this.load.atlas('survivor_animations_handgun', '../assets/textures/top_down_survivor/survivor_handgun/survivor_handgun.png', '../assets/textures/top_down_survivor/survivor_handgun/survivor_handgun.json');
 		this.load.atlas('survivor_animations_flashlight', '../assets/textures/top_down_survivor/survivor_flashlight/survivor_flashlight.png', '../assets/textures/top_down_survivor/survivor_flashlight/survivor_flashlight.json');
 		this.load.atlas('zombie_animations', '../assets/textures/top_down_zombie/texture.png', '../assets/textures/top_down_zombie/texture.json');
+		this.load.image('bullet', '../assets/sprites/bullet5.png');
 	}
 
 	create() {
@@ -98,46 +117,64 @@ export default class MainScene extends Phaser.Scene {
 		 ***** ZOMBIE ANIMATIONS *****
 		 */
 
-
 		// Add the character sprite to the map
-		zombie = this.add.sprite(400, 370);
-		zombie.setScale(1);
+		// zombie = this.add.sprite(400, 370);
+		// zombie.setScale(1);
+		// zombie = zombieGroup.create('zombie_animations');
 
-		zombie.anims.create({
-			key: 'walk-zombie',
-			frames: this.anims.generateFrameNames('zombie_animations', {
-				prefix: "skeleton-move_",
-				suffix: ".png",
-				start: 0,
-				end: 15
-			}),
-			frameRate: 10,
-			repeat: -1
-		});
+		// zombieGroup = this.physics.add.group();
+		// this.physics.add.existing(zombie);
 
-		zombie.anims.create({
-			key: 'idle-zombie',
-			frames: this.anims.generateFrameNames('zombie_animations', {
-				prefix: "skeleton-idle-zombie_",
-				suffix: ".png",
-				start: 0,
-				end: 15
-			}),
-			frameRate: 8,
-			repeat: -1
-		});
+		zombieGroup = this.physics.add.group();
+		zombieGroup.create(200, 100, 'zombie_animations');
+		zombieGroup.create(400, 100, 'zombie_animations');
 
-		zombie.anims.create({
-			key: 'kick-zombie',
-			frames: this.anims.generateFrameNames('zombie_animations', {
-				prefix: "skeleton-attack_",
-				suffix: ".png",
-				start: 0,
-				end: 7
-			}),
-			frameRate: 10,
-			repeat: -1
-		});
+		zombieGroup.children.entries.forEach(zombie => {
+			zombie.anims.create({
+				key: 'walk-zombie',
+				frames: this.anims.generateFrameNames('zombie_animations', {
+					prefix: "skeleton-move_",
+					suffix: ".png",
+					start: 0,
+					end: 15
+				}),
+				frameRate: 10,
+				repeat: -1
+			});
+
+			zombie.anims.create({
+				key: 'idle-zombie',
+				frames: this.anims.generateFrameNames('zombie_animations', {
+					prefix: "skeleton-idle_",
+					suffix: ".png",
+					start: 0,
+					end: 15
+				}),
+				frameRate: 8,
+				repeat: -1
+			});
+
+			zombie.anims.create({
+				key: 'kick-zombie',
+				frames: this.anims.generateFrameNames('zombie_animations', {
+					prefix: "skeleton-attack_",
+					suffix: ".png",
+					start: 0,
+					end: 7
+				}),
+				frameRate: 10,
+				repeat: -1
+			});
+		})
+
+		// timedEvent = this.time.addEvent({ delay: 50, callback: createZombie, callbackScope: this, loop: true });
+
+		// function createZombie() {
+		// 	this.physics.add.existing(zombie);
+		// 	addAnimations(zombie);
+		// }
+
+		// zombieGroup = this.physics.add.group();
 
 		// // Follow the mouse pointer as rotation direction
 		// this.input.on('pointermove', function (pointer) {
@@ -148,11 +185,24 @@ export default class MainScene extends Phaser.Scene {
 		// 	zombie.x = pointer.x;
 		// 	zombie.y = pointer.y;
 		// }, this);
+
+		/**
+		 ***** BULLET ANIMATIONS *****
+		 */
+
+		//for mouse click event
+		mouse = this.input.mousePointer;
+		//for mouse position
+		input = this.input;
+
+		//set game bounds
+		worldBounds = this.physics.world.bounds;
 	}
 	update(time, delta) {
 		/**
 		 * Survivor updates
 		 */
+
 		// Rotation of the character
 		survivor.rotation = Phaser.Math.Angle.RotateTo(
 			survivor.rotation,
@@ -237,27 +287,95 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 * Zombie updates
 		 */
-		// Rotation of the character
-		zombie.rotation = Phaser.Math.Angle.RotateTo(
-			zombie.rotation,
-			target,
-			ROTATION_SPEED * 0.002 * delta,
-		);
-
-		// Map animations with keyboard keys
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
-		keyW.on('down', ev => {
-			zombie.play('walk-zombie');
-		});
-		keyW.on('up', ev => {
-			zombie.play('idle-zombie');
-		});
 		var keyW = this.input.keyboard.addKey('Q');  // Get key Q object
-		keyW.on('down', ev => {
-			zombie.play('kick-zombie');
-		});
-		keyW.on('up', ev => {
-			zombie.play('idle-zombie');
-		});
+		zombieGroup.children.entries.forEach(zombie => {
+			// Rotation of the character
+			zombie.rotation = Phaser.Math.Angle.RotateTo(
+				zombie.rotation,
+				target,
+				ROTATION_SPEED * 0.002 * delta,
+			);
+			// Map animations with keyboard keys
+			keyW.on('down', ev => {
+				zombie.play('walk-zombie');
+			});
+			keyW.on('up', ev => {
+				zombie.play('idle-zombie');
+			});
+			keyQ.on('down', ev => {
+				zombie.play('kick-zombie');
+			});
+			keyQ.on('up', ev => {
+				zombie.play('idle-zombie');
+			});
+		})
+
+		/**
+		 * Bullet updates
+		 */
+
+		function spriteHitHealth(sprite, zombie) {
+			//  Hide the sprite
+			zombieGroup.killAndHide(zombie);
+
+			//  And disable the body
+			zombie.body.enable = false;
+		}
+
+		// mouse clicked
+		if (mouse.isDown && control == false) {
+			// for fire again
+			bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
+			// bullet sprite rotation to mouse firection
+			updateAngle(this, bullet);
+			// move to mouse position 
+			this.physics.moveTo(bullet, input.x, input.y, 500);
+			// call to fire function
+			control = true;
+
+			// function checkOverlap(zombieGroup, bullet) {
+			// 	var bulletBounds = bullet.getBounds();
+			// 	zombieGroup.children.entries.forEach(zombie => {
+			// 		var zombieBounds = zombie.getBounds();
+			// 		console.log(zombieBounds)
+			// 		console.log(bullet)
+			// 		if (Phaser.Geom.Intersects.RectangleToRectangle(bulletBounds, zombieBounds)) {
+			// 			console.log(true);
+			// 		}
+			// 	})
+			// }
+			// checkOverlap(zombieGroup, bullet);
+
+			//  When the player sprite his the health packs, call this function ...
+			this.physics.add.overlap(bullet, zombieGroup, spriteHitHealth);
+		}
+
+		// check world bounds
+		if (typeof bullet == "object" && (bullet.x > worldBounds.width || bullet.y > worldBounds.height || bullet.x < 0 || bullet.y < 0)) {
+			control = false;
+		}
+
+		if (typeof bullet == "object") {
+			// for collision
+			//  When the player sprite his the health packs, call this function ...
+			// this.physics.add.overlap(bullet,zombieGroup,destroy,null,this);
+
+		}
 	}
+}
+
+//collide cannonbal and survivor
+function destroy() {
+	zombie.destroy();
+	bullet.destroy();
+	control = false;
+}
+
+function updateAngle(game, view) {
+	const dx = game.input.activePointer.x - view.x;
+	const dy = game.input.activePointer.y - view.y;
+	const targetAngle = (360 / (2 * Math.PI)) * Math.atan2(dy, dx);
+
+	view.angle = targetAngle;
 }

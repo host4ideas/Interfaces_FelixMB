@@ -1,11 +1,10 @@
 // Zombie variables
-let zombie;
 let zombieGroup;
 
 // Survivor variables
 let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
-let survivorGun = availableGuns[4];
+let survivorGun = availableGuns[2];
 
 // Game variables
 var target = 0;
@@ -43,8 +42,11 @@ export default class MainScene extends Phaser.Scene {
 		 ***** SURVIVOR ANIMATIONS *****
 		 */
 		// Add the character sprite to the map
-		survivor = this.add.sprite(600, 370);
-		survivor.setScale(0.5);
+		survivor = this.add.sprite(600, 370, `survivor_animations_${survivorGun}`);
+		survivor.setScale(0.3);
+
+		this.add.existing(survivor);
+		this.physics.add.existing(survivor);
 
 		/*
 		Knife animations
@@ -336,7 +338,8 @@ export default class MainScene extends Phaser.Scene {
 		zombieGroup.create(400, 100, 'zombie_animations');
 
 		zombieGroup.children.entries.forEach(zombie => {
-			zombie.setScale(0.5);
+			zombie.setScale(0.2);
+
 			zombie.anims.create({
 				key: 'walk-zombie',
 				frames: this.anims.generateFrameNames('zombie_animations', {
@@ -374,25 +377,9 @@ export default class MainScene extends Phaser.Scene {
 			});
 		})
 
-		// timedEvent = this.time.addEvent({ delay: 50, callback: createZombie, callbackScope: this, loop: true });
-
-		// function createZombie() {
-		// 	this.physics.add.existing(zombie);
-		// 	addAnimations(zombie);
-		// }
-
-		// zombieGroup = this.physics.add.group();
-
-		// // Follow the mouse pointer as rotation direction
-		// this.input.on('pointermove', function (pointer) {
-		// 	target = Phaser.Math.Angle.BetweenPoints(zombie, pointer);
-		// });
-
-		// this.input.on('pointermove', function (pointer) {
-		// 	zombie.x = pointer.x;
-		// 	zombie.y = pointer.y;
-		// }, this);
-
+		/*
+			Mouse inputs events
+		*/
 		// for mouse click event
 		mouse = this.input.mousePointer;
 		// for mouse position
@@ -400,6 +387,12 @@ export default class MainScene extends Phaser.Scene {
 
 		// set game bounds
 		worldBounds = this.physics.world.bounds;
+
+		/**
+		 **** Set survivor and zombie health regarding the game difficulty ****
+		 */
+
+
 	}
 	update(time, delta) {
 		/**
@@ -461,55 +454,41 @@ export default class MainScene extends Phaser.Scene {
 			Map animations with keyboard keys
 		*/
 		// Movements
-		let animationMovement;
-		const createInterval = (action) => {
-			animationMovement = setInterval(() => {
-				action;
-			});
-		}
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
 		keyW.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			animationMovement = setInterval(() => {	  // Set movement interval
-				survivor.y -= 0.01;
-			}, 10);
+			survivor.body.setVelocityY(-100);
 		});
 		keyW.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
-			clearInterval(animationMovement);	// Clear movement interval
+			survivor.body.setVelocityY(0);
 		});
 		var keyA = this.input.keyboard.addKey('A');  // Get key A object
 		keyA.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			animationMovement = setInterval(() => {
-				survivor.x -= 0.01;
-			}, 10);
+			survivor.body.setVelocityX(-100);
 		});
 		keyA.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
-			clearInterval(animationMovement);
+			survivor.body.setVelocityX(0);
 		});
 		var keyS = this.input.keyboard.addKey('S');  // Get key S object
 		keyS.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			animationMovement = setInterval(() => {
-				survivor.y += 0.01;
-			}, 10);
+			survivor.body.setVelocityY(100);
 		});
 		keyS.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
-			clearInterval(animationMovement);
+			survivor.body.setVelocityY(0);
 		});
 		var keyD = this.input.keyboard.addKey('D');  // Get key D object
 		keyD.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);
-			animationMovement = setInterval(() => {
-				survivor.x += 0.01;
-			}, 10);
+			survivor.body.setVelocityX(100);
 		});
 		keyD.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
-			clearInterval(animationMovement);
+			survivor.body.setVelocityX(0);
 		});
 		// Interactions
 		var keyQ = this.input.keyboard.addKey('Q');  // Get key Q object
@@ -534,12 +513,22 @@ export default class MainScene extends Phaser.Scene {
 			survivor.play(survivorAnimations["idle"]);
 		});
 
+		// // Change weapon
+		// this.input.on('wheel', function (pointer, gameObjects, deltaX, deltaY, deltaZ) {
+		// 	soil.tilePositionX += deltaX * 0.5;
+		// 	soil.tilePositionY += deltaY * 0.5;
+		// });
+
 		/**
 		 * Zombie updates
 		 */
 		var keyW = this.input.keyboard.addKey('W');  // Get key W object
 		var keyW = this.input.keyboard.addKey('Q');  // Get key Q object
 		zombieGroup.children.entries.forEach(zombie => {
+
+			// move zombies to the survivor's position at 160 px/s
+			this.physics.moveToObject(zombie, survivor, 100);
+
 			// Rotation of the character
 			zombie.rotation = Phaser.Math.Angle.RotateTo(
 				zombie.rotation,
@@ -578,7 +567,7 @@ export default class MainScene extends Phaser.Scene {
 
 		// mouse clicked
 		if (mouse.isDown && control == false) {
-			// for fire again
+			// change the bullet spawn depending on the gun size
 			bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
 			// bullet sprite rotation to mouse firection
 			updateAngle(this, bullet);

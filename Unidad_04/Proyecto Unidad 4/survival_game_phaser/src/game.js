@@ -2,8 +2,6 @@ import MainScene from './scenes/MainScene.js'
 
 const main = () => {
 	let game;
-
-	console.log("window loaded");
 	const config = {
 		type: Phaser.AUTO,
 		parent: 'survival-game',
@@ -12,6 +10,7 @@ const main = () => {
 		pixelArt: true,
 		scene: [MainScene],
 		physics: {
+			default: 'matter',
 			default: "arcade",
 			arcade: {
 				// debug: true,
@@ -45,6 +44,10 @@ const main = () => {
 			game.scene.pause("default");
 		}
 	});
+
+	$("#survival-game").click(() => {
+		game.scene.resume("default");
+	})
 }
 
 window.onload = main;

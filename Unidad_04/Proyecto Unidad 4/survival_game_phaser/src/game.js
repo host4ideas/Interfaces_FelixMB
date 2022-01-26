@@ -10,7 +10,6 @@ const main = () => {
 		pixelArt: true,
 		scene: [MainScene],
 		physics: {
-			default: 'matter',
 			default: "arcade",
 			arcade: {
 				// debug: true,

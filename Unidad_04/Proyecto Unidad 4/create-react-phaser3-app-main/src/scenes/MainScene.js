@@ -40,6 +40,11 @@ export default class MainScene extends Phaser.Scene {
 		super('mainscene')
 		this.lastShot = 0;
 		this.shotDelay = 600;
+		this.ammo = 90;
+		this.currentMag = 30;
+		this.weaponDamage = 1;
+		this.survivorHealth = 5;
+		this.zombieHitDelay = 400;
 	}
 
 	preload() {
@@ -54,6 +59,16 @@ export default class MainScene extends Phaser.Scene {
 	}
 
 	create() {
+		/**
+		 **** AMMO INFO **** 
+		 */
+		this.ammoInfo = this.add.text(0, 0, `${this.currentMag} / ${this.ammo}`, { fontSize: '1.5rem' });
+
+		/**
+		 **** HEALTH INFO **** 
+		 */
+		this.healthInfo = this.add.text(200, 0, `Health: ${this.survivorHealth}`, { fontSize: '1.5rem' });
+
 		/**
 		 ***** SURVIVOR ANIMATIONS *****
 		 */
@@ -548,6 +563,9 @@ export default class MainScene extends Phaser.Scene {
 			updateAngleToSprite(survivor, zombie);
 
 			zombie.play('walk-zombie');
+
+			// When the zombie reaches the survivor
+			// this.healthInfo.setText(`<i class="fas fa-heartbeat"></i>${this.survivorHealth -= 1}`);
 		});
 
 		/**
@@ -559,17 +577,13 @@ export default class MainScene extends Phaser.Scene {
 			if (this.time.now > (this.shotDelay + this.lastShot)) {
 				// Make sure the player can't shoot when dead and that they are able to shoot another bullet
 				this.lastShot = this.time.now;
-				control = false;
-			} else {
-				control = true;
-			}
-			// Allowed to shoot
-			if (control === false) {
+				// Update ammo info
+				this.ammoInfo.setText(`${this.currentMag -= 1} / ${this.ammo}`);
 				// change the bullet spawn depending on the gun size
 				bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
 				// bullet sprite rotation to mouse firection
 				updateAngleToMouse(this, bullet);
-				// move bullet to mouse direction 
+				// move bullet to mouse direction
 				this.physics.moveTo(bullet, input.x, input.y, 500);
 				//  When the bullet sprite his a zombie from zombieGroup, call spriteHitHealth function
 				this.physics.add.overlap(bullet, zombieGroup, spriteHitHealth);

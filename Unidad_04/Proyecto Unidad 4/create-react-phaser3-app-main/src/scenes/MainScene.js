@@ -19,7 +19,7 @@ let zombieGroup;
 // Survivor variables
 let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
-let survivorGun = availableGuns[2];
+let survivorGun = availableGuns[3];
 
 // Game variables
 var target = 0;
@@ -39,7 +39,7 @@ export default class MainScene extends Phaser.Scene {
 	constructor() {
 		super('mainscene')
 		this.lastShot = 0;
-		this.shotDelay = 600;
+		this.shotDelay = 300;
 		this.ammo = 90;
 		this.currentMag = 30;
 		this.weaponDamage = 1;
@@ -362,6 +362,9 @@ export default class MainScene extends Phaser.Scene {
 		zombieGroup = this.physics.add.group();
 		zombieGroup.create(200, 100, 'zombie_animations');
 		zombieGroup.create(400, 100, 'zombie_animations');
+		zombieGroup.create(300, 100, 'zombie_animations');
+		zombieGroup.create(600, 100, 'zombie_animations');
+		zombieGroup.create(700, 100, 'zombie_animations');
 
 		zombieGroup.children.entries.forEach(zombie => {
 			zombie.setScale(0.2);

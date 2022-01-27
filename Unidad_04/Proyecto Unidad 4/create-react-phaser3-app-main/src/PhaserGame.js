@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import MainScene from './scenes/MainScene'
 
-const config = {
+export default {
   type: Phaser.AUTO,
   parent: 'phaser-container',
   backgroundColor: '#282c34',
@@ -21,5 +21,3 @@ const config = {
     }
   },
 };
-
-export default new Phaser.Game(config)

@@ -21,15 +21,10 @@ let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
 let survivorGun = availableGuns[3];
 
-// Game variables
-var target = 0;
-const ROTATION_SPEED = 1 * Math.PI; // radians per second
-
 // Bullet variables
 var bullet;
 var mouse;
 var input;
-var control = false;
 
 /**
  **** MAIN SCENE CLASS ****
@@ -37,14 +32,22 @@ var control = false;
 
 export default class MainScene extends Phaser.Scene {
 	constructor() {
-		super('mainscene')
+		super('mainscene');
+		// Game variables
+		this.target = 0;
+		this.ROTATION_SPEED = 1 * Math.PI; // radians per second
+		// Weapon variables
 		this.lastShot = 0;
 		this.shotDelay = 300;
 		this.ammo = 90;
 		this.currentMag = 30;
+		// Damage and health variables
 		this.weaponDamage = 1;
 		this.survivorHealth = 5;
 		this.zombieHitDelay = 400;
+		// Game round variables
+		this.currentRound = 1;
+		this.zombieCount = 0;
 	}
 
 	preload() {
@@ -68,6 +71,11 @@ export default class MainScene extends Phaser.Scene {
 		 **** HEALTH INFO **** 
 		 */
 		this.healthInfo = this.add.text(200, 0, `Health: ${this.survivorHealth}`, { fontSize: '1.5rem' });
+
+		/**
+		 **** ROUND INFO **** 
+		 */
+		this.roundInfo = this.add.text(300, 0, `Round: ${this.currentRound}`, { fontSize: '1.5rem' });
 
 		/**
 		 ***** SURVIVOR ANIMATIONS *****
@@ -353,7 +361,7 @@ export default class MainScene extends Phaser.Scene {
 
 		// Follow the mouse pointer as rotation direction
 		this.input.on('pointermove', function (pointer) {
-			target = Phaser.Math.Angle.BetweenPoints(survivor, pointer);
+			this.target = Phaser.Math.Angle.BetweenPoints(survivor, pointer);
 		});
 
 		/**
@@ -428,8 +436,8 @@ export default class MainScene extends Phaser.Scene {
 		// Rotation of the character
 		survivor.rotation = Phaser.Math.Angle.RotateTo(
 			survivor.rotation,
-			target,
-			ROTATION_SPEED * 0.002 * delta,
+			this.target,
+			this.ROTATION_SPEED * 0.002 * delta,
 		);
 
 		// Animations object will be updated whenever the user changes gun
@@ -623,5 +631,4 @@ function spriteHitHealth(sprite, zombie) {
 
 	// Hide the bullet
 	bullet.disableBody(true, true);
-	control = false;
 }

@@ -19,7 +19,7 @@ let zombieGroup;
 // Survivor variables
 let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
-let survivorGun = availableGuns[3];
+let survivorGun = availableGuns[2];
 
 // Bullet variables
 var bullet;
@@ -34,10 +34,14 @@ const ROTATION_SPEED = 1 * Math.PI; // radians per second
 let currentRound = 1;
 let zombieCount = 0;
 
+// Damage and health variables
+let weaponDamage = 2;
+let survivorHealth = 5;
+let zombieHitDelay = 400;
+
 /**
  **** MAIN SCENE CLASS ****
  */
-
 export default class MainScene extends Phaser.Scene {
 	constructor() {
 		super('mainscene');
@@ -46,11 +50,6 @@ export default class MainScene extends Phaser.Scene {
 		this.shotDelay = 300;
 		this.ammo = 90;
 		this.currentMag = 30;
-		// Damage and health variables
-		this.weaponDamage = 1;
-		this.survivorHealth = 5;
-		this.zombieHitDelay = 400;
-
 	}
 
 	preload() {
@@ -73,7 +72,7 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 **** HEALTH INFO **** 
 		 */
-		this.healthInfo = this.add.text(200, 0, `Health: ${this.survivorHealth}`, { fontSize: '1.5rem' });
+		this.healthInfo = this.add.text(200, 0, `Health: ${survivorHealth}`, { fontSize: '1.5rem' });
 
 		/**
 		 **** ROUND INFO **** 
@@ -91,7 +90,7 @@ export default class MainScene extends Phaser.Scene {
 		this.physics.add.existing(survivor);
 
 		/*
-		Knife animations
+			Knife animations
 		*/
 		survivor.anims.create({
 			key: 'survivor-move-knife',
@@ -379,6 +378,7 @@ export default class MainScene extends Phaser.Scene {
 
 		zombieGroup.children.entries.forEach(zombie => {
 			zombie.setScale(0.2);
+			zombie.zombieHealth = 5;
 
 			zombie.anims.create({
 				key: 'walk-zombie',
@@ -458,12 +458,14 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["idle"] = "survivor-idle-knife";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-knife";
 				survivorAnimations["walk"] = "survivor-move-knife";
+				weaponDamage = 3;
 				this.shotdelay = 500;
 				break;
 			case 'flashlight':
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-flashlight";
 				survivorAnimations["walk"] = "survivor-move-flashlight";
+				weaponDamage = 1;
 				break;
 			case 'rifle':
 				survivorAnimations["idle"] = "survivor-idle-rifle";
@@ -471,6 +473,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-rifle";
 				survivorAnimations["shoot"] = "survivor-shoot-rifle";
 				survivorAnimations["reload"] = "survivor-reload-rifle";
+				weaponDamage = 3;
 				break;
 			case 'shotgun':
 				survivorAnimations["idle"] = "survivor-idle-shotgun";
@@ -478,6 +481,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-shotgun";
 				survivorAnimations["shoot"] = "survivor-shoot-shotgun";
 				survivorAnimations["reload"] = "survivor-reload-shotgun";
+				weaponDamage = 4;
 				break;
 			case 'handgun':
 				survivorAnimations["idle"] = "survivor-idle-handgun";
@@ -485,11 +489,13 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-handgun";
 				survivorAnimations["shoot"] = "survivor-shoot-handgun";
 				survivorAnimations["reload"] = "survivor-reload-handgun";
+				weaponDamage = 2;
 				break;
 			default:
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-flashlight";
 				survivorAnimations["walk"] = "survivor-move-flashlight";
+				weaponDamage = 1;
 		}
 
 		/*
@@ -579,7 +585,7 @@ export default class MainScene extends Phaser.Scene {
 			zombie.play('walk-zombie');
 
 			// When the zombie reaches the survivor
-			// this.healthInfo.setText(`<i class="fas fa-heartbeat"></i>${this.survivorHealth -= 1}`);
+			// this.healthInfo.setText(`<i class="fas fa-heartbeat"></i>${survivorHealth -= 1}`);
 		});
 
 		/**
@@ -626,14 +632,21 @@ function updateAngleToSprite(sprite1, sprite2) {
 
 // When a bullet hits a zombie
 function spriteHitHealth(sprite, zombie) {
-	//  Hide the sprite
-	zombieGroup.killAndHide(zombie);
-
-	//  Disable the body
-	zombie.body.enable = false;
-
 	// Hide the bullet
 	bullet.disableBody(true, true);
 
+	zombie.zombieHealth -= weaponDamage;
 
+	if (zombie.zombieHealth < 1) {
+		zombieCount--;
+		//  Hide the sprite
+		zombieGroup.killAndHide(zombie);
+
+		//  Disable the body
+		zombie.body.enable = false;
+
+		if (zombieCount == 0) {
+			currentRound++;
+		}
+	}
 }

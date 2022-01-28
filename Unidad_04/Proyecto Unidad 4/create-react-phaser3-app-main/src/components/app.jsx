@@ -46,7 +46,7 @@ export default function App() {
 	return (
 		<div id="homePage" className="App" onLoad={handleLoadGameState}>
 			<Header />
-			{gameLoaded ? <Menu /> : <div><p>Loading ...</p> <div id="progressBar"></div></div>}
+			{gameLoaded ? <Menu /> : <div><p className="arcade-font">Loading ...</p> <div id="progressBar"></div></div>}
 		</div>
 	)
 }

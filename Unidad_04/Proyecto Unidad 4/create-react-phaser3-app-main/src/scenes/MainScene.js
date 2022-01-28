@@ -26,6 +26,14 @@ var bullet;
 var mouse;
 var input;
 
+// Game variables
+let target = 0;
+const ROTATION_SPEED = 1 * Math.PI; // radians per second
+
+// Game round variables
+let currentRound = 1;
+let zombieCount = 0;
+
 /**
  **** MAIN SCENE CLASS ****
  */
@@ -33,9 +41,6 @@ var input;
 export default class MainScene extends Phaser.Scene {
 	constructor() {
 		super('mainscene');
-		// Game variables
-		this.target = 0;
-		this.ROTATION_SPEED = 1 * Math.PI; // radians per second
 		// Weapon variables
 		this.lastShot = 0;
 		this.shotDelay = 300;
@@ -45,9 +50,7 @@ export default class MainScene extends Phaser.Scene {
 		this.weaponDamage = 1;
 		this.survivorHealth = 5;
 		this.zombieHitDelay = 400;
-		// Game round variables
-		this.currentRound = 1;
-		this.zombieCount = 0;
+
 	}
 
 	preload() {
@@ -75,7 +78,7 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 **** ROUND INFO **** 
 		 */
-		this.roundInfo = this.add.text(300, 0, `Round: ${this.currentRound}`, { fontSize: '1.5rem' });
+		this.roundInfo = this.add.text(500, 0, `Round: ${currentRound}`, { fontSize: '1.5rem' });
 
 		/**
 		 ***** SURVIVOR ANIMATIONS *****
@@ -361,7 +364,7 @@ export default class MainScene extends Phaser.Scene {
 
 		// Follow the mouse pointer as rotation direction
 		this.input.on('pointermove', function (pointer) {
-			this.target = Phaser.Math.Angle.BetweenPoints(survivor, pointer);
+			target = Phaser.Math.Angle.BetweenPoints(survivor, pointer);
 		});
 
 		/**
@@ -436,8 +439,8 @@ export default class MainScene extends Phaser.Scene {
 		// Rotation of the character
 		survivor.rotation = Phaser.Math.Angle.RotateTo(
 			survivor.rotation,
-			this.target,
-			this.ROTATION_SPEED * 0.002 * delta,
+			target,
+			ROTATION_SPEED * 0.002 * delta,
 		);
 
 		// Animations object will be updated whenever the user changes gun
@@ -631,4 +634,6 @@ function spriteHitHealth(sprite, zombie) {
 
 	// Hide the bullet
 	bullet.disableBody(true, true);
+
+
 }

@@ -7,6 +7,7 @@ export default function App() {
 	const [gameLoaded, setGameLoaded] = useState(false);
 
 	function animate() {
+		const progressBar = document.getElementById("progressBar");
 		const duration = 2000;
 		// +new Date() parses the current date to ms
 		const end = +new Date() + duration;
@@ -17,11 +18,11 @@ export default function App() {
 
 			let rate = 1 - remaining / duration;
 
-			if (progressBar.css("width") == '100%' || remaining < 60) {
+			if (progressBar.style.width == '100%' || remaining < 60) {
 				return;
 			}
 
-			progressBar.css("width", `${(rate * (100))}%`)
+			progressBar.style.width = `${(rate * (100))}%`;
 
 			requestAnimationFrame(step);
 		}

@@ -11,10 +11,6 @@ body {
 	cursor: pointer;
 }
 
-.default-hidden {
-	display: none;
-}
-
 canvas {
 	width: 100%;
 }

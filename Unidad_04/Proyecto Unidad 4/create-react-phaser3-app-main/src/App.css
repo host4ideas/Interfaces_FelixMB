@@ -16,7 +16,7 @@
 }
 
 #progressBar {
-  background-color: red;
+  background-color: rgb(126, 126, 126);
   width: 0%;
   height: 50px;
 }

@@ -369,12 +369,10 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 ***** ZOMBIE ANIMATIONS *****
 		 */
+		// Random create zombies from the game borders
+
+		let { width, height } = this.sys.game.canvas;
 		zombieGroup = this.physics.add.group();
-		zombieGroup.create(200, 100, 'zombie_animations');
-		zombieGroup.create(400, 100, 'zombie_animations');
-		zombieGroup.create(300, 100, 'zombie_animations');
-		zombieGroup.create(600, 100, 'zombie_animations');
-		zombieGroup.create(700, 100, 'zombie_animations');
 
 		zombieGroup.children.entries.forEach(zombie => {
 			zombie.setScale(0.2);
@@ -458,7 +456,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["idle"] = "survivor-idle-knife";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-knife";
 				survivorAnimations["walk"] = "survivor-move-knife";
-				weaponDamage = 3;
+				weaponDamage = 4;
 				this.shotdelay = 500;
 				break;
 			case 'flashlight':
@@ -466,6 +464,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-flashlight";
 				survivorAnimations["walk"] = "survivor-move-flashlight";
 				weaponDamage = 1;
+				this.shotdelay = 200;
 				break;
 			case 'rifle':
 				survivorAnimations["idle"] = "survivor-idle-rifle";
@@ -474,6 +473,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["shoot"] = "survivor-shoot-rifle";
 				survivorAnimations["reload"] = "survivor-reload-rifle";
 				weaponDamage = 3;
+				this.shotdelay = 300;
 				break;
 			case 'shotgun':
 				survivorAnimations["idle"] = "survivor-idle-shotgun";
@@ -482,6 +482,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["shoot"] = "survivor-shoot-shotgun";
 				survivorAnimations["reload"] = "survivor-reload-shotgun";
 				weaponDamage = 4;
+				this.shotdelay = 500;
 				break;
 			case 'handgun':
 				survivorAnimations["idle"] = "survivor-idle-handgun";
@@ -490,12 +491,14 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["shoot"] = "survivor-shoot-handgun";
 				survivorAnimations["reload"] = "survivor-reload-handgun";
 				weaponDamage = 2;
+				this.shotdelay = 400;
 				break;
 			default:
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-flashlight";
 				survivorAnimations["walk"] = "survivor-move-flashlight";
 				weaponDamage = 1;
+				this.shotdelay = 200;
 		}
 
 		/*
@@ -607,6 +610,11 @@ export default class MainScene extends Phaser.Scene {
 				this.physics.moveTo(bullet, input.x, input.y, 500);
 				//  When the bullet sprite his a zombie from zombieGroup, call spriteHitHealth function
 				this.physics.add.overlap(bullet, zombieGroup, spriteHitHealth);
+
+				if (zombieCount == 0) {
+					currentRound++;
+					newRound();
+				}
 			}
 		}
 	}
@@ -638,15 +646,19 @@ function spriteHitHealth(sprite, zombie) {
 	zombie.zombieHealth -= weaponDamage;
 
 	if (zombie.zombieHealth < 1) {
-		zombieCount--;
+		// zombieCount--;
 		//  Hide the sprite
 		zombieGroup.killAndHide(zombie);
 
 		//  Disable the body
 		zombie.body.enable = false;
+	}
+}
 
-		if (zombieCount == 0) {
-			currentRound++;
-		}
+function newRound(zombieGroup, canvasWidth, canvasHeigth) {
+	for (let i = 0; i < 10; i++) {
+		var random = Phaser.Math.Between(0, 1);
+		zombieGroup.create(200 + (random * 200), 200 + (random * 200), 'zombie_animations');
+		zombieCount++;
 	}
 }

@@ -1,7 +1,8 @@
-import Phaser from 'phaser'
-import MainScene from './scenes/MainScene'
+import Phaser from 'phaser';
+import MainScene from './scenes/MainScene';
+import WarpScene from './scenes/WarpScene';
 
-export default {
+const config = {
   type: Phaser.AUTO,
   parent: 'phaser-container',
   backgroundColor: '#282c34',
@@ -11,7 +12,7 @@ export default {
     height: window.innerHeight,
   },
   pixelArt: true,
-  scene: [MainScene],
+  scene: [WarpScene, MainScene],
   physics: {
     default: "arcade",
     arcade: {
@@ -21,3 +22,5 @@ export default {
     }
   },
 };
+
+export default config;

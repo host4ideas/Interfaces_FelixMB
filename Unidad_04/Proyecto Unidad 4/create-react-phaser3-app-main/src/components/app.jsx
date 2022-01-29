@@ -18,7 +18,7 @@ export default function App() {
 
 			let rate = 1 - remaining / duration;
 
-			if (progressBar.style.width == '100%' || remaining < 60) {
+			if (progressBar.style.width === '100%') {
 				return;
 			}
 

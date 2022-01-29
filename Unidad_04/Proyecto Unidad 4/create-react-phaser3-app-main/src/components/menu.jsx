@@ -29,7 +29,7 @@ export default function Menu() {
 				says that I want to remove the game from the canvas element of the page when I destroy the game. 
 				The second argument, false, says to NOT remove all of Phaser and its plugins for the page.
 			*/
-			newGame.destroy(true, false)
+			newGame.destroy(true, false);
 		}
 		setNewGameClicked(true);
 		setNewGame(new Phaser.Game(config));

@@ -29,15 +29,21 @@ var input;
 // Game variables
 let target = 0;
 const ROTATION_SPEED = 1 * Math.PI; // radians per second
+let triggerNewRound = false;
 
 // Game round variables
-let currentRound = 1;
+let currentRound = 0;
 let zombieCount = 0;
+
+// Game info varialbes
+let ammoInfo;
+let healthInfo;
+let roundInfo;
+let newRoundInfoText
 
 // Damage and health variables
 let weaponDamage = 2;
 let survivorHealth = 5;
-let zombieHitDelay = 400;
 
 /**
  **** MAIN SCENE CLASS ****
@@ -65,22 +71,29 @@ export default class MainScene extends Phaser.Scene {
 
 	create() {
 		/**
+		 **** NEW ROUND INFO ****
+		 */
+		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+		newRoundInfoText = this.add.text(screenCenterX, screenCenterY, `Round: ${currentRound}`, { fontSize: '5rem', color: '#eb5449' }).setOrigin(0.5);
+
+		/**
 		 **** AMMO INFO **** 
 		 */
-		this.ammoInfo = this.add.text(0, 0, `${this.currentMag} / ${this.ammo}`, { fontSize: '1.5rem' });
+		ammoInfo = this.add.text(0, 0, `${this.currentMag} / ${this.ammo}`, { fontSize: '1.5rem' });
 
 		/**
 		 **** HEALTH INFO **** 
 		 */
-		this.healthInfo = this.add.text(200, 0, `Health: ${survivorHealth}`, { fontSize: '1.5rem' });
+		healthInfo = this.add.text(200, 0, `Health: ${survivorHealth}`, { fontSize: '1.5rem' });
 
 		/**
 		 **** ROUND INFO **** 
 		 */
-		this.roundInfo = this.add.text(500, 0, `Round: ${currentRound}`, { fontSize: '1.5rem' });
+		roundInfo = this.add.text(500, 0, `Round: ${currentRound}`, { fontSize: '1.5rem' });
 
 		/**
-		 ***** SURVIVOR ANIMATIONS *****
+		 ***** SURVIVOR CREATION & ANIMATIONS *****
 		 */
 		// Add the character sprite to the map
 		survivor = this.add.sprite(600, 370, `survivor_animations_${survivorGun}`);
@@ -366,54 +379,15 @@ export default class MainScene extends Phaser.Scene {
 			target = Phaser.Math.Angle.BetweenPoints(survivor, pointer);
 		});
 
+		// Set world collition bounds
+		survivor.body.setCollideWorldBounds(true);
+
 		/**
-		 ***** ZOMBIE ANIMATIONS *****
-		 */
-		// Random create zombies from the game borders
-
-		let { width, height } = this.sys.game.canvas;
+		 ***** ZOMBIE CREATION & ANIMATIONS *****
+		*/
+		// Create the zombies group
 		zombieGroup = this.physics.add.group();
-
-		zombieGroup.children.entries.forEach(zombie => {
-			zombie.setScale(0.2);
-			zombie.zombieHealth = 5;
-
-			zombie.anims.create({
-				key: 'walk-zombie',
-				frames: this.anims.generateFrameNames('zombie_animations', {
-					prefix: "skeleton-move_",
-					suffix: ".png",
-					start: 0,
-					end: 15
-				}),
-				frameRate: 10,
-				repeat: -1
-			});
-
-			zombie.anims.create({
-				key: 'idle-zombie',
-				frames: this.anims.generateFrameNames('zombie_animations', {
-					prefix: "skeleton-idle_",
-					suffix: ".png",
-					start: 0,
-					end: 15
-				}),
-				frameRate: 8,
-				repeat: -1
-			});
-
-			zombie.anims.create({
-				key: 'meleeattack-zombie',
-				frames: this.anims.generateFrameNames('zombie_animations', {
-					prefix: "skeleton-attack_",
-					suffix: ".png",
-					start: 0,
-					end: 7
-				}),
-				frameRate: 10,
-				repeat: -1
-			});
-		})
+		newRound(newRoundInfoText, this);
 
 		/*
 			Mouse inputs events
@@ -424,10 +398,27 @@ export default class MainScene extends Phaser.Scene {
 		input = this.input;
 
 		/**
-		 **** Set survivor and zombie health regarding the game difficulty ****
+		 **** ZOMBIE AND SURVIVOR COLLISIONS ****
 		 */
 
+		//  When a zombie hits the survivor, call 
+		this.physics.add.overlap(survivor, zombieGroup, zombieHitSurvivor);
 
+		/*
+		   Key define
+	   */
+		this.keyW = this.input.keyboard.addKey('W');  // Get key W object
+		this.keyA = this.input.keyboard.addKey('A');  // Get key A object
+		this.keyS = this.input.keyboard.addKey('S');  // Get key S object
+		this.keyD = this.input.keyboard.addKey('D');  // Get key D object
+		this.keyQ = this.input.keyboard.addKey('Q');  // Get key Q object
+		this.keyE = this.input.keyboard.addKey('E');  // Get key E object
+		this.keyR = this.input.keyboard.addKey('R');  // Get key R object
+		this.key1 = this.input.keyboard.addKey('1');
+		this.key2 = this.input.keyboard.addKey('2');
+		this.key3 = this.input.keyboard.addKey('3');
+		this.key4 = this.input.keyboard.addKey('4');
+		this.key5 = this.input.keyboard.addKey('5');
 	}
 	update(time, delta) {
 		/**
@@ -456,6 +447,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["idle"] = "survivor-idle-knife";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-knife";
 				survivorAnimations["walk"] = "survivor-move-knife";
+				weaponDamage = 3;
 				weaponDamage = 4;
 				this.shotdelay = 500;
 				break;
@@ -502,77 +494,76 @@ export default class MainScene extends Phaser.Scene {
 		}
 
 		/*
-			Key define
-		*/
-		var keyW = this.input.keyboard.addKey('W');  // Get key W object
-		var keyA = this.input.keyboard.addKey('A');  // Get key A object
-		var keyS = this.input.keyboard.addKey('S');  // Get key S object
-		var keyD = this.input.keyboard.addKey('D');  // Get key D object
-		var keyQ = this.input.keyboard.addKey('Q');  // Get key Q object
-		var keyE = this.input.keyboard.addKey('E');  // Get key E object
-		var keyR = this.input.keyboard.addKey('R');  // Get key R object
-
-		/*
 			Key bindings
 		*/
 		// Movements
-		keyW.on('down', ev => {
+		this.keyW.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);		// Up
 			survivor.body.setVelocityY(-100);
 		});
-		keyW.on('up', ev => {
+		this.keyW.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 			survivor.body.setVelocityY(0);
 		});
-		keyA.on('down', ev => {
+		this.keyA.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);		// Left
 			survivor.body.setVelocityX(-100);
 		});
-		keyA.on('up', ev => {
+		this.keyA.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 			survivor.body.setVelocityX(0);
 		});
-		keyS.on('down', ev => {
+		this.keyS.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);		// Down
 			survivor.body.setVelocityY(100);
 		});
-		keyS.on('up', ev => {
+		this.keyS.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 			survivor.body.setVelocityY(0);
 		});
-		keyD.on('down', ev => {
+		this.keyD.on('down', ev => {
 			survivor.play(survivorAnimations["walk"]);		// Right
 			survivor.body.setVelocityX(100);
 		});
-		keyD.on('up', ev => {
+		this.keyD.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 			survivor.body.setVelocityX(0);
 		});
 		// Interactions
-		keyQ.on('down', ev => {
+		this.keyQ.on('down', ev => {
 			survivor.play(survivorAnimations["meleeattack"]);	// Melee atack
 		});
-		keyQ.on('up', ev => {
+		this.keyQ.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
-		keyE.on('down', ev => {
+		this.keyE.on('down', ev => {
 			survivor.play(survivorAnimations["shoot"]);		// Use
 		});
-		keyE.on('up', ev => {
+		this.keyE.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
-		keyR.on('down', ev => {
+		this.keyR.on('down', ev => {
 			survivor.play(survivorAnimations["reload"]);	// Reload
 		});
-		keyR.on('up', ev => {
+		this.keyR.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
-
-		// // Change weapon
-		// this.input.on('wheel', function (pointer, gameObjects, deltaX, deltaY, deltaZ) {
-		// 	soil.tilePositionX += deltaX * 0.5;
-		// 	soil.tilePositionY += deltaY * 0.5;
-		// });
+		// Change weapon
+		this.key1.on('down', ev => {
+			survivorGun = availableGuns[0];
+		});
+		this.key2.on('down', ev => {
+			survivorGun = availableGuns[1];
+		});
+		this.key3.on('down', ev => {
+			survivorGun = availableGuns[2];
+		});
+		this.key4.on('down', ev => {
+			survivorGun = availableGuns[3];
+		});
+		this.key5.on('down', ev => {
+			survivorGun = availableGuns[4];
+		});
 
 		/**
 		 * Zombie updates
@@ -586,9 +577,6 @@ export default class MainScene extends Phaser.Scene {
 			updateAngleToSprite(survivor, zombie);
 
 			zombie.play('walk-zombie');
-
-			// When the zombie reaches the survivor
-			// this.healthInfo.setText(`<i class="fas fa-heartbeat"></i>${survivorHealth -= 1}`);
 		});
 
 		/**
@@ -600,10 +588,17 @@ export default class MainScene extends Phaser.Scene {
 			if (this.time.now > (this.shotDelay + this.lastShot)) {
 				// Make sure the player can't shoot when dead and that they are able to shoot another bullet
 				this.lastShot = this.time.now;
-				// Update ammo info
-				this.ammoInfo.setText(`${this.currentMag -= 1} / ${this.ammo}`);
+
+				if (this.currentMag - 1 < 0) {
+					this.currentMag = 0;
+				} else {
+					// Update ammo info
+					ammoInfo.setText(`${this.currentMag -= 1} / ${this.ammo}`);
+				}
+
 				// change the bullet spawn depending on the gun size
-				bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
+				bullet = this.physics.add.sprite(survivor.x + 20, survivor.y, 'bullet');
+
 				// bullet sprite rotation to mouse firection
 				updateAngleToMouse(this, bullet);
 				// move bullet to mouse direction
@@ -611,9 +606,10 @@ export default class MainScene extends Phaser.Scene {
 				//  When the bullet sprite his a zombie from zombieGroup, call spriteHitHealth function
 				this.physics.add.overlap(bullet, zombieGroup, spriteHitHealth);
 
-				if (zombieCount == 0) {
-					currentRound++;
-					newRound();
+				if (zombieCount < 1) {
+					survivor.body.enable = false;
+					newRound(newRoundInfoText, this);
+					survivor.body.enable = true;
 				}
 			}
 		}
@@ -638,15 +634,16 @@ function updateAngleToSprite(sprite1, sprite2) {
 	sprite2.angle = targetAngle;
 }
 
-// When a bullet hits a zombie
-function spriteHitHealth(sprite, zombie) {
+// When a zombie hits the survivor
+function spriteHitHealth(bullet, zombie) {
 	// Hide the bullet
-	bullet.disableBody(true, true);
+	bullet.destroy(true);
 
 	zombie.zombieHealth -= weaponDamage;
 
 	if (zombie.zombieHealth < 1) {
-		// zombieCount--;
+		zombieCount--;
+
 		//  Hide the sprite
 		zombieGroup.killAndHide(zombie);
 
@@ -655,10 +652,87 @@ function spriteHitHealth(sprite, zombie) {
 	}
 }
 
-function newRound(zombieGroup, canvasWidth, canvasHeigth) {
-	for (let i = 0; i < 10; i++) {
-		var random = Phaser.Math.Between(0, 1);
-		zombieGroup.create(200 + (random * 200), 200 + (random * 200), 'zombie_animations');
-		zombieCount++;
+// When a bullet hits a zombie
+function zombieHitSurvivor(survivor, zombie) {
+	healthInfo.setText(`Health: ${--survivorHealth}`);
+
+	if (healthInfo < 1) {
+		survivor.destroy(true);
 	}
+}
+
+function setZombieAnimations(zombie, scene) {
+	zombie.setScale(0.2);
+
+	zombie.anims.create({
+		key: 'walk-zombie',
+		frames: scene.anims.generateFrameNames('zombie_animations', {
+			prefix: "skeleton-move_",
+			suffix: ".png",
+			start: 0,
+			end: 15
+		}),
+		frameRate: 10,
+		repeat: -1
+	});
+
+	zombie.anims.create({
+		key: 'idle-zombie',
+		frames: scene.anims.generateFrameNames('zombie_animations', {
+			prefix: "skeleton-idle_",
+			suffix: ".png",
+			start: 0,
+			end: 15
+		}),
+		frameRate: 8,
+		repeat: -1
+	});
+
+	zombie.anims.create({
+		key: 'meleeattack-zombie',
+		frames: scene.anims.generateFrameNames('zombie_animations', {
+			prefix: "skeleton-attack_",
+			suffix: ".png",
+			start: 0,
+			end: 7
+		}),
+		frameRate: 10,
+		repeat: -1
+	});
+}
+
+function addZombies(scene, zombieGroup) {
+	let { width, height } = scene.sys.game.canvas;
+	for (let i = 0; i < ((currentRound * 4) - (currentRound * 2)); i++) {
+		zombieCount++;
+		let border = Math.floor(Phaser.Math.Between(0, 1));
+		switch (border) {
+			case 0:
+				let randomHeigth = Math.floor(Phaser.Math.Between(0, height));
+				zombieGroup.create(width - 100, randomHeigth - 100, "zombie_animations");
+				break;
+			case 1:
+				let randomWidth = Math.floor(Phaser.Math.Between(0, width));
+				zombieGroup.create(randomWidth - 100, height - 100, "zombie_animations");
+				break;
+		}
+	}
+
+	// Add to each zombie in the zombie group the proper animations
+	zombieGroup.children.entries.forEach(zombie => {
+		setZombieAnimations(zombie, scene);
+		zombie.zombieHealth = 5;
+		// zombie.hitDelay =
+		// 	zombie.speed = 
+	});
+}
+
+// Creates a new round by setting the round info as visible and adding the zombies to the game
+function newRound(text, scene) {
+	text.setText(`Round: ${++currentRound}`);
+	text.visible = true;
+	scene.time.delayedCall(2000, () => {
+		text.visible = false;
+		addZombies(scene, zombieGroup);
+	}, null, scene);
 }

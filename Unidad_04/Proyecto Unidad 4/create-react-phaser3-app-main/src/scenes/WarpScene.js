@@ -21,8 +21,12 @@ export default class WarpScene extends Phaser.Scene {
 		// Prevents video freeze when game is out of focus (i.e. user changes tab on the browser)
 		vid.setPaused(false);
 
-		setTimeout(() => {
-			this.scene.start('mainscene');
-		}, 4000);
+		this.time.delayedCall(3000, () => {
+			this.cameras.main.fadeOut(1200, 0, 0, 0);
+
+			this.time.delayedCall(1200, () => {
+				this.scene.switch('mainscene');
+			});
+		});
 	}
 }

@@ -29,7 +29,7 @@ var input;
 // Game variables
 let target = 0;
 const ROTATION_SPEED = 1 * Math.PI; // radians per second
-let triggerNewRound = false;
+let game;
 
 // Game round variables
 let currentRound = 0;
@@ -56,6 +56,9 @@ export default class MainScene extends Phaser.Scene {
 		this.shotDelay = 300;
 		this.ammo = 90;
 		this.currentMag = 30;
+		// Zombie variables
+		this.lastZombieHit = 0;
+		this.zombieHitDelay = 1000;
 	}
 
 	preload() {
@@ -67,6 +70,7 @@ export default class MainScene extends Phaser.Scene {
 		this.load.atlas('zombie_animations', zombieAnimations, zombieConfiguration);
 		// To add images
 		this.textures.addBase64('bullet', bulletSprite);
+		game = this;
 	}
 
 	create() {
@@ -402,13 +406,6 @@ export default class MainScene extends Phaser.Scene {
 		// for mouse position
 		input = this.input;
 
-		/**
-		 **** ZOMBIE AND SURVIVOR COLLISIONS ****
-		 */
-
-		//  When a zombie hits the survivor, call 
-		this.physics.add.overlap(survivor, zombieGroup, zombieHitSurvivor);
-
 		/*
 		   Key define
 	   */
@@ -427,7 +424,7 @@ export default class MainScene extends Phaser.Scene {
 	}
 	update(time, delta) {
 		/**
-		 * Survivor updates
+		 **** Survivor updates ****
 		 */
 
 		// Rotation of the character
@@ -499,7 +496,7 @@ export default class MainScene extends Phaser.Scene {
 		}
 
 		/*
-			Key bindings
+		 **** Key bindings ****
 		*/
 		// Movements
 		this.keyW.on('down', ev => {
@@ -571,7 +568,7 @@ export default class MainScene extends Phaser.Scene {
 		});
 
 		/**
-		 * Zombie updates
+		 **** Zombie updates ****
 		 */
 		zombieGroup.children.entries.forEach(zombie => {
 
@@ -583,11 +580,17 @@ export default class MainScene extends Phaser.Scene {
 		});
 
 		/**
+		 * ZOMBIE AND SURVIVOR COLLISION
+		*/
+		//  When a zombie hits the survivor, call
+		this.physics.add.overlap(survivor, zombieGroup, zombieHitSurvivor);
+
+		/**
 		 * Bullet updates
 		 */
 		// mouse clicked
 		if (mouse.isDown) {
-			// Check the delay and if survivor.alive === true
+			// Check the delay
 			if (this.time.now > (this.shotDelay + this.lastShot)) {
 				// Make sure the player can't shoot when dead and that they are able to shoot another bullet
 				this.lastShot = this.time.now;
@@ -651,15 +654,14 @@ function bulletHitZombie(bullet, zombie) {
 	}
 }
 
-// When a bullet hits a zombie
-function zombieHitSurvivor(survivor, zombie) {
-	healthInfo.setText(`Health: ${--survivorHealth}`);
-
-	zombie.anims.play('meleeattack-zombie');
-
-	// if (survivorHealth < 1) {
-	// 	survivor.destroy(true);
-	// }
+// Melee attack
+const enableMelee = () => {
+	this.attackZone = this.add.zone(this.playerSprite.x, this.playerSprite.y, 20, 40)
+	this.playerSprite.on('animationupdate', (anim, frame, sprite, frameKey) => {
+		if (frame.index == 1) {
+			this.physics.world.disable(this.attackZone);
+		}
+	});
 }
 
 function setZombieAnimations(zombie, scene) {
@@ -674,7 +676,7 @@ function setZombieAnimations(zombie, scene) {
 			end: 15
 		}),
 		frameRate: 10,
-		repeat: -1
+		repeat: 0
 	});
 
 	zombie.anims.create({
@@ -686,7 +688,7 @@ function setZombieAnimations(zombie, scene) {
 			end: 15
 		}),
 		frameRate: 8,
-		repeat: -1
+		repeat: 0
 	});
 
 	zombie.anims.create({
@@ -698,7 +700,7 @@ function setZombieAnimations(zombie, scene) {
 			end: 7
 		}),
 		frameRate: 10,
-		repeat: -1
+		repeat: 0
 	});
 }
 
@@ -707,6 +709,8 @@ function addZombies(scene, zombieGroup) {
 	for (let i = 0; i < ((currentRound * 4) - (currentRound * 2)); i++) {
 		zombieCount++;
 		let border = Math.floor(Phaser.Math.Between(0, 1));
+		let randomSpeed = Math.floor(Phaser.Math.Between(0, 1));
+		
 		switch (border) {
 			case 0:
 				let randomHeigth = Math.floor(Phaser.Math.Between(0, height));
@@ -724,9 +728,7 @@ function addZombies(scene, zombieGroup) {
 		setZombieAnimations(zombie, scene);
 		zombie.zombieHealth = 5;
 		survivor.body.setSize(64, 64, 64, 64);
-		// zombie.body.setSize(32, 32, 0, 0);
-		// zombie.hitDelay =
-		// 	zombie.speed = 
+		zombie.anims.play('walk-zombie');
 	});
 }
 
@@ -738,4 +740,29 @@ function newRound(text, scene) {
 		text.visible = false;
 		addZombies(scene, zombieGroup);
 	}, null, scene);
+}
+
+// When a zombie hits the survivor
+function zombieHitSurvivor(survivor, zombie) {
+	if (game.time.now > (game.zombieHitDelay + game.lastZombieHit)) {
+		// Make sure the player can't shoot when dead and that they are able to shoot another bullet
+		game.lastZombieHit = game.time.now;
+
+		zombie.anims.play('meleeattack-zombie', 60, false);
+
+		survivorHealth -= 1;
+		healthInfo.setText(`Health: ${survivorHealth}`);
+
+		if (survivorHealth < 1) {
+			playLostGame();
+			survivor.destroy(true);
+		}
+	}
+}
+
+function playLostGame() {
+	game.cameras.main.fadeOut(1000, 0, 0, 0);
+	game.time.delayedCall(1000, () => {
+		game.scene.start('wastedscene');
+	});
 }

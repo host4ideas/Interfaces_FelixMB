@@ -102,6 +102,8 @@ export default class MainScene extends Phaser.Scene {
 		this.add.existing(survivor);
 		this.physics.add.existing(survivor);
 
+		survivor.body.setSize(64, 64, 32, 32);
+
 		/*
 			Knife animations
 		*/
@@ -374,6 +376,9 @@ export default class MainScene extends Phaser.Scene {
 			repeat: -1
 		});
 
+		// survivor default animation
+		survivor.anims.play(`survivor-idle-${survivorGun}`);
+
 		// Follow the mouse pointer as rotation direction
 		this.input.on('pointermove', function (pointer) {
 			target = Phaser.Math.Angle.BetweenPoints(survivor, pointer);
@@ -575,8 +580,6 @@ export default class MainScene extends Phaser.Scene {
 
 			// Rotation of the zombie to the survivor position
 			updateAngleToSprite(survivor, zombie);
-
-			zombie.play('walk-zombie');
 		});
 
 		/**
@@ -603,8 +606,8 @@ export default class MainScene extends Phaser.Scene {
 				updateAngleToMouse(this, bullet);
 				// move bullet to mouse direction
 				this.physics.moveTo(bullet, input.x, input.y, 500);
-				//  When the bullet sprite his a zombie from zombieGroup, call spriteHitHealth function
-				this.physics.add.overlap(bullet, zombieGroup, spriteHitHealth);
+				//  When the bullet sprite his a zombie from zombieGroup, call bulletHitZombie function
+				this.physics.add.overlap(bullet, zombieGroup, bulletHitZombie);
 
 				if (zombieCount < 1) {
 					survivor.body.enable = false;
@@ -635,7 +638,7 @@ function updateAngleToSprite(sprite1, sprite2) {
 }
 
 // When a zombie hits the survivor
-function spriteHitHealth(bullet, zombie) {
+function bulletHitZombie(bullet, zombie) {
 	// Hide the bullet
 	bullet.destroy(true);
 
@@ -644,11 +647,7 @@ function spriteHitHealth(bullet, zombie) {
 	if (zombie.zombieHealth < 1) {
 		zombieCount--;
 
-		//  Hide the sprite
-		zombieGroup.killAndHide(zombie);
-
-		//  Disable the body
-		zombie.body.enable = false;
+		zombie.destroy(true);
 	}
 }
 
@@ -656,9 +655,11 @@ function spriteHitHealth(bullet, zombie) {
 function zombieHitSurvivor(survivor, zombie) {
 	healthInfo.setText(`Health: ${--survivorHealth}`);
 
-	if (healthInfo < 1) {
-		survivor.destroy(true);
-	}
+	zombie.anims.play('meleeattack-zombie');
+
+	// if (survivorHealth < 1) {
+	// 	survivor.destroy(true);
+	// }
 }
 
 function setZombieAnimations(zombie, scene) {
@@ -722,6 +723,8 @@ function addZombies(scene, zombieGroup) {
 	zombieGroup.children.entries.forEach(zombie => {
 		setZombieAnimations(zombie, scene);
 		zombie.zombieHealth = 5;
+		survivor.body.setSize(64, 64, 64, 64);
+		// zombie.body.setSize(32, 32, 0, 0);
 		// zombie.hitDelay =
 		// 	zombie.speed = 
 	});

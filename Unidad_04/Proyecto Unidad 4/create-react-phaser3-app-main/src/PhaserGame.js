@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import MainScene from './scenes/MainScene';
 import WarpScene from './scenes/WarpScene';
+import WastedScene from './scenes/WastedScene';
 
 const config = {
   type: Phaser.AUTO,
@@ -12,7 +13,7 @@ const config = {
     height: window.innerHeight,
   },
   pixelArt: true,
-  scene: [WarpScene, MainScene],
+  scene: [WarpScene, MainScene, WastedScene],
   physics: {
     default: "arcade",
     arcade: {

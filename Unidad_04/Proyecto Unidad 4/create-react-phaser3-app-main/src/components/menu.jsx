@@ -3,6 +3,7 @@ import Phaser from 'phaser'
 import Instructions from "./instructions";
 import HowMade from "./how-it-was-made";
 import config from '../PhaserGame';
+import menuOptionAudio from '../assets/audio/menu/Menu-Selection-Change-D2.mp3'
 
 // Defines the menu that appears in the home page
 export default function Menu() {
@@ -13,6 +14,11 @@ export default function Menu() {
 	// Set a control variable to check to render or not some web parts
 	const [newGameClicked, setNewGameClicked] = useState(false);
 	const [newGame, setNewGame] = useState();
+
+	const handleHover = () => {
+		var audio = new Audio(menuOptionAudio);
+		audio.play();
+	}
 
 	function handleClickResume() {
 		newGame.scene.resume("mainscene");
@@ -55,26 +61,26 @@ export default function Menu() {
 		<div id="menu">
 			{/* Option menu with three default options */}
 			<div className="menu-option arcade-font">
-				<h2 id="startGame" className="text-option" onClick={handleClickNewGame}>NEW GAME</h2>
+				<h2 id="startGame" className="text-option" onClick={handleClickNewGame} onMouseEnter={handleHover}>NEW GAME</h2>
 			</div>
 			{newGameClicked &&
 				<div>
 					{/* Hidden option for in-game control */}
 					<div className="menu-option arcade-font">
-						<h2 id="pause" className="text-option" onClick={handleClickPause}>PAUSE</h2>
+						<h2 id="pause" className="text-option" onClick={handleClickPause} onMouseEnter={handleHover}>PAUSE</h2>
 					</div>
 					{/* Hidden option for in-game control */}
 					<div className="menu-option arcade-font">
-						<h2 id="resume" className="text-option" onClick={handleClickResume}>RESUME</h2>
+						<h2 id="resume" className="text-option" onClick={handleClickResume} onMouseEnter={handleHover}>RESUME</h2>
 					</div>
 				</div>}
 			<div className="menu-option arcade-font">
-				<h2 className="text-option toogle-fade" onClick={handleClickInstr}>INSTRUCTIONS</h2>
+				<h2 className="text-option toogle-fade" onClick={handleClickInstr} onMouseEnter={handleHover}>INSTRUCTIONS</h2>
 				{/* If instructions is clicked, show instructions */}
 				{instrClicked && <Instructions />}
 			</div>
 			<div className="menu-option arcade-font">
-				<h2 className="text-option toogle-fade" onClick={handleClickHowMade}>HOW IT WAS MADE</h2>
+				<h2 className="text-option toogle-fade" onClick={handleClickHowMade} onMouseEnter={handleHover}>HOW IT WAS MADE</h2>
 				{/* If instructions is clicked, show instructions */}
 				{howMadeClicked && <HowMade />}
 			</div>

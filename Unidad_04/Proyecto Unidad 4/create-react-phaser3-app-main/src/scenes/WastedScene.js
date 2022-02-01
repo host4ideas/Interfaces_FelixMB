@@ -7,7 +7,7 @@ export default class WastedScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.video('wasted', wastedVideo, 'loadeddata', false, true);
+		this.load.video('wasted', wastedVideo, 'loadeddata', true, false);
 	}
 
 	create() {
@@ -16,7 +16,7 @@ export default class WastedScene extends Phaser.Scene {
 
 		var vid = this.add.video(screenCenterX, screenCenterY, 'wasted');
 
-		vid.play(true);
+		vid.play(false);
 
 		// Prevents video freeze when game is out of focus (i.e. user changes tab on the browser)
 		vid.setPaused(false);

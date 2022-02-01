@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+// Survivor animations
 import survivorKnifeAnimations from '../assets/textures/top_down_survivor/survivor_knife/survivor_knife.png';
 import survivorKnifeConfiguration from '../assets/textures/top_down_survivor/survivor_knife/survivor_knife.json';
 import survivorRifleAnimations from '../assets/textures/top_down_survivor/survivor_rifle/survivor_rifle.png';
@@ -9,9 +10,23 @@ import survivorHandgunAnimations from '../assets/textures/top_down_survivor/surv
 import survivorHandgunConfiguration from '../assets/textures/top_down_survivor/survivor_handgun/survivor_handgun.json';
 import survivorFlashlightAnimations from '../assets/textures/top_down_survivor/survivor_flashlight/survivor_flashlight.png';
 import survivorFlashlightConfiguration from '../assets/textures/top_down_survivor/survivor_flashlight/survivor_flashlight.json';
+// Zombie animations
 import zombieAnimations from '../assets/textures/top_down_zombie/texture.png';
 import zombieConfiguration from '../assets/textures/top_down_zombie/texture.json';
+// Sprites
 import bulletSprite from '../assets/sprites/bullet5.png';
+// Zombie audios
+import groupZombiesAudio from '../assets/audio/characters/Large-Zombie-Horde.mp3';
+import zombieAttack1 from '../assets/audio/characters/Zombie-Aggressive-Attack-A1.mp3';
+import zombieAttack2 from '../assets/audio/characters/Zombie-Aggressive-Attack-A2.mp3';
+import zombieAttack3 from '../assets/audio/characters/Zombie-Aggressive-Attack-A3.mp3';
+import zombieAttack4 from '../assets/audio/characters/Zombie-Aggressive-Attack-A4.mp3';
+import zombieAttack5 from '../assets/audio/characters/Zombie-Aggressive-Attack-A5.mp3';
+import zombieAttack6 from '../assets/audio/characters/Zombie-Aggressive-Attack-A7.mp3';
+// Weapon audios
+import rifleAudioShoot from '../assets/audio/weapons/5.56-AR15-Single-Close-GunShot-A.mp3';
+import shotgunAudioShoot from '../assets/audio/weapons/12-Gauge-Pump-Action-Shotgun-Close-Gunshot-A.mp3';
+import pistolAudioShoot from '../assets/audio/weapons/1911-.45-ACP-Close-Single-Gunshot-A.mp3';
 
 // Zombie variables
 let zombieGroup;
@@ -22,18 +37,29 @@ let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
 let survivorGun = availableGuns[2];
 
 // Bullet variables
-var bullet;
-var mouse;
-var input;
+let bullet;
+let mouse;
+let input;
 
 // Game variables
 let target = 0;
 const ROTATION_SPEED = 1 * Math.PI; // radians per second
 let game;
+// Audio variables
+let zombieAttack1;
+let zombieAttack2;
+let zombieAttack3;
+let zombieAttack4;
+let zombieAttack5;
+let zombieAttack6;
+let rifleAudioShoot;
+let shotgunAudioShoot;
+let pistolAudioShoot;
 
 // Game round variables
 let currentRound = 0;
 let zombieCount = 0;
+let triggerNewRound = false;
 
 // Game info varialbes
 let ammoInfo;
@@ -53,21 +79,43 @@ export default class MainScene extends Phaser.Scene {
 		super('mainscene');
 		// Weapon variables
 		this.lastShot = 0;
-		this.shotDelay = 300;
 		this.ammo = 90;
 		this.currentMag = 30;
+		this.shotDelay = 300;
 		// Zombie variables
 		this.lastZombieHit = 0;
 		this.zombieHitDelay = 1000;
 	}
 
 	preload() {
+		// Load assets
 		this.load.atlas('survivor_animations_knife', survivorKnifeAnimations, survivorKnifeConfiguration);
 		this.load.atlas('survivor_animations_rifle', survivorRifleAnimations, survivorRifleConfiguration);
 		this.load.atlas('survivor_animations_shotgun', survivorShotgunAnimations, survivorShotgunConfiguration);
 		this.load.atlas('survivor_animations_handgun', survivorHandgunAnimations, survivorHandgunConfiguration);
 		this.load.atlas('survivor_animations_flashlight', survivorFlashlightAnimations, survivorFlashlightConfiguration);
 		this.load.atlas('zombie_animations', zombieAnimations, zombieConfiguration);
+		// Load audios
+		this.load.audio('group_zombies', groupZombiesAudio);
+		this.load.audio('attack_zombie_audio_1', zombieAttack1);
+		this.load.audio('attack_zombie_audio_2', zombieAttack2);
+		this.load.audio('attack_zombie_audio_3', zombieAttack3);
+		this.load.audio('attack_zombie_audio_4', zombieAttack4);
+		this.load.audio('attack_zombie_audio_5', zombieAttack5);
+		this.load.audio('attack_zombie_audio_6', zombieAttack6);
+		this.load.audio('rifle_shoot_audio', rifleAudioShoot);
+		this.load.audio('shotgun_shoot_audio', shotgunAudioShoot);
+		// Add audios
+		zombieAttack1 = game.add.audio('attack_zombie_audio_1');
+		zombieAttack2 = game.add.audio('attack_zombie_audio_2');
+		zombieAttack3 = game.add.audio('attack_zombie_audio_3');
+		zombieAttack4 = game.add.audio('attack_zombie_audio_4');
+		zombieAttack5 = game.add.audio('attack_zombie_audio_5');
+		zombieAttack6 = game.add.audio('attack_zombie_audio_6');
+		rifleAudioShoot = game.add.audio('rifle_shoot_audio');
+		shotgunAudioShoot = game.add.audio('shotgun_shoot_audio');
+		pistolAudioShoot = game.add.audio('pistol_shoot_audio');
+		groupZombiesAudio = game.add.audio('group_zombies');
 		// To add images
 		this.textures.addBase64('bullet', bulletSprite);
 		game = this;
@@ -398,6 +446,9 @@ export default class MainScene extends Phaser.Scene {
 		zombieGroup = this.physics.add.group();
 		newRound(newRoundInfoText, this);
 
+		// Play audio of zombies
+		this.sound.play(groupZombiesAudio);
+
 		/*
 			Mouse inputs events
 		*/
@@ -416,11 +467,11 @@ export default class MainScene extends Phaser.Scene {
 		this.keyQ = this.input.keyboard.addKey('Q');  // Get key Q object
 		this.keyE = this.input.keyboard.addKey('E');  // Get key E object
 		this.keyR = this.input.keyboard.addKey('R');  // Get key R object
-		this.key1 = this.input.keyboard.addKey('1');
-		this.key2 = this.input.keyboard.addKey('2');
-		this.key3 = this.input.keyboard.addKey('3');
-		this.key4 = this.input.keyboard.addKey('4');
-		this.key5 = this.input.keyboard.addKey('5');
+		this.key1 = this.key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+		this.key2 = this.key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+		this.key3 = this.key3 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
+		this.key4 = this.key4 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
+		this.key5 = this.key5 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
 	}
 	update(time, delta) {
 		/**
@@ -440,7 +491,8 @@ export default class MainScene extends Phaser.Scene {
 			walk: "",
 			meleeattack: "",
 			shoot: "",
-			reload: ""
+			reload: "",
+			weaponShootSound: ""
 		};
 
 		// Switch animations depending on the actual gun
@@ -449,16 +501,15 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["idle"] = "survivor-idle-knife";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-knife";
 				survivorAnimations["walk"] = "survivor-move-knife";
-				weaponDamage = 3;
 				weaponDamage = 4;
-				this.shotdelay = 500;
+				this.shotDelay = 500;
 				break;
 			case 'flashlight':
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-flashlight";
 				survivorAnimations["walk"] = "survivor-move-flashlight";
 				weaponDamage = 1;
-				this.shotdelay = 200;
+				this.shotDelay = 200;
 				break;
 			case 'rifle':
 				survivorAnimations["idle"] = "survivor-idle-rifle";
@@ -466,8 +517,9 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-rifle";
 				survivorAnimations["shoot"] = "survivor-shoot-rifle";
 				survivorAnimations["reload"] = "survivor-reload-rifle";
+				survivorAnimations["weaponShootSound"] = rifleAudioShoot;
 				weaponDamage = 3;
-				this.shotdelay = 300;
+				this.shotDelay = 300;
 				break;
 			case 'shotgun':
 				survivorAnimations["idle"] = "survivor-idle-shotgun";
@@ -475,8 +527,9 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-shotgun";
 				survivorAnimations["shoot"] = "survivor-shoot-shotgun";
 				survivorAnimations["reload"] = "survivor-reload-shotgun";
+				survivorAnimations["weaponShootSound"] = shotgunAudioShoot;
 				weaponDamage = 4;
-				this.shotdelay = 500;
+				this.shotDelay = 500;
 				break;
 			case 'handgun':
 				survivorAnimations["idle"] = "survivor-idle-handgun";
@@ -484,15 +537,16 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-handgun";
 				survivorAnimations["shoot"] = "survivor-shoot-handgun";
 				survivorAnimations["reload"] = "survivor-reload-handgun";
+				survivorAnimations["weaponShootSound"] = pistolAudioShoot;
 				weaponDamage = 2;
-				this.shotdelay = 400;
+				this.shotDelay = 800;
 				break;
 			default:
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
 				survivorAnimations["meleeattack"] = "survivor-meleeattack-flashlight";
 				survivorAnimations["walk"] = "survivor-move-flashlight";
 				weaponDamage = 1;
-				this.shotdelay = 200;
+				this.shotDelay = 200;
 		}
 
 		/*
@@ -572,9 +626,6 @@ export default class MainScene extends Phaser.Scene {
 		 */
 		zombieGroup.children.entries.forEach(zombie => {
 
-			// move zombies to the survivor's position at 160 px/s
-			this.physics.moveToObject(zombie, survivor, 100);
-
 			// Rotation of the zombie to the survivor position
 			updateAngleToSprite(survivor, zombie);
 		});
@@ -600,6 +651,7 @@ export default class MainScene extends Phaser.Scene {
 				} else {
 					// Update ammo info
 					ammoInfo.setText(`${this.currentMag -= 1} / ${this.ammo}`);
+					this.sound.play(survivorAnimations["weaponShootSound"]);
 				}
 
 				// change the bullet spawn depending on the gun size
@@ -622,7 +674,7 @@ export default class MainScene extends Phaser.Scene {
 	}
 }
 
-// Function to update the rotation of a sprite with mouse pointer position
+// Function to update the rotation of a sprite to mouse pointer position
 function updateAngleToMouse(game, view) {
 	const dx = game.input.activePointer.x - view.x;
 	const dy = game.input.activePointer.y - view.y;
@@ -705,19 +757,18 @@ function setZombieAnimations(zombie, scene) {
 }
 
 function addZombies(scene, zombieGroup) {
-	let { width, height } = scene.sys.game.canvas;
+	const { width, height } = scene.sys.game.canvas;
 	for (let i = 0; i < ((currentRound * 4) - (currentRound * 2)); i++) {
 		zombieCount++;
-		let border = Math.floor(Phaser.Math.Between(0, 1));
-		let randomSpeed = Math.floor(Phaser.Math.Between(0, 1));
-		
+		const border = Math.floor(Phaser.Math.Between(0, 1));
+
 		switch (border) {
 			case 0:
-				let randomHeigth = Math.floor(Phaser.Math.Between(0, height));
+				const randomHeigth = Math.floor(Phaser.Math.Between(0, height));
 				zombieGroup.create(width - 100, randomHeigth - 100, "zombie_animations");
 				break;
 			case 1:
-				let randomWidth = Math.floor(Phaser.Math.Between(0, width));
+				const randomWidth = Math.floor(Phaser.Math.Between(0, width));
 				zombieGroup.create(randomWidth - 100, height - 100, "zombie_animations");
 				break;
 		}
@@ -725,6 +776,10 @@ function addZombies(scene, zombieGroup) {
 
 	// Add to each zombie in the zombie group the proper animations
 	zombieGroup.children.entries.forEach(zombie => {
+		const randomSpeed = Math.floor(Phaser.Math.Between(100, 200));
+		// Move zombies to the survivor's position at a random speed in px/s
+		game.physics.moveToObject(zombie, survivor, randomSpeed);
+
 		setZombieAnimations(zombie, scene);
 		zombie.zombieHealth = 5;
 		survivor.body.setSize(64, 64, 64, 64);
@@ -734,6 +789,7 @@ function addZombies(scene, zombieGroup) {
 
 // Creates a new round by setting the round info as visible and adding the zombies to the game
 function newRound(text, scene) {
+	zombieCount = 1;
 	text.setText(`Round: ${++currentRound}`);
 	text.visible = true;
 	scene.time.delayedCall(2000, () => {
@@ -744,6 +800,9 @@ function newRound(text, scene) {
 
 // When a zombie hits the survivor
 function zombieHitSurvivor(survivor, zombie) {
+	const randomAudio = Math.floor(Phaser.Math.Between(1, 6));
+	game.sound.play(`zombieAttack${randomAudio}`);
+
 	if (game.time.now > (game.zombieHitDelay + game.lastZombieHit)) {
 		// Make sure the player can't shoot when dead and that they are able to shoot another bullet
 		game.lastZombieHit = game.time.now;

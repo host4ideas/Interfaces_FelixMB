@@ -1,8 +1,5 @@
 .App {
   text-align: center;
-  height: 100%;
-  width: 100%;
-  background-color: #282c3400;
   position: absolute;
 }
 
@@ -24,6 +21,12 @@
 
 .menu-option {
   cursor: pointer;
+  margin: auto;
+  width: fit-content;
+}
+
+.menu-option:hover {
+  color: rgb(238, 51, 51);
 }
 
 canvas {

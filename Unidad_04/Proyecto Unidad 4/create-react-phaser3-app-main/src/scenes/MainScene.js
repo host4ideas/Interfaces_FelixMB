@@ -471,7 +471,7 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 * ZOMBIE AND SURVIVOR COLLISION
 		*/
-		//  When a zombie hits the survivor, call
+		//  When a zombie hits the survivor, call zombieHitSurvivor function with this as the game bind
 		this.physics.add.overlap(survivor, zombieGroup, zombieHitSurvivor.bind(this));
 	}
 	update(time, delta) {
@@ -496,7 +496,7 @@ export default class MainScene extends Phaser.Scene {
 			weaponShootSound: ""
 		};
 
-		// Switch animations depending on the actual gun
+		// Switch parameters depending on the actual gun
 		switch (survivorGun) {
 			case 'knife':
 				survivorAnimations["idle"] = "survivor-idle-knife";
@@ -602,29 +602,14 @@ export default class MainScene extends Phaser.Scene {
 				this.scene.switch('mainscene');
 			});
 
-			this.physics.add.overlap(survivor, zombieGroup, function () {
-				
-			}.bind(survivor, zombie));
-
-			// // Check if a zombie is close enough to deal it damage
-			// if (
-			// 	Phaser.Math.Distance.BetweenPoints(
-			// 		{ x: survivor.x, y: survivor.y },
-			// 		{ x: this.target.x, y: this.target.y },
-			// 	) < this.target.width
-			// ) {
-			// 	this.getDamage();
-			// 	this.disableBody(true, false);
-			// 	this.scene.time.delayedCall(300, () => {
-			// 		this.destroy();
-			// 	});
-			// }
+			//  When a zombie hits the survivor, call zombieHitSurvivor function with this as the game bind
+			this.physics.add.overlap(survivor, zombieGroup, survivorMeleeZombie.bind(this));
 		} else {
 			this.isPlayingAnimMelee = false;
 		}
 
 		if (!this.isPlayingAnimMelee) {
-			survivor.play(survivorAnimations["move"]);
+			survivor.play(survivorAnimations["walk"]);
 		}
 
 		// this.keyQ.on('down', ev => {
@@ -633,6 +618,7 @@ export default class MainScene extends Phaser.Scene {
 		// this.keyQ.on('up', ev => {
 		// 	survivor.play(survivorAnimations["idle"]);
 		// });
+
 		this.keyE.on('down', ev => {
 			survivor.play(survivorAnimations["shoot"]);		// Use
 		});
@@ -655,7 +641,7 @@ export default class MainScene extends Phaser.Scene {
 		}
 
 		if (!this.isPlayingAnimReload) {
-			survivor.play(survivorAnimations["move"]);
+			survivor.play(survivorAnimations["walk"]);
 		}
 
 		// this.keyR.on('down', ev => {
@@ -706,39 +692,46 @@ export default class MainScene extends Phaser.Scene {
 		 */
 		// mouse clicked
 		if (mouse.isDown) {
-			// Check the delay
-			if (this.time.now > (this.shotDelay + this.lastShot)) {
-				// Make sure the player can't shoot when dead and that they are able to shoot another bullet
-				this.lastShot = this.time.now;
+			// If the survivor weapon is a gun, shot a bullet
+			if (survivorGun === availableGuns[2] || survivorGun === availableGuns[3] || survivorGun === availableGuns[4]) {
+				// Check the delay
+				if (this.time.now > (this.shotDelay + this.lastShot)) {
+					// Make sure the player can't shoot when dead and that they are able to shoot another bullet
+					this.lastShot = this.time.now;
 
-				if (this.currentMag - 1 < 0) {
-					this.currentMag = 0;
-				} else {
-					// Update ammo info
-					ammoInfo.setText(`${this.currentMag -= 1} / ${this.ammo}`);
-					this.sound.play(survivorAnimations["weaponShootSound"]);
+					if (this.currentMag - 1 < 0) {
+						this.currentMag = 0;
+					} else {
+						// Update ammo info
+						ammoInfo.setText(`${this.currentMag -= 1} / ${this.ammo}`);
+						survivor.play(survivorAnimations["shoot"]);
+						this.sound.play(survivorAnimations["weaponShootSound"]);
+					}
+
+					// change the bullet spawn depending on the gun size
+					bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
+
+					// Phaser.Actions.RotateAround(survivor, { x: survivor.x, y: survivor.y }, 0.01);
+
+					// bullet sprite rotation to mouse firection
+					updateAngleToMouse(this, bullet);
+					// move bullet to mouse direction
+					this.physics.moveTo(bullet, input.x, input.y, 500);
+					//  When the bullet sprite his a zombie from zombieGroup, call bulletHitZombie function
+					this.physics.add.overlap(bullet, zombieGroup, bulletHitZombie);
+
+					// Set trigger new round to true
+					if (zombieCount < 1) {
+						this.triggerNewRound = true;
+					}
 				}
-
-				// change the bullet spawn depending on the gun size
-				bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
-
-				// Phaser.Actions.RotateAround(survivor, { x: survivor.x, y: survivor.y }, 0.01);
-
-				// bullet sprite rotation to mouse firection
-				updateAngleToMouse(this, bullet);
-				// move bullet to mouse direction
-				this.physics.moveTo(bullet, input.x, input.y, 500);
-				//  When the bullet sprite his a zombie from zombieGroup, call bulletHitZombie function
-				this.physics.add.overlap(bullet, zombieGroup, bulletHitZombie);
-
-				// Trigger new round
-				if (zombieCount < 1) {
-					this.triggerNewRound = true;
-				}
+				// Else instead of shooting, trigger a melee atack
+			} else {
+				survivor.play(survivorAnimations["meleeattack"]);
 			}
 		}
 
-		// Trigger new round
+		// Trigger new round and set trigger new round to false
 		if (this.triggerNewRound === true && zombieCount < 1) {
 			survivor.body.enable = false;
 			newRound(textObject, this);
@@ -864,12 +857,12 @@ function addZombies(scene, zombieGroup) {
 }
 
 // Creates a new round by setting the round info as visible and adding the zombies to the game
-function newRound(text, scene) {
+function newRound(textObject, scene) {
 	zombieCount = 1;
-	text.setText(`Round: ${++currentRound}`);
-	text.visible = true;
+	textObject.setText(`Round: ${++currentRound}`);
+	textObject.visible = true;
 	scene.time.delayedCall(2000, () => {
-		text.visible = false;
+		textObject.visible = false;
 		addZombies(scene, zombieGroup);
 	}, null, scene);
 }
@@ -900,4 +893,20 @@ function playLostGame(game) {
 	game.time.delayedCall(1000, () => {
 		game.scene.start('wastedscene');
 	});
+}
+
+function survivorMeleeZombie() {
+	// Check if a zombie is close enough to deal it damage
+	if (
+		Phaser.Math.Distance.BetweenPoints(
+			{ x: survivor.x, y: survivor.y },
+			{ x: this.target.x, y: this.target.y },
+		) < this.target.width
+	) {
+		this.getDamage();
+		this.disableBody(true, false);
+		this.scene.time.delayedCall(300, () => {
+			this.destroy();
+		});
+	}
 }

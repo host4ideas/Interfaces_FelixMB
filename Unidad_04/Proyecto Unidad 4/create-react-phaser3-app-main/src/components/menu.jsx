@@ -3,8 +3,8 @@ import Phaser from 'phaser'
 import Instructions from "./instructions";
 import HowMade from "./how-it-was-made";
 import config from '../PhaserGame';
-import menuOptionAudio from '../assets/audio/menu/Menu-Selection-Change-D2.mp3'
-import menuSoundTrack from '../assets/audio/music/2021-11-14_-_Ogre_Boss_-_David_Fesliyan.mp3'
+import menuOptionAudio from '../assets/audio/menu/Menu-Selection-Change-D2.mp3';
+import menuSoundTrack from '../assets/audio/music/2021-11-14_-_Ogre_Boss_-_David_Fesliyan.mp3';
 
 // Defines the menu that appears in the home page
 export default function Menu() {
@@ -74,12 +74,12 @@ export default function Menu() {
 				<h2 id="startGame" className="text-option" onClick={handleClickNewGame} onMouseEnter={handleHover}>NEW GAME</h2>
 			</div>
 			<div className="menu-option arcade-font">
-				<h2 className="text-option toogle-fade" onClick={handleClickInstr} onMouseEnter={handleHover}>INSTRUCTIONS</h2>
+				<h2 className="toogle-fade" onClick={handleClickInstr} onMouseEnter={handleHover}>INSTRUCTIONS</h2>
 				{/* If instructions is clicked, show instructions */}
 				{instrClicked && <Instructions />}
 			</div>
 			<div className="menu-option arcade-font">
-				<h2 className="text-option toogle-fade" onClick={handleClickHowMade} onMouseEnter={handleHover}>HOW IT WAS MADE</h2>
+				<h2 className="toogle-fade" onClick={handleClickHowMade} onMouseEnter={handleHover}>HOW IT WAS MADE</h2>
 				{/* If instructions is clicked, show instructions */}
 				{howMadeClicked && <HowMade />}
 			</div>

@@ -588,7 +588,7 @@ export default class MainScene extends Phaser.Scene {
 		});
 		// Interactions
 
-		// Play meleeattack once and when completed add hit the nearby zombies
+		// Play meleeattack once and when completed hit the nearby zombies
 		if (Phaser.Input.Keyboard.JustDown(this.keyQ)) {
 			survivor.play(survivorAnimations["meleeattack"]);
 
@@ -601,6 +601,10 @@ export default class MainScene extends Phaser.Scene {
 			this.time.delayedCall(1200, () => {
 				this.scene.switch('mainscene');
 			});
+
+			this.physics.add.overlap(survivor, zombieGroup, function () {
+				
+			}.bind(survivor, zombie));
 
 			// // Check if a zombie is close enough to deal it damage
 			// if (

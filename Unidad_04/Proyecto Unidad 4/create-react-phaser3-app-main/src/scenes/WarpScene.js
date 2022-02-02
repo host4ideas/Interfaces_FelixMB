@@ -16,6 +16,11 @@ export default class WarpScene extends Phaser.Scene {
 
 		var vid = this.add.video(screenCenterX, screenCenterY, 'wormhole');
 
+		vid.setDisplaySize(
+			(this.cameras.main.worldView.x + this.cameras.main.width),
+			(this.cameras.main.worldView.y + this.cameras.main.height)
+		);
+
 		vid.play(true);
 
 		// Prevents video freeze when game is out of focus (i.e. user changes tab on the browser)

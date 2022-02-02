@@ -13,19 +13,21 @@ export default function Menu() {
 	// Set a control variable to check to render or not some web parts
 	const [howMadeClicked, setHowMadeClicked] = useState(false);
 	// Set a control variable to check to render or not some web parts
-	const [newGameClicked, setNewGameClicked] = useState(false);
 	const [newGame, setNewGame] = useState();
 	// Game paused state
 	const [gamePaused, setGamePaused] = useState(false);
+
+	var audio = new Audio(menuSoundTrack);
+	audio.play();
 
 	document.addEventListener('keypress', (ev) => {
 		if (ev.key == 'p' || ev.key == 'P') {
 			if (gamePaused) {
 				newGame.scene.resume("mainscene");
-				document.getElementById("phaser-container").style.display = "inline-block";
+				document.getElementById("phaser-container").style.visibility = "initial";
 				setGamePaused(false);
 			} else {
-				document.getElementById("phaser-container").style.display = "none";
+				document.getElementById("phaser-container").style.visibility = "hidden";
 				newGame.scene.pause("mainscene");
 				setGamePaused(true);
 			}
@@ -37,14 +39,6 @@ export default function Menu() {
 		audio.play();
 	}
 
-	function handleClickResume() {
-		newGame.scene.resume("mainscene");
-	}
-
-	function handleClickPause() {
-		newGame.scene.pause("mainscene");
-	}
-
 	function handleClickNewGame() {
 		if (typeof newGame == "object") {
 			/*
@@ -54,7 +48,6 @@ export default function Menu() {
 			*/
 			newGame.destroy(true, false);
 		}
-		setNewGameClicked(true);
 		setNewGame(new Phaser.Game(config));
 	}
 
@@ -80,17 +73,6 @@ export default function Menu() {
 			<div className="menu-option arcade-font">
 				<h2 id="startGame" className="text-option" onClick={handleClickNewGame} onMouseEnter={handleHover}>NEW GAME</h2>
 			</div>
-			{newGameClicked &&
-				<div>
-					{/* Hidden option for in-game control */}
-					<div className="menu-option arcade-font">
-						<h2 id="pause" className="text-option" onClick={handleClickPause} onMouseEnter={handleHover}>PAUSE</h2>
-					</div>
-					{/* Hidden option for in-game control */}
-					<div className="menu-option arcade-font">
-						<h2 id="resume" className="text-option" onClick={handleClickResume} onMouseEnter={handleHover}>RESUME</h2>
-					</div>
-				</div>}
 			<div className="menu-option arcade-font">
 				<h2 className="text-option toogle-fade" onClick={handleClickInstr} onMouseEnter={handleHover}>INSTRUCTIONS</h2>
 				{/* If instructions is clicked, show instructions */}

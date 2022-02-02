@@ -44,28 +44,15 @@ let input;
 // Game variables
 let target = 0;
 const ROTATION_SPEED = 1 * Math.PI; // radians per second
-let game;
-
-// // Audio variables
-// let zombieAttackAudio1;
-// let zombieAttackAudio2;
-// let zombieAttackAudio3;
-// let zombieAttackAudio4;
-// let zombieAttackAudio5;
-// let zombieAttackAudio6;
-// let rifleAudioShoot;
-// let shotgunAudioShoot;
-// let pistolAudioShoot;
 
 // Game round variables
-let currentRound = 0;
 let zombieCount = 99;
 
 // Game info varialbes
 let ammoInfo;
 let healthInfo;
-let roundInfo;
-let newRoundInfoText
+let textObject;		// Text object
+let currentRound;	// The text of the text object
 
 // Damage and health variables
 let weaponDamage = 2;
@@ -88,6 +75,8 @@ export default class MainScene extends Phaser.Scene {
 		this.zombieHitDelay = 1000;
 		// New round variable
 		this.triggerNewRound = true;
+		// Animation triggers
+		this.isPlayingAnimMelee = true;
 	}
 
 	preload() {
@@ -112,10 +101,15 @@ export default class MainScene extends Phaser.Scene {
 
 		// To add images
 		this.textures.addBase64('bullet', bulletSprite);
-		game = this;
 	}
 
 	create() {
+		// FOR RESET  PURPOSES
+		zombieCount = 99;
+		currentRound = 0;
+		weaponDamage = 2;
+		survivorHealth = 5;
+
 		// Add audios
 		this.sound.add('group_zombies');
 		this.sound.add('attack_zombie_audio_1');
@@ -128,13 +122,15 @@ export default class MainScene extends Phaser.Scene {
 		this.sound.add('shotgun_shoot_audio');
 		this.sound.add('pistol_shoot_audio');
 
+		// Play background sound
 		this.sound.play('group_zombies');
+
 		/**
 		 **** NEW ROUND INFO ****
 		 */
 		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-		newRoundInfoText = this.add.text(screenCenterX, screenCenterY, `Round: ${currentRound}`, { fontSize: '5rem', color: '#eb5449' }).setOrigin(0.5);
+		textObject = this.add.text(screenCenterX, screenCenterY, `Round: ${currentRound}`, { fontSize: '5rem', color: '#eb5449' }).setOrigin(0.5);
 
 		/**
 		 **** AMMO INFO **** 
@@ -145,11 +141,6 @@ export default class MainScene extends Phaser.Scene {
 		 **** HEALTH INFO **** 
 		 */
 		healthInfo = this.add.text(200, 0, `Health: ${survivorHealth}`, { fontSize: '1.5rem' });
-
-		/**
-		 **** ROUND INFO **** 
-		 */
-		roundInfo = this.add.text(500, 0, `Round: ${currentRound}`, { fontSize: '1.5rem' });
 
 		/**
 		 ***** SURVIVOR CREATION & ANIMATIONS *****
@@ -199,7 +190,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 14
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		/*
@@ -239,7 +230,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 14
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		/*
@@ -279,7 +270,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 14
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		survivor.anims.create({
@@ -291,7 +282,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 19
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		survivor.anims.create({
@@ -343,7 +334,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 14
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		survivor.anims.create({
@@ -355,7 +346,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 19
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		survivor.anims.create({
@@ -408,7 +399,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 14
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		survivor.anims.create({
@@ -420,7 +411,7 @@ export default class MainScene extends Phaser.Scene {
 				end: 14
 			}),
 			frameRate: 20,
-			repeat: -1
+			repeat: 0
 		});
 
 		survivor.anims.create({
@@ -451,7 +442,7 @@ export default class MainScene extends Phaser.Scene {
 		*/
 		// Create the zombies group
 		zombieGroup = this.physics.add.group();
-		newRound(newRoundInfoText, this);
+		newRound(textObject, this);
 
 		/*
 			Mouse inputs events
@@ -476,6 +467,12 @@ export default class MainScene extends Phaser.Scene {
 		this.key3 = this.key3 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
 		this.key4 = this.key4 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
 		this.key5 = this.key5 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+
+		/**
+		 * ZOMBIE AND SURVIVOR COLLISION
+		*/
+		//  When a zombie hits the survivor, call
+		this.physics.add.overlap(survivor, zombieGroup, zombieHitSurvivor.bind(this));
 	}
 	update(time, delta) {
 		/**
@@ -522,7 +519,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["shoot"] = "survivor-shoot-rifle";
 				survivorAnimations["reload"] = "survivor-reload-rifle";
 				survivorAnimations["weaponShootSound"] = 'rifle_shoot_audio';
-				weaponDamage = 3;
+				weaponDamage = 2;
 				this.shotDelay = 300;
 				break;
 			case 'shotgun':
@@ -543,7 +540,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["reload"] = "survivor-reload-handgun";
 				survivorAnimations["weaponShootSound"] = 'pistol_shoot_audio';
 				weaponDamage = 2;
-				this.shotDelay = 800;
+				this.shotDelay = 600;
 				break;
 			default:
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
@@ -592,11 +589,17 @@ export default class MainScene extends Phaser.Scene {
 		// Interactions
 
 		// Play meleeattack once and when completed add hit the nearby zombies
-		if (Phaser.Input.Keyboard.JustDown(this.keyR)) {
+		if (Phaser.Input.Keyboard.JustDown(this.keyQ)) {
 			survivor.play(survivorAnimations["meleeattack"]);
+
+			this.isPlayingAnimMelee = true;
 
 			survivor.on('animationcomplete', () => {
 				console.log("melee attack completed");
+			});
+
+			this.time.delayedCall(1200, () => {
+				this.scene.switch('mainscene');
 			});
 
 			// // Check if a zombie is close enough to deal it damage
@@ -612,6 +615,12 @@ export default class MainScene extends Phaser.Scene {
 			// 		this.destroy();
 			// 	});
 			// }
+		} else {
+			this.isPlayingAnimMelee = false;
+		}
+
+		if (!this.isPlayingAnimMelee) {
+			survivor.play(survivorAnimations["move"]);
 		}
 
 		// this.keyQ.on('down', ev => {
@@ -631,12 +640,18 @@ export default class MainScene extends Phaser.Scene {
 		if (Phaser.Input.Keyboard.JustDown(this.keyR)) {
 			survivor.play(survivorAnimations["reload"]);
 
-			this.isReloading = true;
+			this.isPlayingAnimReload = true;
 
 			survivor.on('animationcomplete', () => {
 				console.log("reload completed");
 				this.isReloading = false;
 			});
+		} else {
+			this.isPlayingAnimReload = false;
+		}
+
+		if (!this.isPlayingAnimReload) {
+			survivor.play(survivorAnimations["move"]);
 		}
 
 		// this.keyR.on('down', ev => {
@@ -683,12 +698,6 @@ export default class MainScene extends Phaser.Scene {
 		});
 
 		/**
-		 * ZOMBIE AND SURVIVOR COLLISION
-		*/
-		//  When a zombie hits the survivor, call
-		this.physics.add.overlap(survivor, zombieGroup, zombieHitSurvivor);
-
-		/**
 		 * Bullet updates
 		 */
 		// mouse clicked
@@ -728,7 +737,7 @@ export default class MainScene extends Phaser.Scene {
 		// Trigger new round
 		if (this.triggerNewRound === true && zombieCount < 1) {
 			survivor.body.enable = false;
-			newRound(newRoundInfoText, this);
+			newRound(textObject, this);
 			survivor.body.enable = true;
 			this.triggerNewRound = false;
 		}
@@ -761,7 +770,9 @@ function bulletHitZombie(bullet, zombie) {
 	zombie.zombieHealth -= weaponDamage;
 
 	if (zombie.zombieHealth < 1) {
-		zombieCount--;
+		--zombieCount;
+
+		console.log(zombieCount)
 
 		zombie.destroy(true);
 	}
@@ -789,7 +800,7 @@ function setZombieAnimations(zombie, scene) {
 			end: 15
 		}),
 		frameRate: 10,
-		repeat: 0
+		repeat: -1
 	});
 
 	zombie.anims.create({
@@ -801,7 +812,7 @@ function setZombieAnimations(zombie, scene) {
 			end: 15
 		}),
 		frameRate: 8,
-		repeat: 0
+		repeat: -1
 	});
 
 	zombie.anims.create({
@@ -813,7 +824,7 @@ function setZombieAnimations(zombie, scene) {
 			end: 7
 		}),
 		frameRate: 10,
-		repeat: 0
+		repeat: -1
 	});
 }
 
@@ -837,13 +848,15 @@ function addZombies(scene, zombieGroup) {
 
 	// Add to each zombie in the zombie group the proper animations
 	zombieGroup.children.entries.forEach(zombie => {
-		zombie.randomSpeed = Math.floor(Phaser.Math.Between(100, 200));
+		zombie.randomSpeed = Math.floor(Phaser.Math.Between(100, 160));
 
 		setZombieAnimations(zombie, scene);
 		zombie.zombieHealth = 5;
 		survivor.body.setSize(64, 64, 64, 64);
 		zombie.anims.play('walk-zombie');
 	});
+
+	zombieCount--;
 }
 
 // Creates a new round by setting the round info as visible and adding the zombies to the game
@@ -860,11 +873,11 @@ function newRound(text, scene) {
 // When a zombie hits the survivor
 function zombieHitSurvivor(survivor, zombie) {
 	const randomAudio = Math.floor(Phaser.Math.Between(1, 6));
-	game.sound.play(`attack_zombie_audio_${randomAudio}`);
+	this.sound.play(`attack_zombie_audio_${randomAudio}`);
 
-	if (game.time.now > (game.zombieHitDelay + game.lastZombieHit)) {
+	if (this.time.now > (this.zombieHitDelay + this.lastZombieHit)) {
 		// Make sure the player can't shoot when dead and that they are able to shoot another bullet
-		game.lastZombieHit = game.time.now;
+		this.lastZombieHit = this.time.now;
 
 		zombie.anims.play('meleeattack-zombie', 60, false);
 
@@ -872,13 +885,13 @@ function zombieHitSurvivor(survivor, zombie) {
 		healthInfo.setText(`Health: ${survivorHealth}`);
 
 		if (survivorHealth < 1) {
-			playLostGame();
+			playLostGame(this);
 			survivor.destroy(true);
 		}
 	}
 }
 
-function playLostGame() {
+function playLostGame(game) {
 	game.cameras.main.fadeOut(1000, 0, 0, 0);
 	game.time.delayedCall(1000, () => {
 		game.scene.start('wastedscene');

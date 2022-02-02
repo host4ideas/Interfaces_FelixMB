@@ -16,9 +16,18 @@ export default class WastedScene extends Phaser.Scene {
 
 		var vid = this.add.video(screenCenterX, screenCenterY, 'wasted');
 
+		vid.setDisplaySize(
+			(this.cameras.main.worldView.x + this.cameras.main.width),
+			(this.cameras.main.worldView.y + this.cameras.main.height)
+		);
+
 		vid.play(false);
 
 		// Prevents video freeze when game is out of focus (i.e. user changes tab on the browser)
 		vid.setPaused(false);
+
+		this.time.delayedCall(7000, () => {
+			this.sys.game.destroy(true);
+		});
 	}
 }

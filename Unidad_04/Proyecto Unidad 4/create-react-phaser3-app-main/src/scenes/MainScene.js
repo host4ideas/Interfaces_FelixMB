@@ -58,8 +58,7 @@ let pistolAudioShoot;
 
 // Game round variables
 let currentRound = 0;
-let zombieCount = 0;
-let triggerNewRound = false;
+let zombieCount = 99;
 
 // Game info varialbes
 let ammoInfo;
@@ -82,9 +81,12 @@ export default class MainScene extends Phaser.Scene {
 		this.ammo = 90;
 		this.currentMag = 30;
 		this.shotDelay = 300;
+		this.isReloading = false;
 		// Zombie variables
 		this.lastZombieHit = 0;
 		this.zombieHitDelay = 1000;
+		// New round variable
+		this.triggerNewRound = true;
 	}
 
 	preload() {
@@ -586,24 +588,70 @@ export default class MainScene extends Phaser.Scene {
 			survivor.body.setVelocityX(0);
 		});
 		// Interactions
-		this.keyQ.on('down', ev => {
-			survivor.play(survivorAnimations["meleeattack"]);	// Melee atack
-		});
-		this.keyQ.on('up', ev => {
-			survivor.play(survivorAnimations["idle"]);
-		});
+
+		// Play meleeattack once and when completed add hit the nearby zombies
+		if (Phaser.Input.Keyboard.JustDown(this.keyR)) {
+			survivor.play(survivorAnimations["meleeattack"]);
+
+			survivor.on('animationcomplete', () => {
+				console.log("melee attack completed");
+			});
+
+			// // Check if a zombie is close enough to deal it damage
+			// if (
+			// 	Phaser.Math.Distance.BetweenPoints(
+			// 		{ x: survivor.x, y: survivor.y },
+			// 		{ x: this.target.x, y: this.target.y },
+			// 	) < this.target.width
+			// ) {
+			// 	this.getDamage();
+			// 	this.disableBody(true, false);
+			// 	this.scene.time.delayedCall(300, () => {
+			// 		this.destroy();
+			// 	});
+			// }
+		}
+
+		// this.keyQ.on('down', ev => {
+		// 	survivor.play(survivorAnimations["meleeattack"]);	// Melee atack
+		// });
+		// this.keyQ.on('up', ev => {
+		// 	survivor.play(survivorAnimations["idle"]);
+		// });
 		this.keyE.on('down', ev => {
 			survivor.play(survivorAnimations["shoot"]);		// Use
 		});
 		this.keyE.on('up', ev => {
 			survivor.play(survivorAnimations["idle"]);
 		});
-		this.keyR.on('down', ev => {
-			survivor.play(survivorAnimations["reload"]);	// Reload
-		});
-		this.keyR.on('up', ev => {
-			survivor.play(survivorAnimations["idle"]);
-		});
+
+		// Play reload once and when completed add the bullets to the mag
+		if (Phaser.Input.Keyboard.JustDown(this.keyR)) {
+			survivor.play(survivorAnimations["reload"]);
+
+			this.isReloading = true;
+
+			survivor.on('animationcomplete', () => {
+				console.log("reload completed");
+				this.isReloading = false;
+			});
+		}
+
+		// this.keyR.on('down', ev => {
+		// 	survivor.play(survivorAnimations["reload"]);	// Reload
+
+		// 	survivor.on('animationcomplete', () => {
+		// 		console.log("reload completed");
+		// 	});
+
+		// 	// if (this.time.now > (this.shotDelay + this.lastShot)) {
+
+		// 	// }
+		// });
+		// this.keyR.on('up', ev => {
+		// 	survivor.play(survivorAnimations["idle"]);
+		// });
+
 		// Change weapon
 		this.key1.on('down', ev => {
 			survivorGun = availableGuns[0];
@@ -655,7 +703,9 @@ export default class MainScene extends Phaser.Scene {
 				}
 
 				// change the bullet spawn depending on the gun size
-				bullet = this.physics.add.sprite(survivor.x + 20, survivor.y, 'bullet');
+				bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
+
+				Phaser.Actions.RotateAround(survivor, { x: survivor.x, y: survivor.y }, 0.01);
 
 				// bullet sprite rotation to mouse firection
 				updateAngleToMouse(this, bullet);
@@ -664,12 +714,19 @@ export default class MainScene extends Phaser.Scene {
 				//  When the bullet sprite his a zombie from zombieGroup, call bulletHitZombie function
 				this.physics.add.overlap(bullet, zombieGroup, bulletHitZombie);
 
+				// Trigger new round
 				if (zombieCount < 1) {
-					survivor.body.enable = false;
-					newRound(newRoundInfoText, this);
-					survivor.body.enable = true;
+					this.triggerNewRound = true;
 				}
 			}
+		}
+
+		// Trigger new round
+		if (this.triggerNewRound === true && zombieCount < 1) {
+			survivor.body.enable = false;
+			newRound(newRoundInfoText, this);
+			survivor.body.enable = true;
+			this.triggerNewRound = false;
 		}
 	}
 }

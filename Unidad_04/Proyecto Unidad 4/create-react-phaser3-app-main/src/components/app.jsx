@@ -3,7 +3,6 @@ import Menu from "./menu";
 import Header from "./header";
 
 export default function App() {
-
 	const [gameLoaded, setGameLoaded] = useState(false);
 
 	function animate() {
@@ -44,9 +43,19 @@ export default function App() {
 	}
 
 	return (
-		<div id="homePage" className="App" onLoad={handleLoadGameState}>
+		<div id="homePage" className="App">
 			<Header />
-			{gameLoaded ? <Menu /> : <div><p className="arcade-font">Loading ...</p> <div id="progressBar"></div></div>}
+			{gameLoaded ? <Menu /> :
+				<div>
+					<a href="#" className="animated-button1 arcade-font" onClick={handleLoadGameState}>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						PLAY
+					</a>
+					<div id="progressBar"></div>
+				</div>}
 		</div>
 	)
 }

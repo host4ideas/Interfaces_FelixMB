@@ -6,11 +6,3 @@ body {
 .arcade-font {
 	font-family: 'Press Start 2P', cursive;
 }
-
-.menu-option {
-	cursor: pointer;
-}
-
-canvas {
-	width: 100%;
-}

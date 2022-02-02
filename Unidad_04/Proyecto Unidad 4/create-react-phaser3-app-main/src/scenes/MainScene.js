@@ -45,16 +45,17 @@ let input;
 let target = 0;
 const ROTATION_SPEED = 1 * Math.PI; // radians per second
 let game;
-// Audio variables
-let zombieAttack1;
-let zombieAttack2;
-let zombieAttack3;
-let zombieAttack4;
-let zombieAttack5;
-let zombieAttack6;
-let rifleAudioShoot;
-let shotgunAudioShoot;
-let pistolAudioShoot;
+
+// // Audio variables
+// let zombieAttackAudio1;
+// let zombieAttackAudio2;
+// let zombieAttackAudio3;
+// let zombieAttackAudio4;
+// let zombieAttackAudio5;
+// let zombieAttackAudio6;
+// let rifleAudioShoot;
+// let shotgunAudioShoot;
+// let pistolAudioShoot;
 
 // Game round variables
 let currentRound = 0;
@@ -107,23 +108,27 @@ export default class MainScene extends Phaser.Scene {
 		this.load.audio('attack_zombie_audio_6', zombieAttack6);
 		this.load.audio('rifle_shoot_audio', rifleAudioShoot);
 		this.load.audio('shotgun_shoot_audio', shotgunAudioShoot);
-		// Add audios
-		zombieAttack1 = game.add.audio('attack_zombie_audio_1');
-		zombieAttack2 = game.add.audio('attack_zombie_audio_2');
-		zombieAttack3 = game.add.audio('attack_zombie_audio_3');
-		zombieAttack4 = game.add.audio('attack_zombie_audio_4');
-		zombieAttack5 = game.add.audio('attack_zombie_audio_5');
-		zombieAttack6 = game.add.audio('attack_zombie_audio_6');
-		rifleAudioShoot = game.add.audio('rifle_shoot_audio');
-		shotgunAudioShoot = game.add.audio('shotgun_shoot_audio');
-		pistolAudioShoot = game.add.audio('pistol_shoot_audio');
-		groupZombiesAudio = game.add.audio('group_zombies');
+		this.load.audio('pistol_shoot_audio', pistolAudioShoot);
+
 		// To add images
 		this.textures.addBase64('bullet', bulletSprite);
 		game = this;
 	}
 
 	create() {
+		// Add audios
+		this.sound.add('group_zombies');
+		this.sound.add('attack_zombie_audio_1');
+		this.sound.add('attack_zombie_audio_2');
+		this.sound.add('attack_zombie_audio_3');
+		this.sound.add('attack_zombie_audio_4');
+		this.sound.add('attack_zombie_audio_5');
+		this.sound.add('attack_zombie_audio_6');
+		this.sound.add('rifle_shoot_audio');
+		this.sound.add('shotgun_shoot_audio');
+		this.sound.add('pistol_shoot_audio');
+
+		this.sound.play('group_zombies');
 		/**
 		 **** NEW ROUND INFO ****
 		 */
@@ -448,9 +453,6 @@ export default class MainScene extends Phaser.Scene {
 		zombieGroup = this.physics.add.group();
 		newRound(newRoundInfoText, this);
 
-		// Play audio of zombies
-		this.sound.play(groupZombiesAudio);
-
 		/*
 			Mouse inputs events
 		*/
@@ -519,7 +521,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-rifle";
 				survivorAnimations["shoot"] = "survivor-shoot-rifle";
 				survivorAnimations["reload"] = "survivor-reload-rifle";
-				survivorAnimations["weaponShootSound"] = rifleAudioShoot;
+				survivorAnimations["weaponShootSound"] = 'rifle_shoot_audio';
 				weaponDamage = 3;
 				this.shotDelay = 300;
 				break;
@@ -529,7 +531,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-shotgun";
 				survivorAnimations["shoot"] = "survivor-shoot-shotgun";
 				survivorAnimations["reload"] = "survivor-reload-shotgun";
-				survivorAnimations["weaponShootSound"] = shotgunAudioShoot;
+				survivorAnimations["weaponShootSound"] = 'shotgun_shoot_audio';
 				weaponDamage = 4;
 				this.shotDelay = 500;
 				break;
@@ -539,7 +541,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-handgun";
 				survivorAnimations["shoot"] = "survivor-shoot-handgun";
 				survivorAnimations["reload"] = "survivor-reload-handgun";
-				survivorAnimations["weaponShootSound"] = pistolAudioShoot;
+				survivorAnimations["weaponShootSound"] = 'pistol_shoot_audio';
 				weaponDamage = 2;
 				this.shotDelay = 800;
 				break;
@@ -673,6 +675,8 @@ export default class MainScene extends Phaser.Scene {
 		 **** Zombie updates ****
 		 */
 		zombieGroup.children.entries.forEach(zombie => {
+			// Move zombies to the survivor's position at a random speed in px/s
+			this.physics.moveToObject(zombie, survivor, zombie.randomSpeed);
 
 			// Rotation of the zombie to the survivor position
 			updateAngleToSprite(survivor, zombie);
@@ -705,7 +709,7 @@ export default class MainScene extends Phaser.Scene {
 				// change the bullet spawn depending on the gun size
 				bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
 
-				Phaser.Actions.RotateAround(survivor, { x: survivor.x, y: survivor.y }, 0.01);
+				// Phaser.Actions.RotateAround(survivor, { x: survivor.x, y: survivor.y }, 0.01);
 
 				// bullet sprite rotation to mouse firection
 				updateAngleToMouse(this, bullet);
@@ -833,9 +837,7 @@ function addZombies(scene, zombieGroup) {
 
 	// Add to each zombie in the zombie group the proper animations
 	zombieGroup.children.entries.forEach(zombie => {
-		const randomSpeed = Math.floor(Phaser.Math.Between(100, 200));
-		// Move zombies to the survivor's position at a random speed in px/s
-		game.physics.moveToObject(zombie, survivor, randomSpeed);
+		zombie.randomSpeed = Math.floor(Phaser.Math.Between(100, 200));
 
 		setZombieAnimations(zombie, scene);
 		zombie.zombieHealth = 5;
@@ -858,7 +860,7 @@ function newRound(text, scene) {
 // When a zombie hits the survivor
 function zombieHitSurvivor(survivor, zombie) {
 	const randomAudio = Math.floor(Phaser.Math.Between(1, 6));
-	game.sound.play(`zombieAttack${randomAudio}`);
+	game.sound.play(`attack_zombie_audio_${randomAudio}`);
 
 	if (game.time.now > (game.zombieHitDelay + game.lastZombieHit)) {
 		// Make sure the player can't shoot when dead and that they are able to shoot another bullet

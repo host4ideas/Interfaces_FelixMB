@@ -3,6 +3,7 @@
   height: 100%;
   width: 100%;
   background-color: #282c3400;
+  position: absolute;
 }
 
 .App-link {
@@ -19,4 +20,13 @@
   background-color: rgb(126, 126, 126);
   width: 0%;
   height: 50px;
+}
+
+.menu-option {
+  cursor: pointer;
+}
+
+canvas {
+  width: 100%;
+  position: absolute;
 }

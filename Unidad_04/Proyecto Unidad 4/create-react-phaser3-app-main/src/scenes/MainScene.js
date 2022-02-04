@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-// Survivor animations
+// Survivor animations sprites
 import survivorKnifeAnimations from '../assets/textures/top_down_survivor/survivor_knife/survivor_knife.png';
 import survivorKnifeConfiguration from '../assets/textures/top_down_survivor/survivor_knife/survivor_knife.json';
 import survivorRifleAnimations from '../assets/textures/top_down_survivor/survivor_rifle/survivor_rifle.png';
@@ -10,13 +10,12 @@ import survivorHandgunAnimations from '../assets/textures/top_down_survivor/surv
 import survivorHandgunConfiguration from '../assets/textures/top_down_survivor/survivor_handgun/survivor_handgun.json';
 import survivorFlashlightAnimations from '../assets/textures/top_down_survivor/survivor_flashlight/survivor_flashlight.png';
 import survivorFlashlightConfiguration from '../assets/textures/top_down_survivor/survivor_flashlight/survivor_flashlight.json';
-// Zombie animations
+// Zombie animations sprites
 import zombieAnimations from '../assets/textures/top_down_zombie/texture.png';
 import zombieConfiguration from '../assets/textures/top_down_zombie/texture.json';
-// Sprites
+// Bullet sprite
 import bulletSprite from '../assets/sprites/bullet5.png';
 // Zombie audios
-import groupZombiesAudio from '../assets/audio/characters/Large-Zombie-Horde.mp3';
 import zombieAttack1 from '../assets/audio/characters/Zombie-Aggressive-Attack-A1.mp3';
 import zombieAttack2 from '../assets/audio/characters/Zombie-Aggressive-Attack-A2.mp3';
 import zombieAttack3 from '../assets/audio/characters/Zombie-Aggressive-Attack-A3.mp3';
@@ -77,6 +76,7 @@ export default class MainScene extends Phaser.Scene {
 		this.triggerNewRound = true;
 		// Animation triggers
 		this.isPlayingAnimMelee = true;
+		this.isPlayingZombieAttack = false;
 	}
 
 	preload() {
@@ -88,7 +88,6 @@ export default class MainScene extends Phaser.Scene {
 		this.load.atlas('survivor_animations_flashlight', survivorFlashlightAnimations, survivorFlashlightConfiguration);
 		this.load.atlas('zombie_animations', zombieAnimations, zombieConfiguration);
 		// Load audios
-		this.load.audio('group_zombies', groupZombiesAudio);
 		this.load.audio('attack_zombie_audio_1', zombieAttack1);
 		this.load.audio('attack_zombie_audio_2', zombieAttack2);
 		this.load.audio('attack_zombie_audio_3', zombieAttack3);
@@ -111,7 +110,6 @@ export default class MainScene extends Phaser.Scene {
 		survivorHealth = 5;
 
 		// Add audios
-		this.sound.add('group_zombies');
 		this.sound.add('attack_zombie_audio_1');
 		this.sound.add('attack_zombie_audio_2');
 		this.sound.add('attack_zombie_audio_3');
@@ -121,9 +119,6 @@ export default class MainScene extends Phaser.Scene {
 		this.sound.add('rifle_shoot_audio');
 		this.sound.add('shotgun_shoot_audio');
 		this.sound.add('pistol_shoot_audio');
-
-		// Play background sound
-		this.sound.play('group_zombies');
 
 		/**
 		 **** NEW ROUND INFO ****
@@ -775,16 +770,6 @@ function bulletHitZombie(bullet, zombie) {
 	}
 }
 
-// Melee attack
-const enableMelee = () => {
-	this.attackZone = this.add.zone(this.playerSprite.x, this.playerSprite.y, 20, 40)
-	this.playerSprite.on('animationupdate', (anim, frame, sprite, frameKey) => {
-		if (frame.index == 1) {
-			this.physics.world.disable(this.attackZone);
-		}
-	});
-}
-
 function setZombieAnimations(zombie, scene) {
 	zombie.setScale(0.2);
 
@@ -870,7 +855,15 @@ function newRound(textObject, scene) {
 // When a zombie hits the survivor
 function zombieHitSurvivor(survivor, zombie) {
 	const randomAudio = Math.floor(Phaser.Math.Between(1, 6));
-	this.sound.play(`attack_zombie_audio_${randomAudio}`);
+
+	if (!this.isPlayingZombieAttack) {
+		this.sound.play(`attack_zombie_audio_${randomAudio}`);
+		this.isPlayingZombieAttack = true;
+	}
+
+	this.time.delayedCall(500, () => {
+		this.isPlayingZombieAttack = false;
+	});
 
 	if (this.time.now > (this.zombieHitDelay + this.lastZombieHit)) {
 		// Make sure the player can't shoot when dead and that they are able to shoot another bullet
@@ -883,7 +876,7 @@ function zombieHitSurvivor(survivor, zombie) {
 
 		if (survivorHealth < 1) {
 			playLostGame(this);
-			survivor.destroy(true);
+			survivor.body.enable = false;
 		}
 	}
 }
@@ -891,22 +884,27 @@ function zombieHitSurvivor(survivor, zombie) {
 function playLostGame(game) {
 	game.cameras.main.fadeOut(1000, 0, 0, 0);
 	game.time.delayedCall(1000, () => {
+		game.sound.stopAll();
 		game.scene.start('wastedscene');
+		game.scene.remove('mainscene');
 	});
 }
 
-function survivorMeleeZombie() {
+function survivorMeleeZombie(survivor, zombie) {
 	// Check if a zombie is close enough to deal it damage
 	if (
 		Phaser.Math.Distance.BetweenPoints(
 			{ x: survivor.x, y: survivor.y },
-			{ x: this.target.x, y: this.target.y },
-		) < this.target.width
+			{ x: zombie.x, y: zombie.y },
+		) < zombie.width
 	) {
-		this.getDamage();
-		this.disableBody(true, false);
-		this.scene.time.delayedCall(300, () => {
-			this.destroy();
-		});
+		zombie.zombieHealth -= weaponDamage;
+		if (zombie.zombieHealth < 1) {
+			--zombieCount;
+
+			console.log(zombieCount)
+
+			zombie.destroy(true);
+		}
 	}
 }

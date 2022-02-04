@@ -1,10 +1,13 @@
+// React
 import React, { useState } from "react";
-import Phaser from 'phaser'
 import Instructions from "./instructions";
 import HowMade from "./how-it-was-made";
+// Phaser
+import Phaser from 'phaser'
 import config from '../PhaserGame';
+// Audio controller
+import audioController from "../audioController";
 import menuOptionAudio from '../assets/audio/menu/Menu-Selection-Change-D2.mp3';
-import menuSoundTrack from '../assets/audio/music/2021-11-14_-_Ogre_Boss_-_David_Fesliyan.mp3';
 
 // Defines the menu that appears in the home page
 export default function Menu() {
@@ -16,37 +19,59 @@ export default function Menu() {
 	const [newGame, setNewGame] = useState();
 	// Game paused state
 	const [gamePaused, setGamePaused] = useState(false);
+	// Audio loaded state
+	const [audioLoaded, setAudioLoaded] = useState(false);
 
-	var audio = new Audio(menuSoundTrack);
-	audio.play();
+	if (!audioLoaded) {
+		setAudioLoaded(true);
+
+		audioController.playST1();
+
+		let interval;
+
+		// In case this is loaded again
+		if (interval != undefined) {
+			clearInterval(interval);
+		}
+
+		// Play a randomly song each 5 minutes
+		interval = setInterval(() => {
+			audioController.playRandomST();
+		}, 300000);
+	}
 
 	document.addEventListener('keypress', (ev) => {
 		if (ev.key == 'p' || ev.key == 'P') {
 			if (gamePaused) {
+				// Resume and show the game
 				newGame.scene.resume("mainscene");
 				document.getElementById("phaser-container").style.visibility = "initial";
 				setGamePaused(false);
 			} else {
+				// Pause and hide the game (show the initial menu)
 				document.getElementById("phaser-container").style.visibility = "hidden";
 				newGame.scene.pause("mainscene");
 				setGamePaused(true);
+				audioController.pauseAllAudios();
 			}
 		}
 	});
 
 	const handleHover = () => {
-		var audio = new Audio(menuOptionAudio);
-		audio.play();
+		const optionSound = new Audio(menuOptionAudio);
+		optionSound.play();
 	}
 
 	function handleClickNewGame() {
 		if (typeof newGame == "object") {
 			/*
-				The first argument of the destroy method, true, 
-				says that I want to remove the game from the canvas element of the page when I destroy the game. 
-				The second argument, false, says to NOT remove all of Phaser and its plugins for the page.
+			The first argument of the destroy method, true, 
+			says that I want to remove the game from the canvas element of the page when I destroy the game. 
+			The second argument, false, says to NOT remove all of Phaser and its plugins for the page.
 			*/
 			newGame.destroy(true, false);
+			// Show the game
+			document.getElementById("phaser-container").style.visibility = "initial";
 		}
 		setNewGame(new Phaser.Game(config));
 	}

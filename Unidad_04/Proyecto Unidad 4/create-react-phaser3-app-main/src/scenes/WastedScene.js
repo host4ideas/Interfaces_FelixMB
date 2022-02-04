@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import wastedVideo from '../assets/video/gtav_wasted.mp4';
+// Audio controller
+import audioController from "../audioController";
 
 export default class WastedScene extends Phaser.Scene {
 	constructor() {
@@ -11,6 +13,9 @@ export default class WastedScene extends Phaser.Scene {
 	}
 
 	create() {
+		// Pause all audios
+		audioController.pauseAllAudios();
+
 		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
 

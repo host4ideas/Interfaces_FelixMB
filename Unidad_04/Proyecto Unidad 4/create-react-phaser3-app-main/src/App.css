@@ -29,6 +29,14 @@
   color: rgb(238, 51, 51);
 }
 
+.menu-option>div * {
+  color: aliceblue;
+}
+
+.menu-option>div *:hover {
+  color: rgb(238, 51, 51);
+}
+
 canvas {
   width: 100%;
   position: absolute;

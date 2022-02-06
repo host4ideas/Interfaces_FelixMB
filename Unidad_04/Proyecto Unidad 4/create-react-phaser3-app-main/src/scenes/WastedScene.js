@@ -28,10 +28,9 @@ export default class WastedScene extends Phaser.Scene {
 
 		vid.play(false);
 
-		// Prevents video freeze when game is out of focus (i.e. user changes tab on the browser)
-		vid.setPaused(false);
-
 		this.time.delayedCall(7000, () => {
+			audioController.playRandomST();
+			audioController.adjustVolume(1);
 			this.sys.game.destroy(true);
 		});
 	}

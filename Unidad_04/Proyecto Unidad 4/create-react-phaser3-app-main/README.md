@@ -31,12 +31,10 @@
 
 ### This proyect has been made using Phaser as the library for the entire game and React for the website itself,
 ### all based in the following template:
+### <a href="https://github.com/kevinshen56714/create-react-phaser3-app">Link to template</a>
 
 <br/>
 <br/>
-
-This project was built from the Phaser 3 + Create React App template found in GitHub.\
-<a href="https://github.com/kevinshen56714/create-react-phaser3-app">Link to template</a>
 
 <div id="packages">
 	List of used packages:
@@ -44,7 +42,7 @@ This project was built from the Phaser 3 + Create React App template found in Gi
 		<li>
 			<ul>
 				<li id="phaser">
-					<p>PHASER</p>
+					<h3>PHASER</h3>
 					<dl>
 						<dt>Functionality:</dt>
 						<dd>A fast, free and fun open source framework for Canvas and WebGL powered browser games.</dd>
@@ -53,7 +51,7 @@ This project was built from the Phaser 3 + Create React App template found in Gi
 					</dl>
 				</li>
 				<li id="react">
-					<p>REACT</p>
+					<h3>REACT</h3>
 					<dl>
 						<dt>Functionality:</dt>
 						<dd>React is a JavaScript library for creating user interfaces.</dd>
@@ -62,7 +60,7 @@ This project was built from the Phaser 3 + Create React App template found in Gi
 					</dl>
 				</li>
 				<li id="create-react-app">
-					<p>create react app</p>
+					<h3>create react app</h3>
 					<dl>
 						<dt>Functionality:</dt>
 						<dd>This package includes the global command for Create React App.</dd>
@@ -73,7 +71,6 @@ This project was built from the Phaser 3 + Create React App template found in Gi
 			</ul>
 		</li>
 	</ol>
-</div>
 </div>
 
 <br/>
@@ -114,5 +111,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
-</div>
 </div>

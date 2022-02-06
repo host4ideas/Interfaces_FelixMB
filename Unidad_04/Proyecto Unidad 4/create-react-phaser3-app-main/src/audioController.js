@@ -30,6 +30,12 @@ class AudioController {
 		this.#optionSound.play();
 	}
 
+	adjustVolume(value) {
+		this.#audio1.volume = value;
+		this.#audio2.volume = value;
+		this.#audio3.volume = value;
+	}
+
 	playST1() {
 		this.#audio1.play();
 	}
@@ -43,7 +49,9 @@ class AudioController {
 	}
 
 	playRandomST() {
-		switch (Math.floor(Math.random() * 3)) {
+		const option = Math.floor(Math.random() * 3);
+		// Play a randomly song each 5 minutes
+		switch (option) {
 			case 0:
 				this.#audio1.play();
 				break;

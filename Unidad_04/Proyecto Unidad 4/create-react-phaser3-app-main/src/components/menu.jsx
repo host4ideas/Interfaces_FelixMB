@@ -7,6 +7,7 @@ import Phaser from 'phaser'
 import config from '../PhaserGame';
 // Audio controller
 import audioController from "../audioController";
+// Option hover audio
 import menuOptionAudio from '../assets/audio/menu/Menu-Selection-Change-D2.mp3';
 
 // Defines the menu that appears in the home page
@@ -20,28 +21,28 @@ export default function Menu() {
 	// Game paused state
 	const [gamePaused, setGamePaused] = useState(false);
 	// Audio loaded state
-	const [audioLoaded, setAudioLoaded] = useState(false);
+	const [firstLoad, setFirstLoad] = useState(false);
 
-	if (!audioLoaded) {
-		setAudioLoaded(true);
+	if (!firstLoad) {
 
-		audioController.playST1();
+		setFirstLoad(true);
 
-		let interval;
+		audioController.pauseAllAudios();
 
-		// In case this is loaded again
-		if (interval != undefined) {
-			clearInterval(interval);
-		}
+		// First ST song
+		audioController.playRandomST();
 
-		// Play a randomly song each 5 minutes
-		interval = setInterval(() => {
+		// Random ST song each 5 minutes
+		setInterval(() => {
+			audioController.pauseAllAudios();
+
+			// First song ST
 			audioController.playRandomST();
 		}, 300000);
 	}
 
 	document.addEventListener('keypress', (ev) => {
-		if (ev.key == 'p' || ev.key == 'P') {
+		if (ev.key === 'p' || ev.key === 'P') {
 			if (gamePaused) {
 				// Resume and show the game
 				newGame.scene.resume("mainscene");
@@ -73,22 +74,27 @@ export default function Menu() {
 			// Show the game
 			document.getElementById("phaser-container").style.visibility = "initial";
 		}
+		audioController.adjustVolume(0.3);
 		setNewGame(new Phaser.Game(config));
 	}
 
 	function handleClickHowMade() {
 		if (howMadeClicked) {
 			setHowMadeClicked(false);
+			document.body.style.overflowY = "hidden";
 		} else {
 			setHowMadeClicked(true);
+			document.body.style.overflowY = "auto";
 		}
 	}
 
 	function handleClickInstr() {
 		if (instrClicked) {
 			setInstrClicked(false);
+			document.body.style.overflowY = "hidden";
 		} else {
 			setInstrClicked(true);
+			document.body.style.overflowY = "auto";
 		}
 	}
 
@@ -104,7 +110,7 @@ export default function Menu() {
 				{instrClicked && <Instructions />}
 			</div>
 			<div className="menu-option arcade-font">
-				<h2 className="toogle-fade" onClick={handleClickHowMade} onMouseEnter={handleHover}>HOW IT WAS MADE</h2>
+				<h2 className="toogle-fade" onClick={handleClickHowMade} onMouseEnter={handleHover}>BEHIND THE SCENES</h2>
 				{/* If instructions is clicked, show instructions */}
 				{howMadeClicked && <HowMade />}
 			</div>

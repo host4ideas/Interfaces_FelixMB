@@ -2,11 +2,6 @@ const templateMydetails = document.createElement('template');
 
 templateMydetails.innerHTML = `
   <style>
-	/* Estilos que se aplican a los elementos en un slot */
-	::slotted(*){
-		color: white;
-	}
-	
 	/* Estilos que se aplican a los elementos en un slot que son span */
 	::slotted(span){
 		color: orange;
@@ -21,7 +16,7 @@ templateMydetails.innerHTML = `
 		<slot name="my-descripcion"> - NECESITA DESCRIPCION - </slot>
 	</summary>
 	<button>Atributos</button>
-	<p><slot name="my-text">Ninguno</slot></p>
+	<slot name="my-text">Ninguno</slot>
   </details>
 `;
 

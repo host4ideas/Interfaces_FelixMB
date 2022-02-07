@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Este ejemplo sirve para entender el uso básico del shadow DOM dentro de un CustomElement y ver cómo se encapsulan los estilos -->
+	<!-- En este ejemplo el CustomElement accede a un template del HTML, que no es recomendable ya que la idea es que el propio JavaScript defina la representación sin depender del HTML-->
+	<meta charset="UTF-8">
+	<title>Shadow DOM</title>
+	<style>
+		p{
+			color: red;
+		}	
+
+		/* Se pueden crear estilos para la etiqueta nueva aparte del shadow DOM */
+		hello-world{
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<p id="elem">Hola</p>
+	
+	<template>
+		<style>
+			p {
+				color: blue;
+			}
+		</style>
+		<p>Hello world!</p>
+	</template>
+	
+	<hello-world></hello-world>
+
+	<script>
+		class HelloWorld extends HTMLElement {
+			constructor() {
+				super();
+				var template = document.querySelector('template').content;
+
+				// Clono el contenido del template
+				var elem = template.cloneNode(true);
+
+				// Creo el shadow root para todo el componente
+				this.attachShadow({mode: 'open'});
+				
+				// Accedo al shadow root e incluyo el template 
+				this.shadowRoot.appendChild(elem);
+				
+				// Si comento las dos líneas anteriores y ponemos this.appendChild(elem), entonces se añade al DOM de la página
+				// En el momento que creo el attachShadow ya no se reflejan los cambios del DOM
+				//this.appendChild(elem)
+			}
+		}
+		
+		customElements.define('hello-world', HelloWorld);
+		
+		// Una vez creado el elemento, para acceder al contenido de un shadow DOM tenemos que acceder a la referencia shadowRoot
+		// Si cambias el modo a closed, entonces shadowRoot sería nulo y no se podría		
+		console.log(document.querySelector("hello-world").shadowRoot.querySelector("p").innerHTML);
+	</script>
+</body>
+</html>

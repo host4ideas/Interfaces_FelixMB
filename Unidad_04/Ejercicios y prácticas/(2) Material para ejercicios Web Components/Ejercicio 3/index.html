@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Este ejemplo sirve para explicar el uso de templates con slot para personalizar el contenido de un Web Component
+		   según lo definido cuando declaramos la etiqueta -->
+	<title>Native Web Component</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+</head>
+
+<body>
+	<!-- Primer details -->
+	<my-details>
+
+	</my-details>
+	<!-- Segundo details -->
+	<my-details>
+		<span slot="my-title">slot</span>
+		<span slot="my-descripcion">Lorem ipsum sumenda consequuntur placeat repellat eos,
+			ratione perspiciatis veniam, debitis recusandae ex.</span>
+		<ul slot="my-text">
+			<li>name</li>
+		</ul>
+	</my-details>
+	<!-- Tercer details -->
+	<my-details>
+		<span slot="my-title">template</span>
+	</my-details>
+	<script src="index.js"></script>
+</body>
+
+</html>

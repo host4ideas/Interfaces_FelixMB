@@ -33,7 +33,8 @@ let zombieGroup;
 // Survivor variables
 let survivor;
 let availableGuns = ['flashlight', 'knife', 'handgun', 'rifle', 'shotgun'];
-let survivorGun = availableGuns[2];
+let survivorGun = availableGuns[3];
+let currentMag;
 
 // Bullet variables
 let bullet;
@@ -66,9 +67,10 @@ export default class MainScene extends Phaser.Scene {
 		super('mainscene');
 		// Weapon variables
 		this.lastShot = 0;
-		this.ammo = 90;
-		this.currentMag = 20;
+		currentMag = 20;
 		this.shotDelay = 300;
+		this.lastMeleeAtack = 0;
+		this.meleeAtackDelay = 300;
 		// Zombie variables
 		this.lastZombieHit = 0;
 		this.zombieHitDelay = 1000;
@@ -136,7 +138,7 @@ export default class MainScene extends Phaser.Scene {
 		/**
 		 **** AMMO INFO **** 
 		 */
-		ammoInfo = this.add.text(0, 0, `Mag: ${this.currentMag}`, { fontSize: '1.5rem' });
+		ammoInfo = this.add.text(0, 0, `Mag: ${currentMag}`, { fontSize: '1.5rem' });
 
 		/**
 		 **** HEALTH INFO **** 
@@ -294,7 +296,7 @@ export default class MainScene extends Phaser.Scene {
 				start: 0,
 				end: 2
 			}),
-			frameRate: 10,
+			frameRate: 5,
 			repeat: -1
 		});
 
@@ -358,7 +360,7 @@ export default class MainScene extends Phaser.Scene {
 				start: 0,
 				end: 2
 			}),
-			frameRate: 10,
+			frameRate: 5,
 			repeat: -1
 		});
 
@@ -423,7 +425,7 @@ export default class MainScene extends Phaser.Scene {
 				start: 0,
 				end: 2
 			}),
-			frameRate: 10,
+			frameRate: 5,
 			repeat: -1
 		});
 
@@ -505,6 +507,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-knife";
 				weaponDamage = 4;
 				this.shotDelay = 500;
+				this.meleeAtackDelay = 700;
 				break;
 			case 'flashlight':
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
@@ -512,6 +515,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["walk"] = "survivor-move-flashlight";
 				weaponDamage = 1;
 				this.shotDelay = 200;
+				this.meleeAtackDelay = 300;
 				break;
 			case 'rifle':
 				survivorAnimations["idle"] = "survivor-idle-rifle";
@@ -522,6 +526,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["weaponShootSound"] = 'rifle_shoot_audio';
 				weaponDamage = 2;
 				this.shotDelay = 300;
+				this.meleeAtackDelay = 800;
 				break;
 			case 'shotgun':
 				survivorAnimations["idle"] = "survivor-idle-shotgun";
@@ -532,6 +537,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["weaponShootSound"] = 'shotgun_shoot_audio';
 				weaponDamage = 4;
 				this.shotDelay = 500;
+				this.meleeAtackDelay = 1000;
 				break;
 			case 'handgun':
 				survivorAnimations["idle"] = "survivor-idle-handgun";
@@ -542,6 +548,7 @@ export default class MainScene extends Phaser.Scene {
 				survivorAnimations["weaponShootSound"] = 'pistol_shoot_audio';
 				weaponDamage = 2;
 				this.shotDelay = 600;
+				this.meleeAtackDelay = 400;
 				break;
 			default:
 				survivorAnimations["idle"] = "survivor-idle-flashlight";
@@ -592,13 +599,16 @@ export default class MainScene extends Phaser.Scene {
 			survivor.anims.play(survivorAnimations["reload"]);
 
 			this.time.delayedCall(500, function () {
-				this.currentMag = 20;
-				ammoInfo.setText(`Mag: ${this.currentMag}`);
+				currentMag = 20;
+				ammoInfo.setText(`Mag: ${currentMag}`);
+				reloadInfoText.visible = false;
 			});
 		}
 
 		if (Phaser.Input.Keyboard.JustDown(this.keyQ)) {
+			this.anims.pauseAll();
 			survivor.play(survivorAnimations["meleeattack"]);
+			survivorMeleeZombie(survivor, zombieGroup.children.entries, this);
 		}
 
 		// Change weapon
@@ -625,6 +635,10 @@ export default class MainScene extends Phaser.Scene {
 			// Move zombies to the survivor's position at a random speed in px/s
 			this.physics.moveToObject(zombie, survivor, zombie.randomSpeed);
 
+			if (checkOverlap(survivor, zombie)) {
+				zombie.anims.play('walk-zombie');
+			}
+
 			// Rotation of the zombie to the survivor position
 			updateAngleToSprite(survivor, zombie);
 		});
@@ -634,27 +648,27 @@ export default class MainScene extends Phaser.Scene {
 		 */
 		// mouse clicked
 		if (mouse.isDown) {
+			console.log(currentMag)
 			// If the survivor weapon is a gun, shot a bullet
 			if (survivorGun === availableGuns[2] || survivorGun === availableGuns[3] || survivorGun === availableGuns[4]) {
-				if (this.currentMag > 0) {
+				if (currentMag > 0) {
 					// Check the delay
 					if (this.time.now > (this.shotDelay + this.lastShot)) {
 						// Make sure the player can't shoot when dead and that they are able to shoot another bullet
 						this.lastShot = this.time.now;
 
-						if (this.currentMag - 1 < 0) {
-							this.currentMag = 0;
+						if (currentMag - 1 < 0) {
+							currentMag = 0;
 						} else {
+							console.log(currentMag)
 							// Update ammo info
-							ammoInfo.setText(`Mag: ${this.currentMag}`);
+							currentMag -= 1;
+							ammoInfo.setText(`Mag: ${currentMag}`);
 							survivor.play(survivorAnimations["shoot"]);
 							this.sound.play(survivorAnimations["weaponShootSound"]);
 						}
 
-						// change the bullet spawn depending on the gun size
 						bullet = this.physics.add.sprite(survivor.x, survivor.y, 'bullet');
-
-						// Phaser.Actions.RotateAround(survivor, { x: survivor.x, y: survivor.y }, 0.01);
 
 						// bullet sprite rotation to mouse firection
 						updateAngleToMouse(this, bullet);
@@ -662,20 +676,21 @@ export default class MainScene extends Phaser.Scene {
 						this.physics.moveTo(bullet, input.x, input.y, 500);
 						//  When the bullet sprite his a zombie from zombieGroup, call bulletHitZombie function
 						this.physics.add.overlap(bullet, zombieGroup, bulletHitZombie);
-
-						// Set trigger new round to true
-						if (zombieCount < 1) {
-							this.triggerNewRound = true;
-						}
 					}
 				} else {
 					// If the mag is empty, show the reload text
 					reloadInfoText.visible = true;
 				}
-				// Else instead of shooting, trigger a melee atack
+				// Else: instead of shooting, trigger a melee atack
 			} else {
 				survivor.play(survivorAnimations["meleeattack"]);
+				survivorMeleeZombie(survivor, zombieGroup.children.entries, this);
 			}
+		}
+
+		// Set trigger new round to true
+		if (zombieCount < 1) {
+			this.triggerNewRound = true;
 		}
 
 		// Trigger new round and set trigger new round to false
@@ -708,7 +723,7 @@ function updateAngleToSprite(sprite1, sprite2) {
 
 // When a zombie hits the survivor
 function bulletHitZombie(bullet, zombie) {
-	// Hide the bullet
+	// Destroy the bullet
 	bullet.destroy(true);
 
 	zombie.zombieHealth -= weaponDamage;
@@ -758,7 +773,7 @@ function setZombieAnimations(zombie, scene) {
 			end: 7
 		}),
 		frameRate: 10,
-		repeat: -1
+		repeat: 0
 	});
 }
 
@@ -780,7 +795,7 @@ function addZombies(scene, zombieGroup) {
 		}
 	}
 
-	// Add to each zombie in the zombie group the proper animations
+	// Add to each zombie in the zombie group the proper animations and physics
 	zombieGroup.children.entries.forEach(zombie => {
 		zombie.randomSpeed = Math.floor(Phaser.Math.Between(100, 160));
 
@@ -808,13 +823,13 @@ function newRound(textObject, scene) {
 function zombieHitSurvivor(survivor, zombie) {
 	const randomAudio = Math.floor(Phaser.Math.Between(1, 6));
 
-	this.sound.play(`attack_zombie_audio_${randomAudio}`);
-
 	if (this.time.now > (this.zombieHitDelay + this.lastZombieHit)) {
 		// Make sure the player can't shoot when dead and that they are able to shoot another bullet
 		this.lastZombieHit = this.time.now;
 
-		zombie.anims.play('meleeattack-zombie', 60, false);
+		this.sound.play(`attack_zombie_audio_${randomAudio}`);
+
+		zombie.anims.play('meleeattack-zombie');
 
 		survivorHealth -= 1;
 		healthInfo.setText(`Health: ${survivorHealth}`);
@@ -835,21 +850,33 @@ function playLostGame(game) {
 	});
 }
 
-function survivorMeleeZombie(survivor, zombie) {
-	// Check if a zombie is close enough to deal it damage
-	if (
-		Phaser.Math.Distance.BetweenPoints(
-			{ x: survivor.x, y: survivor.y },
-			{ x: zombie.x, y: zombie.y },
-		) < zombie.width
-	) {
-		zombie.zombieHealth -= weaponDamage;
-		if (zombie.zombieHealth < 1) {
-			--zombieCount;
+function survivorMeleeZombie(survivor, zombieGroup, scene) {
+	if (scene.time.now > (scene.meleeAtackDelay + scene.lastMeleeAtack)) {
+		scene.lastMeleeAtack = scene.time.now;
+		zombieGroup.forEach(zombie => {
+			// Check if a zombie is close enough to deal it damage
+			if (
+				Phaser.Math.Distance.BetweenPoints(
+					{ x: survivor.x, y: survivor.y },
+					{ x: zombie.x, y: zombie.y },
+				) < (zombie.width - 150)
+			) {
+				zombie.zombieHealth -= weaponDamage;
+				if (zombie.zombieHealth < 1) {
+					--zombieCount;
 
-			console.log(zombieCount)
+					console.log(zombieCount)
 
-			zombie.destroy(true);
-		}
+					zombie.destroy(true);
+				}
+			}
+		});
 	}
+}
+
+function checkOverlap(spriteA, spriteB) {
+	var boundsA = spriteA.getBounds();
+	var boundsB = spriteB.getBounds();
+
+	return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
 }

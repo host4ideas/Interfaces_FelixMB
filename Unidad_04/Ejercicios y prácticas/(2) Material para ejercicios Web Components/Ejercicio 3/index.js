@@ -10,6 +10,7 @@ templateMydetails.innerHTML = `
 		background-color: blue;
 	}
   </style>
+  
   <details>
 	<summary>
 		<slot name="my-title">NECESITA NOMBRE</slot>

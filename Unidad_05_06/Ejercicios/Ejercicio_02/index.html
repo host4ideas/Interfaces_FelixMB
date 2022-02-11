@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Ejercicio 2</title>
+</head>
+
+<body>
+	<audio src="./Bruno Mars - The Lazy Song (Official Music Video).mp3"></audio>
+
+	<audio controls="controls" preload="auto" autoplay muted loop>
+		<source src="./Bruno Mars - The Lazy Song (Official Music Video).mp3" type="audio/mpeg" />
+		<source src="./Bruno Mars - The Lazy Song (Official Music Video).ogg" type="audio/ogg" />
+		<object type="application/x-shockwave-flash" data="player_mp3_mini.swf" width="200" height="20">
+			<param name="movie" value="player_mp3_mini.swf" />
+			<param name="bgcolor" value="#085c68" />
+			<param name="FlashVars" value="mp3=Bruno Mars - The Lazy Song (Official Music Video).mp3" />
+			<embed href="player_mp3_mini.swf" bgcolor="#085c68" width="200" height="20" name="movie" align=""
+				type="application/x-shockwave-flash"
+				flashvars="mp3=Bruno Mars - The Lazy Song (Official Music Video).mp3">
+			</embed>
+		</object>
+		El navegador no soporta el audio
+	</audio>
+</body>
+
+</html>

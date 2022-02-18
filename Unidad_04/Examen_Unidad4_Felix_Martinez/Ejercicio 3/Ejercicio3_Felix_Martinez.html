@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ejercicio 3</title>
+</head>
+
+<body>
+
+	<style>
+		body {
+			text-align: center;
+		}
+
+		#reiniciar {
+			width: 100px;
+		}
+	</style>
+
+	<!-- Semaforo -->
+	<mi-semaforo seconds="1000"></mi-semaforo>
+
+	<!-- Boton de reiniciar -->
+	<button id="reiniciar">REINICIAR</button>
+
+	<!-- Codigo javascript -->
+	<script type="text/javascript">
+
+		const templateSwitch = document.createElement('template');
+
+		templateSwitch.innerHTML = `
+		<style>
+			main div {
+				width: 100px;	
+				height: 100px;
+				border: 1px solid black;
+				margin: 5px auto;
+			}
+
+			.rojo {
+				background-color: red;	
+			}
+
+			.gris {
+				background-color: grey;	
+			}
+
+			.verde {
+				background-color: green;	
+			}
+
+		</style>
+		<main>
+			<div id="primer_semaforo" class="rojo"></div>
+			<div id="segundo_semaforo" class="gris"></div>		
+		</main>
+		`;
+
+		let interval;
+
+		class Semaforo extends HTMLElement {
+			// Se representa el código
+			constructor() {
+				super();
+
+				// Se muestra el HTML con shadow DOM
+				this._shadowRoot = this.attachShadow({ mode: 'closed' });
+				this._shadowRoot.appendChild(templateSwitch.content.cloneNode(true));
+
+				// Guardamos una referencia de aquellos elementos que vamos a modificar más adelante
+				this.$primer_semaforo = this._shadowRoot.getElementById("primer_semaforo");
+				this.$segundo_semaforo = this._shadowRoot.getElementById("segundo_semaforo");
+				this.$boton_reiniciar = document.getElementById("reiniciar");
+
+				this.seconds = 1000;
+
+				this.$primer_semaforo.addEventListener('click', () => {
+					this.$primer_semaforo.classList.toggle("rojo");
+					this.$primer_semaforo.classList.toggle("gris");
+
+					this.$segundo_semaforo.classList.toggle("verde");
+					this.$segundo_semaforo.classList.toggle("gris");
+
+					if (interval) {
+						clearInterval(interval);
+					}
+				});
+
+				function intervalFunction(f, tiempo) {
+					interval = setInterval(f, tiempo);
+				}
+
+				this.$segundo_semaforo.addEventListener('click', () => {
+					this.$primer_semaforo.classList.add("gris");
+					this.$primer_semaforo.classList.remove("rojo");
+					this.$segundo_semaforo.classList.remove("rojo");
+
+					intervalFunction(() => {
+						this.$segundo_semaforo.classList.toggle("gris");
+						this.$segundo_semaforo.classList.toggle("verde");
+					}, this.seconds);
+				});
+
+				this.$boton_reiniciar.addEventListener('click', () => {
+					this.seconds = 1000;
+
+					if (interval) {
+						clearInterval(interval);
+					}
+
+					this.$primer_semaforo.classList.remove("gris");
+					this.$primer_semaforo.classList.add("rojo");
+
+					this.$segundo_semaforo.classList.remove("verde");
+					this.$segundo_semaforo.classList.add("gris");
+				});
+			}
+			/*
+				connectedCallback: Se invoca cada vez que se añade un elemento personalizado a un documento. 
+				Esto ocurrirá cada vez que el nodo se mueva, y puede suceder antes de que todo el contenido se haya parseado.
+				Nota: connectedCallback puede llamarse cuando el elemento ya no esté conectado. Para asegurarse usar Node.isConnected.
+		
+				disconnectedCallback: Se invoca cada vez que el elemento se desconecta del DOM del documento.
+				adoptedCallback: Se invoca cada vez que el elemento se mueve a un nuevo documento.
+				attributeChangedCallback: Se invoca cada vez que los atributos del elemento se añaden, 
+				quitan o cambian. Deben especificarse previamente en el método estático observedAttributes 
+				los atributos que queremos que nos sean notificados.
+			*/
+			// Se llama cuando se modifica el valor de los atributos especificados en observedAttributes
+			attributeChangedCallback(attr, oldVal, newVal) {
+				this.seconds = (newVal * 1000);
+			}
+
+			// Atributos reactivos cuando se invoca attributeChangedCallback
+			static get observedAttributes() {
+				return ['seconds'];
+			}
+
+			// Getter y setter de los atributos del HTML
+			get seconds() {
+				return (parseInt(this.getAttribute('seconds')) * 1000);
+			}
+
+			set seconds(value) {
+				this.setAttribute('seconds', value);
+			}
+		}
+
+		// Debido a que el componente apenas tiene código JavaScript, se define directamente en una clase anónima
+		customElements.define('mi-semaforo', Semaforo);
+
+	</script>
+</body>
+
+</html>

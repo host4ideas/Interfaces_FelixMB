@@ -35,51 +35,51 @@ templateB.innerHTML = `
     <button>Label</button>
   </div>
 `;
- 
+
 class Button extends HTMLElement {
   constructor() {
     super();
- 
+
     // Definimos shadow DOM
     this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(templateB.content.cloneNode(true));
-	
-	// Guardamos una referencia de aquellos elementos que vamos a modificar más adelante
-	this.$container = this._shadowRoot.querySelector('.container');
-	this.$button = this._shadowRoot.querySelector('button');
-	
-	// Definimos un evento desde el botón
-	this.$button.addEventListener('click', () => {
-		alert("Definido desde el componente: " + this);
+
+    // Guardamos una referencia de aquellos elementos que vamos a modificar más adelante
+    this.$container = this._shadowRoot.querySelector('.container');
+    this.$button = this._shadowRoot.querySelector('button');
+
+    // Definimos un evento desde el botón
+    this.$button.addEventListener('click', () => {
+      alert("Definido desde el componente: " + this);
     });
   }
-  
+
   connectedCallback() {
     if (this.hasAttribute('as-atom')) {
       this.$container.style.padding = '0px';
     }
   }
-  
+
   get label() {
     return this.getAttribute('label');
   }
-  
+
   set label(value) {
     this.setAttribute('label', value);
   }
-  
+
   static get observedAttributes() {
     return ['label'];
   }
- 
+
   // Cuando se modifica la etiqueta se llama a render, que se encarga únicamente de cambiar el contenido del botón
-  attributeChangedCallback(name, oldVal, newVal) {    
-	this.render();
+  attributeChangedCallback(name, oldVal, newVal) {
+    this.render();
   }
-    
+
   render() {
     this.$button.innerHTML = this.label;
   }
 }
- 
+
 window.customElements.define('my-button', Button);

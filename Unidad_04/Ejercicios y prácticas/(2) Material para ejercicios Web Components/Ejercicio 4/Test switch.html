@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Componente de tipo switch</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+</head>
+
+<body>
+	<!-- Definimos tres componentes para hacer pruebas -->
+	<my-switch id="switch_pruebas"></my-switch>
+	<my-switch estado="on"></my-switch>
+	<my-switch estado="off"></my-switch>
+
+	<div>
+		<!-- Los botones permiten desde fuera llamar a funciones de "my-switch" que permiten apagar y encender -->
+		<button id="apagar">Apagar primer interruptor</button>
+		<button id="encender">Encender primer interruptor</button>
+	</div>
+
+	<!-- Código JavaScript que se encarga de llamar a métodos del componente web "my-switch" -->
+	<script src="my-switch-sol.js"></script>
+	<script>
+		document.getElementById("apagar").addEventListener("click", () => document.getElementById("switch_pruebas").apagar());
+		document.getElementById("encender").addEventListener("click", () => document.getElementById("switch_pruebas").encender());
+	</script>
+</body>
+
+</html>

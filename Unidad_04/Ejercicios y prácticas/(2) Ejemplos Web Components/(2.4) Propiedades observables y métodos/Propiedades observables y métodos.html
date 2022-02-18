@@ -2,26 +2,26 @@
 <html>
 
 <head>
-  <!-- Este ejemplo sirve para comprobar el comportamiento reactivo de un componente web --> 
-  <title>Componente web observable</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  	
+	<!-- Este ejemplo sirve para comprobar el comportamiento reactivo de un componente web -->
+	<title>Componente web observable</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+
 </head>
 
 <body>
-	<observable-element cambio="Prueba observable"></observable-element>	
-	
+	<observable-element cambio="Prueba observable"></observable-element>
+
 	<!-- Creamos unos campos que servirán para poder llamar a métodos del componente web -->
 	<p>
-		<input id="txtNuevo" type="text"/>
-		<input id="btnCambiar" type="button" value="Cambiar"/>	
+		<input id="txtNuevo" type="text" />
+		<input id="btnCambiar" type="button" value="Cambiar" />
 	</p>
-	
+
 	<script src="observador.js"></script>
 	<script>
-		document.getElementById("btnCambiar").addEventListener("click", function(){
+		document.getElementById("btnCambiar").addEventListener("click", function () {
 			let componente = document.querySelector("observable-element");
-						
+
 			// Como se puede observar, es posible llamar desde fuera a un método del componente web
 			// Como tiene comportamiento reactivo con attributeChangedCallback se cambia automáticamente
 			componente.modificar(document.getElementById("txtNuevo").value);

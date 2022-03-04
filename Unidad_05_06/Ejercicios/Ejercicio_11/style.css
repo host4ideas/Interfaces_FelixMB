@@ -1,0 +1,31 @@
+div {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+}
+
+div:hover {
+	animation-name: in;
+	animation-duration: 4s;
+	animation-delay: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes in {
+	from {
+		background-color: red;
+	}
+
+	25% {
+		background-color: yellow;
+	}
+
+	50% {
+		background-color: blue;
+	}
+
+	to {
+		background-color: green;
+	}
+}
+

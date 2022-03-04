@@ -1,0 +1,54 @@
+.cabecera {
+	border: 1px solid black;
+	width: 200px;
+	padding-right: 20px;
+	margin-bottom: 100px;
+	transition: box-shadow 2s 0.5s, color 2s 0.5s;
+}
+
+.cabecera:hover {
+	box-shadow: 8px 8px grey;
+	color: red;
+}
+
+.cuadrado {
+	width: 75px;
+	height: 75px;
+	border: 1px solid black;
+	background-color: yellow;
+	/* Animaciones */
+	animation-name: cuadradomove;
+	animation-iteration-count: 5;
+	animation-duration: 4s;
+	animation-delay: 1s;
+	animation-timing-function: ease-in-out;
+	animation-fill-mode: both;
+	animation-play-state: running;
+	animation-direction: alternate;
+}
+
+.cuadrado:hover {
+	animation-play-state: paused;
+}
+
+@keyframes cuadradomove {
+	from {
+		background-color: yellow;
+		transform: rotate(0deg);
+		width: 75px;
+		height: 75px;
+	}
+
+	50% {
+		background-color: red;
+		width: 150px;
+		height: 150px;
+	}
+
+	to {
+		transform: rotate(360deg);
+		background-color: blue;
+		width: 75px;
+		height: 75px;
+	}
+}
